@@ -97,97 +97,97 @@ class LibraryComponentState extends State<LibraryComponent> {
                               },
                             ).cornerRadiusWithClipRRect(defaultRadius),
                           ),
-                          widget.i == 1
-                              ? (!bookDetail.isDownloaded
-                                  ? Positioned(
-                                      bottom: 16,
-                                      right: 0,
-                                      child: Container(
-                                        margin: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(shape: BoxShape.circle, color: whiteColor),
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Icon(Icons.file_download_outlined, size: 24, color: Colors.black),
-                                      ).onTap(() async {
-                                        if (await checkAndroidVersionAndStoragePermission()) {
-                                          fileName = await getBookFileName(bookDetail.bookId, bookDetail.webBookPath.toString(), isSample: widget.isSampleExits);
-                                          finalFilePath = await getBookFilePathFromName(fileName, isSampleFile: widget.isSampleExits);
-                                          if (File(finalFilePath).existsSync()) {
-                                            toast('$fileName already downloaded check it in your Local Files');
-
-                                            return;
-                                          }
-                                          await downloadFile(
-                                            context,
-                                            filePath: bookDetail.webBookPath.toString(),
-                                            downloadFileName: fileName,
-                                            onUpdate: (var percentage) async {
-                                              appStore.setDownloadPercentageValue(percentage);
-                                              if (percentage < 100) {
-                                                appStore.setDownloading(true);
-                                              } else {
-                                                appStore.setDownloading(false);
-                                              }
-                                            },
-                                          ).then((value) async {
-                                            ///create storage directory
-                                            String path = await localPath;
-                                            final savedDir = Directory(path);
-                                            bool hasExisted = await savedDir.exists();
-
-                                            if (!hasExisted) {
-                                              savedDir.create();
-                                            }
-
-                                            /// insert data into database
-                                            if (appStore.downloadPercentageStore == 100.00)
-                                              await insertIntoDb(
-                                                userid: appStore.userId.toInt().validate(),
-                                                bookId: bookDetail.bookId.validate(),
-                                                bookImage: bookDetail.frontCover.validate(),
-                                                bookName: fileName,
-                                                authorName: bookDetail.authorName.validate(),
-                                                bookPath: bookDetail.filePath.validate(),
-                                                filePath: finalFilePath,
-                                                lastCfi: '',
-                                                fileType: widget.isSampleExits.validate() ? SAMPLE_BOOK : PURCHASED_BOOK,
-                                              );
-
-                                            ///open epub viewer or pdf viewer
-                                            if (appStore.downloadPercentageStore == 100.00)
-                                              handleViewClick(
-                                                context,
-                                                bookId: bookDetail.bookId.validate().toInt(),
-                                                filePath: finalFilePath,
-                                                bookName: bookDetail.bookName.validate(),
-                                              );
-                                          });
-                                          widget.onDownloadUpdate?.call();
-                                        }
-                                      }),
-                                    )
-                                  : SizedBox())
-                              : Positioned(
-                                  bottom: 16,
-                                  right: 0,
-                                  child: InkWell(
-                                    onTap: () {
-                                      showConfirmDialogCustom(
-                                        context,
-                                        title: language!.areYouSureWantToDelete,
-                                        dialogType: DialogType.DELETE,
-                                        onAccept: (dynamic) {
-                                          widget.onRemoveBookUpdate?.call(bookDetail);
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(4.0),
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: whiteColor),
-                                      padding: EdgeInsets.all(4.0),
-                                      child: Icon(Icons.delete, size: 24, color: Colors.red),
-                                    ),
-                                  ),
-                                )
+                          // widget.i == 1
+                          //     ? (!bookDetail.isDownloaded
+                          //         ? Positioned(
+                          //             bottom: 16,
+                          //             right: 0,
+                          //             child: Container(
+                          //               margin: EdgeInsets.all(8.0),
+                          //               decoration: BoxDecoration(shape: BoxShape.circle, color: whiteColor),
+                          //               padding: EdgeInsets.all(4.0),
+                          //               child: Icon(Icons.file_download_outlined, size: 24, color: Colors.black),
+                          //             ).onTap(() async {
+                          //               if (await checkAndroidVersionAndStoragePermission()) {
+                          //                 fileName = await getBookFileName(bookDetail.bookId, bookDetail.webBookPath.toString(), isSample: widget.isSampleExits);
+                          //                 finalFilePath = await getBookFilePathFromName(fileName, isSampleFile: widget.isSampleExits);
+                          //                 if (File(finalFilePath).existsSync()) {
+                          //                   toast('$fileName already downloaded check it in your Local Files');
+                          //
+                          //                   return;
+                          //                 }
+                          //                 await downloadFile(
+                          //                   context,
+                          //                   filePath: bookDetail.webBookPath.toString(),
+                          //                   downloadFileName: fileName,
+                          //                   onUpdate: (var percentage) async {
+                          //                     appStore.setDownloadPercentageValue(percentage);
+                          //                     if (percentage < 100) {
+                          //                       appStore.setDownloading(true);
+                          //                     } else {
+                          //                       appStore.setDownloading(false);
+                          //                     }
+                          //                   },
+                          //                 ).then((value) async {
+                          //                   ///create storage directory
+                          //                   String path = await localPath;
+                          //                   final savedDir = Directory(path);
+                          //                   bool hasExisted = await savedDir.exists();
+                          //
+                          //                   if (!hasExisted) {
+                          //                     savedDir.create();
+                          //                   }
+                          //
+                          //                   /// insert data into database
+                          //                   if (appStore.downloadPercentageStore == 100.00)
+                          //                     await insertIntoDb(
+                          //                       userid: appStore.userId.toInt().validate(),
+                          //                       bookId: bookDetail.bookId.validate(),
+                          //                       bookImage: bookDetail.frontCover.validate(),
+                          //                       bookName: fileName,
+                          //                       authorName: bookDetail.authorName.validate(),
+                          //                       bookPath: bookDetail.filePath.validate(),
+                          //                       filePath: finalFilePath,
+                          //                       lastCfi: '',
+                          //                       fileType: widget.isSampleExits.validate() ? SAMPLE_BOOK : PURCHASED_BOOK,
+                          //                     );
+                          //
+                          //                   ///open epub viewer or pdf viewer
+                          //                   if (appStore.downloadPercentageStore == 100.00)
+                          //                     handleViewClick(
+                          //                       context,
+                          //                       bookId: bookDetail.bookId.validate().toInt(),
+                          //                       filePath: finalFilePath,
+                          //                       bookName: bookDetail.bookName.validate(),
+                          //                     );
+                          //                 });
+                          //                 widget.onDownloadUpdate?.call();
+                          //               }
+                          //             }),
+                          //           )
+                          //         : SizedBox())
+                          //     : Positioned(
+                          //         bottom: 16,
+                          //         right: 0,
+                          //         child: InkWell(
+                          //           onTap: () {
+                          //             showConfirmDialogCustom(
+                          //               context,
+                          //               title: language!.areYouSureWantToDelete,
+                          //               dialogType: DialogType.DELETE,
+                          //               onAccept: (dynamic) {
+                          //                 widget.onRemoveBookUpdate?.call(bookDetail);
+                          //               },
+                          //             );
+                          //           },
+                          //           child: Container(
+                          //             margin: EdgeInsets.all(4.0),
+                          //             decoration: BoxDecoration(shape: BoxShape.circle, color: whiteColor),
+                          //             padding: EdgeInsets.all(4.0),
+                          //             child: Icon(Icons.delete, size: 24, color: Colors.red),
+                          //           ),
+                          //         ),
+                          //       )
                         ],
                       ),
                       16.height,

@@ -50,6 +50,8 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
                   8.height,
                   Text(bookData.authorDetail!.first.name.validate(), style: secondaryTextStyle()).center(),
                   16.height,
+                  Text('👁️ ${formatViews(bookData.bookDetailResponse!.first.usersCount.validate().toInt())} Views', style: secondaryTextStyle()).center(),
+                  16.height,
 
                   /// ratting list
                   RattingViewComponent(bookDetailResponse: bookData.bookDetailResponse!.first, isCenterInfo: true),
@@ -155,6 +157,14 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
             left: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 0,
             right: rtlSupport.contains(appStore.selectedLanguageCode) ? 0 : null,
             child: IconButton(
+    style: ButtonStyle(
+    foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+    backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+    shape: MaterialStateProperty.all(
+    CircleBorder(),
+    ),
+    padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+    ),
               icon: Icon(Icons.arrow_back_outlined),
               onPressed: () {
                 finish(context);
@@ -174,5 +184,15 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
         ],
       ).paddingAll(16),
     );
+  }
+}
+
+String formatViews(int count) {
+  if (count >= 1000000) {
+    return "${(count / 1000000).toStringAsFixed(1)}M"; // Example: 1.2M
+  } else if (count >= 1000) {
+    return "${(count / 1000).toStringAsFixed(1)}K"; // Example: 1.2K
+  } else {
+    return "$count"; // Example: 999
   }
 }

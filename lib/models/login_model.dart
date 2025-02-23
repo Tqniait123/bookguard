@@ -39,6 +39,7 @@ class UserData {
   String? updatedAt;
   String? userType;
   String? userName;
+  bool? hasActiveSubscription;
 
   UserData(
       {this.activationToken,
@@ -56,6 +57,7 @@ class UserData {
       this.status,
       this.updatedAt,
       this.userType,
+      this.hasActiveSubscription,
       this.userName});
 
   factory UserData.fromJson(Map<String, dynamic> json) {
@@ -76,6 +78,7 @@ class UserData {
       updatedAt: json[CommonKeys.updatedAt],
       userType: json[UserKeys.userType],
       userName: json[UserKeys.userName],
+      hasActiveSubscription: json['has_active_subscription'],
     );
   }
 
@@ -93,6 +96,7 @@ class UserData {
     data[CommonKeys.updatedAt] = this.updatedAt;
     data[UserKeys.userType] = this.userType;
     data[UserKeys.userName] = this.userName;
+    data['has_active_subscription'] = this.hasActiveSubscription;
     if (this.activationToken != null) {
       data[UserKeys.activationToken] = this.activationToken!;
     }

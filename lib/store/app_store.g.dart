@@ -283,6 +283,15 @@ mixin _$AppStore on _AppStore, Store {
     return super.userContactNumber;
   }
 
+  late final _$userActiveSubscription =
+  Atom(name: '_AppStore.userActiveSubscription', context: context);
+
+  @override
+  bool get userActiveSubscription {
+    _$userActiveSubscription.reportRead();
+    return super.userActiveSubscription;
+  }
+
   @override
   set userContactNumber(String value) {
     _$userContactNumberAtom.reportWrite(value, super.userContactNumber, () {
@@ -628,6 +637,12 @@ mixin _$AppStore on _AppStore, Store {
   Future<void> setUserContactNumber(String val, {bool isInitializing = false}) {
     return _$setUserContactNumberAsyncAction.run(
             () => super.setUserContactNumber(val, isInitializing: isInitializing));
+  }
+
+  @override
+  Future<void> setUserActiveSubscription(bool val, {bool isInitializing = false}) {
+    return _$setUserContactNumberAsyncAction.run(
+            () => super.setUserActiveSubscription(val, isInitializing: isInitializing));
   }
 
   late final _$setUserIdAsyncAction =

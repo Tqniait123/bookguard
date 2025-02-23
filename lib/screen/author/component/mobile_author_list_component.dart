@@ -14,7 +14,14 @@ class MobileAuthorListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(language!.authors, elevation: 0),
+      appBar: appBarWidget(language!.authors, elevation: 0, center: true, backWidget: BackButton(style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+        shape: MaterialStateProperty.all(
+          CircleBorder(),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+      ))),
       body: FutureBuilder<AuthorListResponse>(
         future: getAuthorList(),
         builder: (_, snap) {

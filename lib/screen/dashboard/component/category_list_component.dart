@@ -46,11 +46,11 @@ class CategoryListComponentState extends State<CategoryListComponent> {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: defaultPrimaryColor.withValues(alpha: 0.5),
-            child: Text(widget.mData!.name.validate().substring(0, 1).capitalizeFirstLetter(), style: boldTextStyle(color: whiteColor)),
+            backgroundColor: Color(0xFFF0F0F0),
+            child: Text(widget.mData!.name.validate().substring(0, 1).capitalizeFirstLetter(), style: boldTextStyle(color: defaultPrimaryColor)),
           ),
           8.height,
-          Text(widget.mData!.name.validate(), style: boldTextStyle(), textAlign: TextAlign.center, overflow: TextOverflow.ellipsis, maxLines: 2)
+          Text(widget.mData!.name.validate(), style: boldTextStyle( color: defaultPrimaryColor), textAlign: TextAlign.center, overflow: TextOverflow.ellipsis, maxLines: 2)
         ],
       ),
     );

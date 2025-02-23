@@ -101,6 +101,7 @@ class _EPubViewerScreenState extends State<EPubViewerScreen> {
                 ],
               ),
             ).onTap(() async {
+              _epubReaderController.display(cfi: e.href);
               // _epubReaderController!.(
               //   index: _epubReaderController!.tableOfContents().indexOf(e),
               // );
@@ -166,7 +167,12 @@ class _EPubViewerScreenState extends State<EPubViewerScreen> {
                         secondaryState(() {
                           selectedIndex = index;
                           textSize = fontSizeList[index].fontSize.toString().toDouble();
+
                         });
+                      },
+                      onSet: (){
+                        _epubReaderController.setFontSize(fontSize: textSize);
+                        finish(context, true);
                       },
                     );
                   });

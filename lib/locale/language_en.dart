@@ -194,6 +194,9 @@ class LanguageEn extends BaseLanguage {
   String get areYouSureWantToLogout => "Are you sure want to logout?";
 
   @override
+  String get areYouSureWantToSubscribe => "Are you sure want to subscribe to this plan?";
+
+  @override
   String get yes => "Yes";
 
   @override
@@ -422,7 +425,7 @@ class LanguageEn extends BaseLanguage {
   String get signInToContinue => "Sign in to continue!";
 
   @override
-  String get termsConditions => "Terms & Conditions";
+  String get termsConditions => "Terms";
 
   @override
   String get rateUs => "Rate Us";
@@ -501,4 +504,19 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get library => "Library";
+
+  @override
+  String get youAlreadySubscribed => "You are already subscribed!";
+
+  @override
+  String get startedAt => "Started at: ";
+
+  @override
+  String get endAt => "End at: ";
+
+  @override
+  String get subscriptionHistory => "Subscriptions History";
+
+  @override
+  String get current => "Current";
 }

@@ -66,6 +66,9 @@ abstract class _AppStore with Store {
   String userContactNumber = '';
 
   @observable
+  bool userActiveSubscription = false;
+
+  @observable
   int userId = 0;
 
   @observable
@@ -247,6 +250,12 @@ abstract class _AppStore with Store {
   Future<void> setUserContactNumber(String val, {bool isInitializing = false}) async {
     userContactNumber = val;
     if (!isInitializing) await setValue(USER_CONTACT_NUMBER, val);
+  }
+
+  @action
+  Future<void> setUserActiveSubscription(bool val, {bool isInitializing = false}) async {
+    userActiveSubscription = val;
+    if (!isInitializing) await setValue(USER_ACTIVE_SUBSCRIPTION, val);
   }
 
   @action

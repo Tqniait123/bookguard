@@ -131,6 +131,8 @@ abstract class BaseLanguage {
 
   String get areYouSureWantToLogout;
 
+  String get areYouSureWantToSubscribe;
+
   String get yes;
 
   String get no;
@@ -336,4 +338,14 @@ abstract class BaseLanguage {
   String get profile;
 
   String get library;
+
+  String get youAlreadySubscribed;
+
+  String get startedAt;
+
+  String get endAt;
+
+  String get subscriptionHistory;
+
+  String get current;
 }

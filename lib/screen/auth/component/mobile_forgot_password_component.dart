@@ -7,6 +7,8 @@ import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../reset_password.dart';
+
 class MobileForgotPasswordComponent extends StatefulWidget {
   @override
   _MobileForgotPasswordComponentState createState() => _MobileForgotPasswordComponentState();
@@ -38,7 +40,8 @@ class _MobileForgotPasswordComponentState extends State<MobileForgotPasswordComp
 
       await forgotPassword(request).then((res) async {
         if (res.status!) {
-          finish(context);
+          // finish(context);
+          ResetPasswordScreen(email: emailController.text.trim(),).launch(context);
           toast(res.message.toString());
         } else {
           toast(parseHtmlString(res.message));
@@ -58,7 +61,14 @@ class _MobileForgotPasswordComponentState extends State<MobileForgotPasswordComp
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget("", elevation: 0),
+      appBar: appBarWidget("", elevation: 0, backWidget: BackButton(style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+        shape: MaterialStateProperty.all(
+          CircleBorder(),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+      ))),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -86,14 +96,24 @@ class _MobileForgotPasswordComponentState extends State<MobileForgotPasswordComp
                     },
                   ),
                   50.height,
-                  AppButton(
-                    color: defaultPrimaryColor,
-                    width: context.width(),
-                    textStyle: boldTextStyle(color: Colors.white),
-                    text: language!.reset,
-                    onTap: () {
-                      forgotPasswordApi(context);
-                    },
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child:  AppButton(
+                      color: transparentColor,
+                      width: context.width(),
+                      textStyle: boldTextStyle(color: Colors.white),
+                      text: language!.reset,
+                      onTap: () {
+                        forgotPasswordApi(context);
+                      },
+                    ),
                   ),
                 ],
               ),

@@ -17,6 +17,7 @@ Map<String, String> buildHeaderTokens() {
     HttpHeaders.acceptHeader: 'application/json; charset=utf-8',
     HttpHeaders.accessControlAllowOriginHeader: '*',
     HttpHeaders.accessControlAllowHeadersHeader: '*',
+    'lang': appStore.selectedLanguageCode,
   };
 
   if (appStore.isLoggedIn) {

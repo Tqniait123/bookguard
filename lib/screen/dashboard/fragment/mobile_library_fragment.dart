@@ -161,6 +161,7 @@ class _MobileLibraryFragmentState extends State<MobileLibraryFragment> {
             purchaseItem.isDownloaded = false;
           }
         });
+        downloadedList.addAll(purchasedList);
       });
     }
   }

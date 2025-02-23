@@ -16,7 +16,13 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../utils/common.dart';
+import '../../setting/about_us_screen.dart';
+import '../../setting/feedback_screen.dart';
+import '../../setting/terms_screen.dart';
+import '../../subscriptions/subscriptions_history.dart';
 import '../../subscriptions/subscriptions_page.dart';
 
 class MobileSettingFragment extends StatefulWidget {
@@ -104,11 +110,22 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
                         subTitle: language!.subscriptions,
                         titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
                         onTap: () {
-                           SubscriptionsPage().launch(context);
+                          appStore.isLoggedIn ? SubscriptionsPage().launch(context)  : SignInScreen().launch(context);
 
                         },
                         trailing: Icon(Icons.subscriptions),
                       ),
+                      16.height.visible(appStore.isLoggedIn),
+                      SettingItemWidget(
+                        title: language!.subscriptionHistory,
+                        subTitle: language!.subscriptionHistory,
+                        titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
+                        onTap: () {
+                          SubscriptionsHistoryPage().launch(context);
+
+                        },
+                        trailing: Icon(Icons.monetization_on_outlined),
+                      ).visible(appStore.isLoggedIn),
                       Divider(height: 0),
                       SettingItemWidget(
                         title: language!.appLanguage,
@@ -180,22 +197,22 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
                           icon: Icon(Icons.password_rounded),
                         ),
                       ).visible(appStore.isLoggedIn),
-                      Divider(height: 0).visible(appStore.isLoggedIn),
-                      SettingItemWidget(
-                        title: language!.transactionHistory,
-                        subTitle: language!.transactionHistoryReport,
-                        onTap: () {
-                          TransactionHistoryScreen().launch(context);
-                        },
-                        trailing: IconButton(
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.only(left: defaultRadius),
-                          onPressed: () {},
-                          splashColor: transparentColor,
-                          highlightColor: transparentColor,
-                          icon: Icon(Icons.monetization_on_outlined),
-                        ),
-                      ).visible(appStore.isLoggedIn),
+                      // Divider(height: 0).visible(appStore.isLoggedIn),
+                      // SettingItemWidget(
+                      //   title: language!.transactionHistory,
+                      //   subTitle: language!.transactionHistoryReport,
+                      //   onTap: () {
+                      //     TransactionHistoryScreen().launch(context);
+                      //   },
+                      //   trailing: IconButton(
+                      //     constraints: BoxConstraints(),
+                      //     padding: EdgeInsets.only(left: defaultRadius),
+                      //     onPressed: () {},
+                      //     splashColor: transparentColor,
+                      //     highlightColor: transparentColor,
+                      //     icon: Icon(Icons.monetization_on_outlined),
+                      //   ),
+                      // ).visible(appStore.isLoggedIn),
                       Divider(height: 0).visible(appStore.isLoggedIn),
 
                       SettingItemWidget(
@@ -224,20 +241,11 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
                       ),
                       Divider(height: 0),
                       SettingItemWidget(
-                        title: language!.rateUs,
-                        subTitle: language!.rateUs,
-                        trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
-                        onTap: () {
-                          toast(language!.termsConditions);
-                        },
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
                         title: language!.aboutApp,
                         subTitle: language!.aboutApp,
                         trailing: Image.asset(about_us_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
                         onTap: () {
-                          toast(language!.aboutApp);
+                          AboutUsScreen().launch(context);
                         },
                       ),
                       Divider(height: 0),
@@ -246,26 +254,65 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
                         subTitle: language!.feedback,
                         trailing: Image.asset(feed_back, height: 24, width: 24, fit: BoxFit.fitHeight),
                         onTap: () {
-                          toast(language!.feedback);
+                          FeedBackScreen().launch(context);
                         },
                       ),
+                      Divider(height: 0),
+                      SettingItemWidget(
+                        title: language!.rateUs,
+                        subTitle: language!.rateUs,
+                        trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
+                        onTap: () {
+                          getPackageName().then((value) {
+                            String package = '';
+                            if (isAndroid) package = value;
+
+                            commonLaunchUrl(
+                              '${isAndroid ? getSocialMediaLink(LinkProvider.PLAY_STORE) : getSocialMediaLink(LinkProvider.APPSTORE)}$package',
+                              launchMode: LaunchMode.externalApplication,
+                            );
+                          });
+                        },
+                      ),
+                      Divider(height: 0),
+                      SettingItemWidget(
+                        title: language!.termsConditions,
+                        subTitle: language!.termsConditions,
+                        trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
+                        onTap: () async{
+                          // await commonLaunchUrl(PRIVACY_POLICY);
+                          TermsScreen().launch(context);
+                        },
+                      ),
+
+
                       Spacer(),
                       Padding(
                         padding: EdgeInsets.all(defaultRadius),
-                        child: AppButton(
-                          elevation: 0,
-                          enableScaleAnimation: false,
-                          shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
-                          width: context.width(),
-                          color: white,
-                          text: language!.logout,
-                          textStyle: boldTextStyle(color: Colors.white),
-                          onTap: () async {
-                            showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
-                              logout(context);
-                            }, title: language!.areYouSureWantToLogout, positiveText: language!.yes, negativeText: language!.no);
-                          },
-                        ).visible(appStore.isLoggedIn),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: AppButton(
+                            elevation: 0,
+                            enableScaleAnimation: false,
+                            shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
+                            width: context.width(),
+                            color: transparentColor,
+                            text: language!.logout,
+                            textStyle: boldTextStyle(color: Colors.white),
+                            onTap: () async {
+                              showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
+                                logout(context);
+                              }, title: language!.areYouSureWantToLogout, positiveText: language!.yes, negativeText: language!.no);
+                            },
+                          ).visible(appStore.isLoggedIn),
+                        ),
                       ),
                       16.height,
                       // Container(

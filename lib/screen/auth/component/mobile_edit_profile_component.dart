@@ -57,6 +57,8 @@ class _MobileEditProfileComponentState extends State<MobileEditProfileComponent>
       UserKeys.contactNumber: mobileNumberController.text.trim(),
     };
 
+    print('widget.imageFile');
+    print(widget.imageFile);
     await updateUser(request, mSelectedImage: widget.imageFile, id: appStore.userId, name: nameController.text.trim(), userName: usernameController.text.trim(), contactNumber: mobileNumberController.text.trim()).then((result) {
       appStore.setLoading(false);
       finish(context);
@@ -73,6 +75,8 @@ class _MobileEditProfileComponentState extends State<MobileEditProfileComponent>
 
   @override
   Widget build(BuildContext context) {
+    print('widget.imageFile');
+    print(widget.imageFile);
     return Stack(
       fit: StackFit.expand,
       children: [

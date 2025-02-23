@@ -15,6 +15,7 @@ import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/images.dart';
+import '../../../utils/text_field_password.dart';
 
 class MobileLoginComponent extends StatefulWidget {
   @override
@@ -77,7 +78,14 @@ class _MobileLoginComponentState extends State<MobileLoginComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget('', elevation: 0, color: context.scaffoldBackgroundColor),
+      appBar: appBarWidget('', elevation: 0, color: context.scaffoldBackgroundColor, backWidget: BackButton(style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+        shape: MaterialStateProperty.all(
+          CircleBorder(),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+      ))),
       body: Stack(
         children: [
           Form(
@@ -104,12 +112,11 @@ class _MobileLoginComponentState extends State<MobileLoginComponent> {
                         decoration: inputDecoration(context, hintText: language!.email, preFixIcon: Icon(Icons.email)),
                       ),
                       16.height,
-                      AppTextField(
+                      TextFieldPassword(
                         controller: passwordController,
                         autoFocus: false,
-                        textFieldType: TextFieldType.PASSWORD,
                         focus: passwordFocusNode,
-                        decoration: inputDecoration(context, hintText: language!.password, preFixIcon: Icon(Icons.lock)),
+                        hint: language!.password,
                         onFieldSubmitted: (value) {
                           loginApi(context);
                         },
@@ -124,15 +131,25 @@ class _MobileLoginComponentState extends State<MobileLoginComponent> {
                         ),
                       ),
                       24.height,
-                      AppButton(
-                        width: context.width(),
-                        text: language!.login,
-                        textStyle: boldTextStyle(color: Colors.white),
-                        color: defaultPrimaryColor,
-                        enableScaleAnimation: false,
-                        onTap: () async {
-                          loginApi(context);
-                        },
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: AppButton(
+                          width: context.width(),
+                          text: language!.login,
+                          textStyle: boldTextStyle(color: Colors.white),
+                          color: transparentColor,
+                          enableScaleAnimation: false,
+                          onTap: () async {
+                            loginApi(context);
+                          },
+                        ),
                       ),
                       32.height,
                       SignInBottomWidget(

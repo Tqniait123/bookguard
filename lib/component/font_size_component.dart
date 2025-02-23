@@ -9,8 +9,9 @@ class FontSizeComponent extends StatefulWidget {
   final List<FontSizeModel>? fontSizeList;
   final int? selectedIndex;
   final Function? onTap;
+  final Function? onSet;
 
-  FontSizeComponent({this.fontSizeList, this.selectedIndex, this.onTap});
+  FontSizeComponent({this.fontSizeList, this.selectedIndex, this.onTap, this.onSet});
 
   @override
   FontSizeComponentState createState() => FontSizeComponentState();
@@ -75,9 +76,7 @@ class FontSizeComponentState extends State<FontSizeComponent> {
           ),
           16.height,
           ElevatedButton(
-            onPressed: () {
-              finish(context, true);
-            },
+            onPressed:()=> widget.onSet!(),
             child: Text(language!.set, style: primaryTextStyle(color: Colors.white)),
             style: ElevatedButton.styleFrom(backgroundColor: defaultPrimaryColor),
           ),

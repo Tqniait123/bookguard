@@ -74,7 +74,7 @@ class PriceCalculationState extends State<PriceCalculation> {
               children: [
                 Text(language!.totalMrp, style: primaryTextStyle(), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
                 8.width,
-                Text('$defaultCurrencySymbol${mrp.toString()}', style: primaryTextStyle(size: 18)),
+                Text('${mrp.toString()}$defaultCurrencySymbol', style: primaryTextStyle(size: 18)),
               ],
             ),
             8.height,
@@ -84,7 +84,7 @@ class PriceCalculationState extends State<PriceCalculation> {
               children: [
                 Text(language!.discount, style: primaryTextStyle(), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
                 8.width,
-                Text('$defaultCurrencySymbol${discountPrice.validate().toStringAsFixed(1)}', style: primaryTextStyle(size: 18)),
+                Text('${discountPrice.validate().toStringAsFixed(1)}$defaultCurrencySymbol', style: primaryTextStyle(size: 18)),
               ],
             ),
             Divider(),
@@ -94,7 +94,7 @@ class PriceCalculationState extends State<PriceCalculation> {
               children: [
                 Text('${language!.total}', style: boldTextStyle(size: 18), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
                 8.width,
-                Text('$defaultCurrencySymbol${appStore.payableAmount.toString()}', style: boldTextStyle(color: defaultPrimaryColor, size: 18)),
+                Text('${appStore.payableAmount.toString()}$defaultCurrencySymbol', style: boldTextStyle(color: defaultPrimaryColor, size: 18)),
               ],
             ),
           ],

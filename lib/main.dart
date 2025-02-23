@@ -63,7 +63,7 @@ void main() async {
   defaultAppButtonElevation = 0;
   defaultLoaderBgColorGlobal = secondaryPrimaryColor;
   defaultLoaderBgColorGlobal = secondaryPrimaryColor;
-  defaultCurrencySymbol = currencyDollar;
+  defaultCurrencySymbol = currencyPound;
 
   await appStore.setLoggedIn(getBoolAsync(IS_LOGGED_IN, defaultValue: false));
 

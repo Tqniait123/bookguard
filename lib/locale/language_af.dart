@@ -194,6 +194,9 @@ class LanguageAf extends BaseLanguage {
   String get areYouSureWantToLogout => "AreyouSurewanttologout";
 
   @override
+  String get areYouSureWantToSubscribe => "هل انت متاكد من الاشتراك في هذه الخطة؟";
+
+  @override
   String get yes => "ja";
 
   @override
@@ -501,4 +504,19 @@ class LanguageAf extends BaseLanguage {
 
   @override
   String get library => "biblioteek";
+
+  @override
+  String get youAlreadySubscribed => "انت مشترك بالفعل";
+
+  @override
+  String get startedAt => "بدأت في: ";
+
+  @override
+  String get endAt => "تنتهي في: ";
+
+  @override
+  String get subscriptionHistory => "تاريخ الاشتراكات";
+
+  @override
+  String get current => "الحالية";
 }

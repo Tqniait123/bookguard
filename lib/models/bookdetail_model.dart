@@ -23,9 +23,11 @@ class BookDetailResponse {
   String? subcategoryName;
   String? title;
   String? topicCover;
+  bool? hasActiveSubscription;
   num? review;
   num? totalRating;
   num? totalPage;
+  num? usersCount;
   num? isPurchase;
 
   BookDetailResponse({
@@ -54,7 +56,9 @@ class BookDetailResponse {
     this.review,
     this.totalRating,
     this.totalPage,
+    this.usersCount,
     this.isPurchase,
+    this.hasActiveSubscription,
   });
 
   factory BookDetailResponse.fromJson(Map<String, dynamic> json) {
@@ -85,6 +89,8 @@ class BookDetailResponse {
       totalRating: json[BookRatingDataKey.totalRating],
       totalPage: json[BookRatingDataKey.pageCount],
       isPurchase: json[BookRatingDataKey.isPurchase],
+      usersCount: json['users_count'],
+      hasActiveSubscription: json['has_active_subscription'],
     );
   }
 
@@ -112,6 +118,8 @@ class BookDetailResponse {
     data[BookRatingDataKey.totalRating] = this.totalRating;
     data[BookRatingDataKey.pageCount] = this.totalPage;
     data[BookRatingDataKey.isPurchase] = this.isPurchase;
+    data['users_count'] = this.usersCount;
+    data['has_active_subscription'] = this.hasActiveSubscription;
     if (this.backCover != null) {
       data[DashboardKeys.backCover] = this.backCover!;
     }

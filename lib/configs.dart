@@ -4,7 +4,7 @@ const APP_NAME = 'Book Guard';
 const DEFAULT_LANGUAGE = 'en';
 var defaultPrimaryColor = Color(0xff876A48);
 
-const DOMAIN_URL = "https://bookguard.dev2.tqnia.me";
+const DOMAIN_URL = "https://bookguardeg.com";
 const BASE_URL = '$DOMAIN_URL/api/';
 
 const ONE_SIGNAL_APP_ID = '';
@@ -30,6 +30,12 @@ const STRIPE_URL = '';
 const FLUTTER_WAVE_PUBLIC_KEY = '';
 const FLUTTER_WAVE_SECRET_KEY = '';
 const FLUTTER_WAVE_ENCRYPTION_KEY = '';
+
+
+///Text
+
+String PRIVACY_POLICY_TEXT = '';
+ String TERMS_AND_CONDITIONS_TEXT = '';
 
 ///url
 

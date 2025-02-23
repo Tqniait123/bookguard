@@ -12,6 +12,8 @@ import 'package:granth_flutter/screen/dashboard/component/see_all_component.dart
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../component/banner_widget.dart';
+
 class MobileDashboardFragment extends StatelessWidget {
   final DashboardResponse? data;
 
@@ -29,22 +31,15 @@ class MobileDashboardFragment extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              if(data!.slider != null && data!.slider!.isNotEmpty)BannerWidget(sliders: data!.slider!,),
+              if (data!.slider != null && data!.slider!.isNotEmpty) 24.height,
+
               ///Author List Details
               if (data!.topAuthor!.isNotEmpty) AuthorListComponent(authorList: data!.topAuthor.validate()),
-
-              ///Top Search Book
-              if (data!.topSearchBook!.isNotEmpty) 24.height,
-              SeeAllComponent(
-                title: language!.topSearchBooks,
-                onClick: () {
-                  ViewAllBookScreen(type: TOP_SEARCH_BOOKS, title: language!.topSearchBooks).launch(context);
-                },
-              ).paddingSymmetric(horizontal: 16),
-              16.height,
-              BookListComponent(bookDetailsList: data!.topSearchBook.validate()),
-
               ///Popular Search Book
               if (data!.topSearchBook!.isNotEmpty) 24.height,
+
               SeeAllComponent(
                 title: language!.popularBooks,
                 onClick: () {
@@ -86,6 +81,20 @@ class MobileDashboardFragment extends StatelessWidget {
               ).paddingSymmetric(horizontal: 16),
               16.height,
               BookListComponent(bookDetailsList: data!.recommendedBook.validate()),
+
+
+              ///Top Search Book
+              if (data!.topSearchBook!.isNotEmpty) 24.height,
+              SeeAllComponent(
+                title: language!.topSearchBooks,
+                onClick: () {
+                  ViewAllBookScreen(type: TOP_SEARCH_BOOKS, title: language!.topSearchBooks).launch(context);
+                },
+              ).paddingSymmetric(horizontal: 16),
+              16.height,
+              BookListComponent(bookDetailsList: data!.topSearchBook.validate()),
+
+
               16.height,
             ],
           ),

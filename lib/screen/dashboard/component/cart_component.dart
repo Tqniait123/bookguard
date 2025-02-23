@@ -16,7 +16,7 @@ class CartComponent extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       width: context.width() - 32,
-      decoration: boxDecorationDefault(boxShadow: [], color: context.cardColor),
+      decoration: boxDecorationDefault(boxShadow: [], color: context.cardColor, border: Border.all(color: Color(0xFFE3E3E3))),
       child: Stack(
         children: [
           Row(

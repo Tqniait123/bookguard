@@ -97,7 +97,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: appBarWidget(language!.editProfile, textColor: whiteColor, titleTextStyle: boldTextStyle(color: whiteColor), elevation: 0, color: defaultPrimaryColor),
+      appBar: appBarWidget(language!.editProfile, textColor: whiteColor, titleTextStyle: boldTextStyle(color: whiteColor), elevation: 0, color: defaultPrimaryColor, center: true),
       body: Stack(
         children: [
           Container(
@@ -106,8 +106,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
             width: context.width(),
             decoration: BoxDecoration(
             color: defaultPrimaryColor,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(180),bottomRight: Radius.circular(180), )
-
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(220),bottomRight: Radius.circular(220), )
             ),
             child: Stack(
               children: [

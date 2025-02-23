@@ -7,6 +7,8 @@ import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../utils/text_field_password.dart';
+
 class MobileChangePasswordComponent extends StatefulWidget {
   @override
   _MobileChangePasswordComponentState createState() => _MobileChangePasswordComponentState();
@@ -69,7 +71,14 @@ class _MobileChangePasswordComponentState extends State<MobileChangePasswordComp
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget("", elevation: 0),
+      appBar: appBarWidget("", elevation: 0, backWidget: BackButton(style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+    backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+    shape: MaterialStateProperty.all(
+    CircleBorder(),
+    ),
+    padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+    ))),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -86,27 +95,24 @@ class _MobileChangePasswordComponentState extends State<MobileChangePasswordComp
                   8.height,
                   Text(language!.youNewPasswordMust, style: secondaryTextStyle(), textAlign: TextAlign.center,),
                   16.height,
-                  AppTextField(
+                TextFieldPassword(
                     controller: oldPasswordController,
                     focus: oldPasswordFocusNode,
                     nextFocus: newPasswordFocusNode,
-                    textFieldType: TextFieldType.PASSWORD,
-                    decoration: inputDecoration(context, hintText: language!.oldPassword),
+                    hint: language!.oldPassword,
                   ),
                   16.height,
-                  AppTextField(
+                  TextFieldPassword(
                     controller: newPasswordController,
-                    textFieldType: TextFieldType.PASSWORD,
                     focus: newPasswordFocusNode,
                     nextFocus: confirmPasswordFocusNode,
-                    decoration: inputDecoration(context, hintText: language!.newPassword),
+                    hint:  language!.newPassword,
                   ),
                   16.height,
-                  AppTextField(
+                TextFieldPassword(
                     controller: confirmPasswordController,
-                    textFieldType: TextFieldType.PASSWORD,
                     focus: confirmPasswordFocusNode,
-                    decoration: inputDecoration(context, hintText: language!.confirmPassword),
+                    hint: language!.confirmPassword,
                     validator: (val) {
                       if (val!.isEmpty) return language!.thisFieldIsRequired;
                       if (val != newPasswordController.text) return language!.passwordMustBeSame;
@@ -117,14 +123,24 @@ class _MobileChangePasswordComponentState extends State<MobileChangePasswordComp
                     },
                   ),
                   50.height,
-                  AppButton(
-                    color: defaultPrimaryColor,
-                    width: context.width(),
-                    textStyle: boldTextStyle(color: Colors.white),
-                    text: language!.submit,
-                    onTap: () {
-                      changePasswordApi(context);
-                    },
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: AppButton(
+                      color: transparentColor,
+                      width: context.width(),
+                      textStyle: boldTextStyle(color: Colors.white),
+                      text: language!.submit,
+                      onTap: () {
+                        changePasswordApi(context);
+                      },
+                    ),
                   ),
                 ],
               ),

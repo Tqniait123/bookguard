@@ -20,6 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/downloaded_book.dart';
 import '../models/font_size_model.dart';
+import '../network/rest_apis.dart';
 import 'colors.dart';
 import 'constants.dart';
 
@@ -177,8 +178,19 @@ void handleViewClick(BuildContext context, {bool isPDF = false, String? filePath
 }
 
 void handleViewOnlineClick(BuildContext context, { String? filePath, String? bookName, int? bookId, String? lastCfi}) async {
+  appStore.setLoading(true);
+  readBook({'book_id': bookId.toString()}).then((value) async{
+    if(value.status != null && value.status!) {
+      await EPubViewerScreen(filePath: filePath.validate(), bookName: bookName.validate(), bookId: bookId, lastCfi: lastCfi,).launch(context).then((value) {});
 
-   await EPubViewerScreen(filePath: filePath.validate(), bookName: bookName.validate(), bookId: bookId, lastCfi: lastCfi,).launch(context).then((value) {});
+    }else{
+      toast(value.message);
+    }
+    appStore.setLoading(false);
+  }).catchError((error){
+    appStore.setLoading(false);
+  });
+   // await EPubViewerScreen(filePath: filePath.validate(), bookName: bookName.validate(), bookId: bookId, lastCfi: lastCfi,).launch(context).then((value) {});
 
 }
 

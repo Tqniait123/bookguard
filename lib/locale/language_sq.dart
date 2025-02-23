@@ -193,6 +193,9 @@ class LanguageSq extends BaseLanguage {
   String get areYouSureWantToLogout => "A jeni i sigurt që doni të dilni?";
 
   @override
+  String get areYouSureWantToSubscribe => "هل انت متاكد من الاشتراك في هذه الخطة؟";
+
+  @override
   String get yes => "po";
 
   @override
@@ -499,4 +502,19 @@ class LanguageSq extends BaseLanguage {
 
   @override
   String get library => "Librari";
+
+  @override
+  String get youAlreadySubscribed => "انت مشترك بالفعل";
+
+  @override
+  String get startedAt => "بدأت في: ";
+
+  @override
+  String get endAt => "تنتهي في: ";
+
+  @override
+  String get subscriptionHistory => "تاريخ الاشتراكات";
+
+  @override
+  String get current => "الحالية";
 }

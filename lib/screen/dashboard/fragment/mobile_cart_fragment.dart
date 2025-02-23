@@ -112,6 +112,7 @@ class _MobileCartFragmentState extends State<MobileCartFragment> {
         var data = jsonEncode(cartItemList);
         saveTransaction(request, data, FLUTTER_WAVE_STATUS, 'TXN_SUCCESS', appStore.payableAmount);
         appStore.setBottomNavigationBarIndex(0);
+        init();
       } else {
         toast('Transaction Failed');
       }
@@ -183,34 +184,60 @@ class _MobileCartFragmentState extends State<MobileCartFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(language!.myCart, elevation: 0, showBack: widget.isShowBack ?? false, color: context.scaffoldBackgroundColor),
+      appBar: appBarWidget(language!.myCart, elevation: 0, showBack: widget.isShowBack ?? false, color: context.scaffoldBackgroundColor, backWidget: BackButton(style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+        shape: MaterialStateProperty.all(
+          CircleBorder(),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+      ))),
       bottomNavigationBar: cartItemList.length != 0 || appStore.cartCount != 0
-          ? AppButton(
-        text: language!.placeOrder,
-        color: defaultPrimaryColor,
-        width: context.width(),
-        enableScaleAnimation: false,
-        onTap: () {
-          if (paymentMode == FLUTTER_WAVE) {
-            showConfirmDialog(
-              context,
-              'You will be charged a total of ${appStore.payableAmount} ${defaultCurrencySymbol}. Do you wish to continue?', //Todo : language key
-              positiveText: "Continue",
-              negativeText: "Cancel",
-              onAccept: () {
-                FlutterWave().flutterWaveCheckout(
-                  ctx: context,
-                  onCompleteCall: (p0) {
-                    onTransactionComplete(p0);
-                  },
-                );
-              },
-            );
-          } else {
-            cartPayment.placeOrder(paymentMode: paymentMode, cartItemList: cartItemList, context: context);
-          }
-        },
-      ).paddingAll(16)
+          ? Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+            begin: Alignment.topRight,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: AppButton(
+                    text: language!.placeOrder,
+                    color: transparentColor,
+                    width: context.width(),
+                    enableScaleAnimation: false,
+                    onTap: () async{
+            if (paymentMode == FLUTTER_WAVE) {
+              showConfirmDialog(
+                context,
+                'You will be charged a total of ${appStore.payableAmount} ${defaultCurrencySymbol}. Do you wish to continue?', //Todo : language key
+                positiveText: "Continue",
+                negativeText: "Cancel",
+                onAccept: () {
+                  FlutterWave().flutterWaveCheckout(
+                    ctx: context,
+                    onCompleteCall: (p0) {
+                      onTransactionComplete(p0);
+                    },
+                  );
+                },
+              );
+            } else {
+              print('======================================');
+              // cartPayment.placeOrder(paymentMode: paymentMode, cartItemList: cartItemList, context: context);
+
+              appStore.setLoading(true);
+              var data = jsonEncode(cartItemList);
+              await saveTransaction(
+              {}, data, OFFLINE_STATUS, 'TXN_SUCCESS', appStore.payableAmount);
+              appStore.setLoading(false);
+              appStore.setBottomNavigationBarIndex(0);
+              init();
+            }
+                    },
+                  ),
+          ).paddingAll(16)
           : SizedBox(),
       body: Stack(
         children: [
@@ -242,34 +269,34 @@ class _MobileCartFragmentState extends State<MobileCartFragment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(language!.paymentMethod, style: boldTextStyle()).paddingSymmetric(horizontal: 16),
-                      8.height,
-                      HorizontalList(
-                        itemCount: paymentModeList.length,
-                        spacing: 0,
-                        runSpacing: 0,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            height: 60,
-                            margin: EdgeInsets.symmetric(horizontal: 8),
-                            decoration: boxDecorationWithRoundedCorners(
-                              backgroundColor: context.cardColor,
-                              border: paymentMode == paymentModeList[index].title ? Border.all(color: defaultPrimaryColor) : Border.all(color: transparentColor),
-                            ),
-                            child: TextIcon(
-                              edgeInsets: EdgeInsets.all(16),
-                              spacing: 8,
-                              text: paymentModeList[index].title,
-                              textStyle: secondaryTextStyle(),
-                              prefix: Image.asset(paymentModeList[index].image.validate(), fit: BoxFit.fitWidth, height: 50, width: 80),
-                            ),
-                          ).onTap(() {
-                            setState(() {
-                              paymentMode = paymentModeList[index].title!;
-                            });
-                          }, highlightColor: transparentColor, splashColor: transparentColor);
-                        },
-                      ),
+                      // Text(language!.paymentMethod, style: boldTextStyle()).paddingSymmetric(horizontal: 16),
+                      // 8.height,
+                      // HorizontalList(
+                      //   itemCount: paymentModeList.length,
+                      //   spacing: 0,
+                      //   runSpacing: 0,
+                      //   itemBuilder: (context, index) {
+                      //     return Container(
+                      //       height: 60,
+                      //       margin: EdgeInsets.symmetric(horizontal: 8),
+                      //       decoration: boxDecorationWithRoundedCorners(
+                      //         backgroundColor: context.cardColor,
+                      //         border: paymentMode == paymentModeList[index].title ? Border.all(color: defaultPrimaryColor) : Border.all(color: transparentColor),
+                      //       ),
+                      //       child: TextIcon(
+                      //         edgeInsets: EdgeInsets.all(16),
+                      //         spacing: 8,
+                      //         text: paymentModeList[index].title,
+                      //         textStyle: secondaryTextStyle(),
+                      //         prefix: Image.asset(paymentModeList[index].image.validate(), fit: BoxFit.fitWidth, height: 50, width: 80),
+                      //       ),
+                      //     ).onTap(() {
+                      //       setState(() {
+                      //         paymentMode = paymentModeList[index].title!;
+                      //       });
+                      //     }, highlightColor: transparentColor, splashColor: transparentColor);
+                      //   },
+                      // ),
                       24.height,
                       Text(language!.paymentDetails, style: boldTextStyle()).paddingSymmetric(horizontal: 16),
                       16.height,

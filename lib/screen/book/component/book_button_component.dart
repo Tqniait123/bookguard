@@ -86,7 +86,8 @@ class BookButtonComponentState extends State<BookButtonComponent> {
       color: transparentColor,
       child: Row(
         children: [
-          widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0
+          // (widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0)
+          (widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0) && !widget.bookDetailResponse!.hasActiveSubscription!
               ? Observer(
                   builder: (context) {
                     return AppButton(
@@ -144,7 +145,8 @@ class BookButtonComponentState extends State<BookButtonComponent> {
           //       ).expand()
           //     : Offstage(),
           // widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0 ? 16.width : 0.width,
-          widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0
+          // (widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0)
+          (widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0) || widget.bookDetailResponse!.hasActiveSubscription!
               ? AppButton(
                   enableScaleAnimation: false,
                   child: Marquee(child: Text(language!.readBook, style: boldTextStyle(size: 14, color: whiteColor))),
@@ -156,7 +158,19 @@ class BookButtonComponentState extends State<BookButtonComponent> {
                     } else {
                       // downloadBook(context, bookDetailResponse: widget.bookDetailResponse, isSample: false);
                       // await EPubViewerScreen(filePath: widget.bookDetailResponse!.filePath.validate(), bookName: 'bookName'.validate(), bookId: 1).launch(context).then((value) {});
-                      openBookOnline(context, bookDetailResponse: widget.bookDetailResponse, isSample: false);
+                      appStore.setLoading(true);
+                      readBook({'book_id': widget.bookDetailResponse?.bookId.toString()}).then((value){
+                        if(value.status != null && value.status!) {
+                          openBookOnline(context,
+                              bookDetailResponse: widget.bookDetailResponse,
+                              isSample: false);
+                        }else{
+                          toast(value.message);
+                        }
+                        appStore.setLoading(false);
+                      }).catchError((error){
+                        appStore.setLoading(false);
+                      });
                     }
                   },
                 ).expand()

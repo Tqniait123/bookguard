@@ -11,6 +11,7 @@ import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/images.dart';
+import '../../../utils/text_field_password.dart';
 
 class MobileSignUpComponent extends StatefulWidget {
   @override
@@ -54,6 +55,7 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
         UserKeys.email: emailController.text.trim(),
         UserKeys.name: nameController.text.trim(),
         UserKeys.userName: usernameController.text.trim(),
+        UserKeys.contactNumber: mobileNumberController.text.trim(),
         UserKeys.password: passwordController.text.trim(),
       };
 
@@ -78,7 +80,14 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget('', elevation: 0, showBack: true, color: context.scaffoldBackgroundColor),
+      appBar: appBarWidget('', elevation: 0, showBack: true, color: context.scaffoldBackgroundColor, backWidget: BackButton(style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+    backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+    shape: MaterialStateProperty.all(
+    CircleBorder(),
+    ),
+    padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+    ))),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -113,14 +122,6 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
                       ),
                       16.height,
                       AppTextField(
-                        controller: emailController,
-                        decoration: inputDecoration(context, hintText: language!.email, preFixIcon: Icon(Icons.email)),
-                        textFieldType: TextFieldType.EMAIL,
-                        focus: emailFocusNode,
-                        nextFocus: mobileNumberFocusNode,
-                      ),
-                      16.height,
-                      AppTextField(
                         textStyle: primaryTextStyle(),
                         textFieldType: TextFieldType.PHONE,
                         focus: mobileNumberFocusNode,
@@ -130,18 +131,25 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
                       ),
                       16.height,
                       AppTextField(
+                        controller: emailController,
+                        decoration: inputDecoration(context, hintText: language!.email, preFixIcon: Icon(Icons.email)),
+                        textFieldType: TextFieldType.EMAIL,
+                        focus: emailFocusNode,
+                        nextFocus: mobileNumberFocusNode,
+                      ),
+
+                      16.height,
+                      TextFieldPassword(
                         controller: passwordController,
-                        textFieldType: TextFieldType.PASSWORD,
                         focus: passwordFocusNode,
                         nextFocus: confirmPasswordFocusNode,
-                        decoration: inputDecoration(context, hintText: language!.password, preFixIcon: Icon(Icons.lock)),
+                        hint: language!.password
                       ),
                       16.height,
-                      AppTextField(
-                        textFieldType: TextFieldType.PASSWORD,
+                      TextFieldPassword(
                         focus: confirmPasswordFocusNode,
                         controller: confirmPasswordController,
-                        decoration: inputDecoration(context, hintText: language!.confirmPassword, preFixIcon: Icon(Icons.lock)),
+                        hint: language!.confirmPassword,
                         onFieldSubmitted: (value) {
                           createUserApi(context);
                         },
@@ -152,14 +160,24 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
                         },
                       ),
                       16.height,
-                      AppButton(
-                        width: context.width(),
-                        text: language!.joinNow,
-                        textStyle: boldTextStyle(color: Colors.white),
-                        color: defaultPrimaryColor,
-                        onTap: () {
-                          createUserApi(context);
-                        },
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: AppButton(
+                          width: context.width(),
+                          text: language!.joinNow,
+                          textStyle: boldTextStyle(color: Colors.white),
+                          color: transparentColor,
+                          onTap: () {
+                            createUserApi(context);
+                          },
+                        ),
                       ),
                       32.height,
                       SignInBottomWidget(

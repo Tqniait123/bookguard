@@ -62,7 +62,14 @@ class _MobileViewAllBookResComponentState extends State<MobileViewAllBookResComp
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(widget.title.validate(), elevation: 0),
+      appBar: appBarWidget(widget.title.validate(), elevation: 0, center: true, backWidget: BackButton(style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+        shape: MaterialStateProperty.all(
+          CircleBorder(),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+      ))),
       body: Stack(
         children: [
           if (bookList.validate().isNotEmpty)

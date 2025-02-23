@@ -67,6 +67,9 @@ class DashboardFragmentState extends State<DashboardFragment> {
         child: SnapHelperWidget<DashboardResponse>(
           future: getDashboardDetails(),
           onSuccess: (data) {
+            TERMS_AND_CONDITIONS_TEXT = data.termConditions??'';
+            PRIVACY_POLICY_TEXT = data.privacyPolicy??'';
+
             return Responsive(
               mobile: MobileDashboardFragment(data: data),
               web: WebDashboardFragment(data: data),

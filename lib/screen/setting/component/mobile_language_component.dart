@@ -27,7 +27,14 @@ class _MobileLanguageComponentState extends State<MobileLanguageComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget("", elevation: 0, showBack: true, color: context.scaffoldBackgroundColor),
+      appBar: appBarWidget("", elevation: 0, showBack: true, color: context.scaffoldBackgroundColor, backWidget: BackButton(style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+        shape: MaterialStateProperty.all(
+          CircleBorder(),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+      ))),
       body: LanguageListWidget(
         widgetType: WidgetType.LIST,
         trailing: Container(

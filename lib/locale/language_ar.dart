@@ -167,7 +167,7 @@ class LanguageAr extends BaseLanguage {
   String get changeYourLanguage => "تغيير لغتك";
 
   @override
-  String get appTheme => "موضوع التطبيق";
+  String get appTheme => "وضع التطبيق";
 
   @override
   String get tapToEnableLightMode => "انقر لتمكين وضع الضوء";
@@ -192,6 +192,9 @@ class LanguageAr extends BaseLanguage {
 
   @override
   String get areYouSureWantToLogout => "هل أنت متأكد من تريد تسجيل الدخول؟";
+
+  @override
+  String get areYouSureWantToSubscribe => "هل انت متاكد من الاشتراك في هذه الخطة؟";
 
   @override
   String get yes => "نعم";
@@ -290,7 +293,7 @@ class LanguageAr extends BaseLanguage {
   String get loggedIn => "تسجيل الدخول";
 
   @override
-  String get chooseTheme => "اختيار موضوع";
+  String get chooseTheme => "اختيار وضع";
 
   @override
   String get yourReview => "مراجعتك";
@@ -501,4 +504,19 @@ class LanguageAr extends BaseLanguage {
 
   @override
   String get library => "مكتبة";
+
+  @override
+  String get youAlreadySubscribed => "انت مشترك بالفعل.";
+
+  @override
+  String get startedAt => "بدأت في: ";
+
+  @override
+  String get endAt => "تنتهي في: ";
+
+  @override
+  String get subscriptionHistory => "تاريخ الاشتراكات";
+
+  @override
+  String get current => "الحالية";
 }

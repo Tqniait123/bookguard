@@ -9,6 +9,7 @@ import 'package:granth_flutter/models/cart_response.dart';
 import 'package:granth_flutter/models/category_list_model.dart';
 import 'package:granth_flutter/models/dashboard_model.dart';
 import 'package:granth_flutter/models/login_model.dart';
+import 'package:granth_flutter/models/plan_model.dart';
 import 'package:granth_flutter/models/transaction_history_model.dart';
 import 'package:granth_flutter/network/network_utils.dart';
 import 'package:granth_flutter/screen/dashboard/dashboard_screen.dart';
@@ -22,6 +23,8 @@ import '../models/category_model.dart';
 import '../models/category_wise_book_model.dart';
 import '../models/rating_model.dart';
 import '../configs.dart';
+import '../models/read_book.dart';
+import '../models/subscriptio_history_model.dart';
 import '../models/verify_transaction_response.dart';
 
 ///region Login Api
@@ -37,7 +40,10 @@ Future<void> saveUserData(UserData data) async {
   await appStore.setUserEmail(data.email.validate());
   await appStore.setUserName(data.userName.validate());
   await appStore.setUserProfile(data.image.validate());
+  print('data.contactNumber.validate()');
+  print(data.contactNumber.validate());
   await appStore.setUserContactNumber(data.contactNumber.validate());
+  await appStore.setUserActiveSubscription(data.hasActiveSubscription.validate());
   await appStore.setLoggedIn(true);
 
   // Firebase topic subscription
@@ -63,6 +69,11 @@ Future<BaseResponse> changePassword(Map request) async {
 /// forgot password
 Future<BaseResponse> forgotPassword(Map request) async {
   return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('forgot-password', request: request, method: HttpMethod.POST))));
+}
+
+///change password api
+Future<BaseResponse> restPassword(Map request) async {
+  return BaseResponse.fromJson(await handleResponse(await buildHttpResponse('update-password', request: request, method: HttpMethod.POST)));
 }
 
 ///end region
@@ -145,6 +156,10 @@ Future<AllBookDetailsModel> getBookDetails(Map request) async {
   return AllBookDetailsModel.fromJson(await (handleResponse(await buildHttpResponse('book-detail', request: request, method: HttpMethod.POST))));
 }
 
+Future<ReadBook> readBook(Map request) async {
+  return ReadBook.fromJson(await (handleResponse(await buildHttpResponse('read', request: request, method: HttpMethod.POST))));
+}
+
 Future<SubCategoryResponse> subCategories(request) async {
   return SubCategoryResponse.fromJson(await (handleResponse(await buildHttpResponse('sub-category-list', request: request, method: HttpMethod.POST))));
 }
@@ -153,6 +168,25 @@ Future<CartResponse> getCart() async {
   CartResponse cartModel = CartResponse.fromJson(await handleResponse(await buildHttpResponse('user-cart')));
   appStore.setCartCount(cartModel.data!.length.validate());
   return cartModel;
+}
+
+/// subscriptionApi
+Future<PlanModel> getPlans() async {
+  PlanModel planModel = PlanModel.fromJson(await handleResponse(await buildHttpResponse('plans')));
+  // appStore.setCartCount(cartModel.data!.length.validate());
+  return planModel;
+}
+
+Future<SubscriptionsHistoryModel> getSubscriptionsHistory() async {
+  SubscriptionsHistoryModel subscriptionsHistoryModel = SubscriptionsHistoryModel.fromJson(await handleResponse(await buildHttpResponse('subscriptinsHistory')));
+  // appStore.setCartCount(cartModel.data!.length.validate());
+  return subscriptionsHistoryModel;
+}
+
+Future<PlanModel> subscribeApi(request) async {
+  PlanModel planModel = PlanModel.fromJson(await handleResponse(await buildHttpResponse('subscripe', method: HttpMethod.POST, request: request)));
+  // appStore.setCartCount(cartModel.data!.length.validate());
+  return planModel;
 }
 
 ///end region
@@ -246,16 +280,20 @@ Future updateUser(userDetail, {mSelectedImage, id, userName, name, contactNumber
   request.fields['name'] = name;
   request.fields['contact_number'] = contactNumber;
 
-  if (imageFile != null) {
-    if (isMobile) {
-      final file = await http.MultipartFile.fromPath('profile_image', mSelectedImage.path);
-      request.files.add(file);
-    } else {
+  if (isMobile && mSelectedImage != null) {
+    final file = await http.MultipartFile.fromPath('profile_image', mSelectedImage.path);
+    request.files.add(file);
+  }
+
+   else if(imageFile != null) {
       final file = await http.MultipartFile.fromBytes('profile_image', imageFile, filename: "Test");
       request.files.add(file);
     }
-  }
 
+  print('request====');
+  print(mSelectedImage);
+  print(request.fields);
+  print(request.files);
   request.headers.addAll(buildHeaderTokens());
   await request.send().then((response) async {
     response.stream.transform(utf8.decoder).listen((value) async {
@@ -307,15 +345,21 @@ Future saveTransaction(Map<String, dynamic> transactionDetails, orderDetails, ty
   request.fields['status'] = status.toString();
   request.fields['total_amount'] = totalAmount.toString();
 
+  print('--------------000');
+
   request.headers.addAll(buildHeaderTokens());
   await request.send().then((res) async {
     if (res.statusCode == 200) {
+      print('===========================');
+      print(res.stream);
       toast(language!.transactionSuccessfully);
       LiveStream().emit(CART_DATA_CHANGED, true);
     } else {
       toast(res.statusCode.toString());
     }
   }).catchError((error) {
+    print('===========================');
+    print(error);
     throw error;
   });
 }
