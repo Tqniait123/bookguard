@@ -1,0 +1,170 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:granth_flutter/component/ink_well_widget.dart';
+import 'package:granth_flutter/main.dart';
+import 'package:granth_flutter/models/downloaded_book.dart';
+import 'package:granth_flutter/utils/common.dart';
+import 'package:granth_flutter/utils/constants.dart';
+import 'package:granth_flutter/utils/file_common.dart';
+import 'package:granth_flutter/utils/permissions.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../../configs.dart';
+import '../../../models/plan_model.dart';
+import '../../../models/subscriptio_history_model.dart';
+import '../../../utils/images.dart';
+
+class SubscriptionsHistoryComponent extends StatefulWidget {
+  static String tag = '/SubscriptionsHistoryComponent';
+
+  final List<SubscriptionsHistory>? list;
+  final int? i;
+  final Function(int id)? onPlanSelected;
+
+  SubscriptionsHistoryComponent({this.list, this.i, this.onPlanSelected});
+
+  @override
+  SubscriptionsHistoryComponentState createState() => SubscriptionsHistoryComponentState();
+}
+
+class SubscriptionsHistoryComponentState extends State<SubscriptionsHistoryComponent> {
+  String finalFilePath = '';
+  String fileName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() async {
+    //
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) super.setState(fn);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ListView.separated(
+      padding: EdgeInsets.all(12),
+      itemCount: widget.list?.length??0,
+      separatorBuilder: (context, index)=> SizedBox(height: 10,),
+      itemBuilder: (context, index){
+        // bool selected = widget.list![index].myPlan != null ? true : false;
+        final price = widget.list![index].price;
+        final duration = widget.list![index].durationString;
+
+        return GestureDetector(
+          onTap: (){
+
+            if(widget.onPlanSelected != null ) {
+              if(appStore.userActiveSubscription){
+                toast(language!.youAlreadySubscribed);
+                return;
+              }
+              showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
+                widget.onPlanSelected!(widget.list![index].id??0);
+              }, title: language!.areYouSureWantToSubscribe, positiveText: language!.yes, negativeText: language!.no);
+
+            }
+          },
+          child: Center(
+            child: Container(
+              // width: 300,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color:  Color(0xFFF3EDEC),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                  border: Border.all(color: Color(0xFFBDB6BD))
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Row(
+                  //   children: [
+                  //     Image.asset(selected_plan),
+                  //     Spacer(),
+                  //   ],
+                  // ),
+                  SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.list![index].plan?.name??'',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  if(widget.list![index].mySubscription != null && widget.list![index].mySubscription!)SizedBox(height: 8),
+                  if(widget.list![index].mySubscription != null && widget.list![index].mySubscription!)Text(
+                    '${language!.current}',
+                    style: TextStyle(
+                      color: defaultPrimaryColor,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '- ${duration}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '- ${language!.startedAt}${widget.list![index].from??''}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '- ${language!.endAt}${widget.list![index].to??''}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      '${price}$defaultCurrencySymbol',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );},
+
+    );
+  }
+}

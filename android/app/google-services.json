@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "761645457564",
+    "project_id": "book-guard",
+    "storage_bucket": "book-guard.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761645457564:android:535afd3ec7fe25a79c4d59",
+        "android_client_info": {
+          "package_name": "com.book.guard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLuxkBK6RTOmOeNihheOdBg1CDuUZhq1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
