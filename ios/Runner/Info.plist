@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Granth</string>
+	<string>Book Guard</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>granth_flutter</string>
+	<string>Book Guard</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -47,13 +47,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Granth app requires access to the Camera to upload your profile photo.</string>
+	<string>Book Guard app requires access to the Camera to upload your profile photo.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Granth app requires access to microphone when you will be used to record your speech at time of  press the "Mic" button.</string>
+	<string>Book Guard app requires access to microphone when you will be used to record your speech at time of  press the "Mic" button.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Granth app requires access to the photo library to upload your profile photo.</string>
+	<string>Book Guard app requires access to the photo library to upload your profile photo.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Granth app requires access to Speech recognition  when you will be used to determine which words you speak into this device microphone.</string>
+	<string>Book Guard app requires access to Speech recognition  when you will be used to determine which words you speak into this device microphone.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -77,12 +77,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
     <key>NSSpeechRecognitionUsageDescription</key>
-    <string>Granth app requires access to Speech recognition  when you will be used to determine which words you speak into this device microphone.</string>
+    <string>Book Guard app requires access to Speech recognition  when you will be used to determine which words you speak into this device microphone.</string>
     <key>NSCameraUsageDescription</key>
-    <string>Granth app requires access to the Camera to upload your profile photo.</string>
+    <string>Book Guard app requires access to the Camera to upload your profile photo.</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Granth app requires access to microphone when you will be used to record your speech at time of  press the "Mic" button.</string>
+    <string>Book Guard app requires access to microphone when you will be used to record your speech at time of  press the "Mic" button.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Granth app requires access to the photo library to upload your profile photo.</string>
+    <string>Book Guard app requires access to the photo library to upload your profile photo.</string>
 </dict>
 </plist>

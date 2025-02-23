@@ -8,7 +8,7 @@
 PRODUCT_NAME = granth_flutter
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.iqonic.granthFlutter
+PRODUCT_BUNDLE_IDENTIFIER = com.book.guard
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2022 com.iqonic. All rights reserved.
