@@ -34,7 +34,6 @@ int mAdShowCount = 0;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await initialize(aLocaleLanguageList: languageList());
 
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -63,7 +62,7 @@ void main() async {
   defaultAppButtonElevation = 0;
   defaultLoaderBgColorGlobal = secondaryPrimaryColor;
   defaultLoaderBgColorGlobal = secondaryPrimaryColor;
-  defaultCurrencySymbol = currencyPound;
+  defaultCurrencySymbol = 'L.E';
 
   await appStore.setLoggedIn(getBoolAsync(IS_LOGGED_IN, defaultValue: false));
 

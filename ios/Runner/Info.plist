@@ -84,5 +84,27 @@
     <string>Book Guard app requires access to microphone when you will be used to record your speech at time of  press the "Mic" button.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Book Guard app requires access to the photo library to upload your profile photo.</string>
+    
+    <key>NSCalendarsUsageDescription</key>
+    <string>This app requires access to your calendar to manage event scheduling.</string>
+
+    <key>NSContactsUsageDescription</key>
+    <string>This app requires access to your contacts to enhance user experience.</string>
+
+    <key>NSAppleMusicUsageDescription</key>
+    <string>This app requires access to your music library to provide better media services.</string>
+
+    <key>NSMotionUsageDescription</key>
+    <string>This app uses motion data to enhance app functionality.</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app requires location access to provide location-based services.</string>
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app requires location access to improve user experience with location-based features.</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

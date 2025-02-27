@@ -3,14 +3,14 @@ import Flutter
 import flutter_downloader
 
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
     
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-//    GeneratedPluginRegistrant.register(with: self)
+    GeneratedPluginRegistrant.register(with: self)
     FlutterDownloaderPlugin.setPluginRegistrantCallback(registerPlugins)
     
     let controller : FlutterViewController = window?.rootViewController as! FlutterViewController

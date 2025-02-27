@@ -1,6 +1,6 @@
 name: granth_flutter
 description: A new Book selling  Flutter application.
-version: 4.9.0
+version: 1.0.0+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

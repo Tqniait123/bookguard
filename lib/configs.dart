@@ -4,7 +4,7 @@ const APP_NAME = 'Book Guard';
 const DEFAULT_LANGUAGE = 'en';
 var defaultPrimaryColor = Color(0xff876A48);
 
-const DOMAIN_URL = "https://bookguardeg.com";
+const DOMAIN_URL = "https://bookguard.org";
 const BASE_URL = '$DOMAIN_URL/api/';
 
 const ONE_SIGNAL_APP_ID = '';

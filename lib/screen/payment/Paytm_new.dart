@@ -7,7 +7,7 @@ import 'package:granth_flutter/configs.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
-import 'package:paytm/paytm.dart';
+// import 'package:paytm/paytm.dart';
 
 class PaytmPayment {
   static const CHANNEL = "granth_payment";
@@ -47,29 +47,29 @@ class PaytmPayment {
       );
       String txnToken = response.body;
 
-      var paytmResponse = Paytm.payWithPaytm(mId: PAYTM_ID, orderId: orderId.toString(), txnToken: txnToken, txnAmount: "1", callBackUrl: callBackUrl, staging: testing, appInvokeEnabled: false);
+      // var paytmResponse = Paytm.payWithPaytm(mId: PAYTM_ID, orderId: orderId.toString(), txnToken: txnToken, txnAmount: "1", callBackUrl: callBackUrl, staging: testing, appInvokeEnabled: false);
 
-      paytmResponse.then((value) {
-        print(value);
-        appStore.setLoading(false);
-
-        if (value['error']) {
-          paymentResponse = value['errorMessage'];
-        } else {
-          if (value['response'] != null) {
-            paymentResponse = value['response']['STATUS'];
-            print("paytm success${paymentResponse.toString()}");
-            var request = <String, String?>{
-              "TXNID": value['response']['TXNID'],
-              "STATUS": value['response']['STATUS'],
-              "TXN_ORDER_ID": value['response']['ORDERID'],
-              "TXN_BANK_NAME": value['response']['BANKNAME:WALLET'],
-            };
-            //saveTransaction(request, "", PAYTM_STATUS, 'TXN_SUCCESS');
-          }
-        }
-        paymentResponse += "\n" + value.toString();
-      });
+      // paytmResponse.then((value) {
+      //   print(value);
+      //   appStore.setLoading(false);
+      //
+      //   if (value['error']) {
+      //     paymentResponse = value['errorMessage'];
+      //   } else {
+      //     if (value['response'] != null) {
+      //       paymentResponse = value['response']['STATUS'];
+      //       print("paytm success${paymentResponse.toString()}");
+      //       var request = <String, String?>{
+      //         "TXNID": value['response']['TXNID'],
+      //         "STATUS": value['response']['STATUS'],
+      //         "TXN_ORDER_ID": value['response']['ORDERID'],
+      //         "TXN_BANK_NAME": value['response']['BANKNAME:WALLET'],
+      //       };
+      //       //saveTransaction(request, "", PAYTM_STATUS, 'TXN_SUCCESS');
+      //     }
+      //   }
+      //   paymentResponse += "\n" + value.toString();
+      // });
     } catch (e) {
       appStore.setLoading(false);
       print(e);
