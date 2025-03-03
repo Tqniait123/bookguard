@@ -43,6 +43,7 @@ const String transparent_app_logo = "images/app_images/app_logo_tra.png";
 const String small_logo = "images/app_images/small-logo.png";
 const String about_us_icon = "images/app_icons/file.png";
 const String terms_icon = "images/app_icons/terms-and-conditions.png";
+const String delete_account = "images/app_icons/deleteAccount.png";
 const String star_icon = "images/app_icons/stars.png";
 const String feed_back = "images/app_icons/feedback.png";
 const String warning = "images/app_icons/warning.png";

@@ -519,4 +519,10 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get current => "Current";
+
+  @override
+  String get deleteAccount => "Delete Account";
+
+  @override
+  String get areYouSureWantToDeleteAccount => "Are you sure want to delete your account?";
 }

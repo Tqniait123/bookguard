@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:granth_flutter/configs.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/network/rest_apis.dart';
@@ -18,6 +19,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../component/app_loader_widget.dart';
 import '../../../utils/common.dart';
 import '../../setting/about_us_screen.dart';
 import '../../setting/feedback_screen.dart';
@@ -54,306 +56,331 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget(
-        "",
-        color: context.scaffoldBackgroundColor,
-        elevation: 0,
-        showBack: false,
-        actions: [
-          IconButton(
-            splashRadius: 24,
-            icon: Icon(Icons.shopping_cart_outlined),
-            onPressed: () {
-              CartFragment(isShowBack: true).launch(context);
-            },
-          ).visible(appStore.isLoggedIn),
-          IconButton(
-            padding: EdgeInsets.only(right: defaultRadius),
-            splashRadius: 24,
-            icon: Icon(Icons.favorite_border),
-            onPressed: () {
-              WishListScreen().launch(context);
-            },
-          ).visible(appStore.isLoggedIn),
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraint) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    children: <Widget>[
-                      SettingTopComponent().visible(appStore.isLoggedIn),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: appBarWidget(
+            "",
+            color: context.scaffoldBackgroundColor,
+            elevation: 0,
+            showBack: false,
+            actions: [
+              IconButton(
+                splashRadius: 24,
+                icon: Icon(Icons.shopping_cart_outlined),
+                onPressed: () {
+                  CartFragment(isShowBack: true).launch(context);
+                },
+              ).visible(appStore.isLoggedIn),
+              IconButton(
+                padding: EdgeInsets.only(right: defaultRadius),
+                splashRadius: 24,
+                icon: Icon(Icons.favorite_border),
+                onPressed: () {
+                  WishListScreen().launch(context);
+                },
+              ).visible(appStore.isLoggedIn),
+            ],
+          ),
+          body: LayoutBuilder(
+            builder: (context, constraint) {
+              print('appStore.isLoggedIn');
+              print(appStore.isLoggedIn);
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: <Widget>[
+                          SettingTopComponent().visible(appStore.isLoggedIn),
 
-                      SettingItemWidget(
-                        title: language!.login,
-                        subTitle: language!.changeYourPassword,
-                        onTap: () {
-                          SignInScreen().launch(context);
-                        },
-                        trailing: IconButton(
-                          padding: EdgeInsets.only(left: defaultRadius),
-                          onPressed: () {},
-                          icon: Icon(Icons.login),
-                          splashColor: transparentColor,
-                          highlightColor: transparentColor,
-                        ),
-                      ).visible(!appStore.isLoggedIn),
-                      16.height.visible(appStore.isLoggedIn),
-                      SettingItemWidget(
-                        title: language!.subscriptions,
-                        subTitle: language!.subscriptions,
-                        titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
-                        onTap: () {
-                          appStore.isLoggedIn ? SubscriptionsPage().launch(context)  : SignInScreen().launch(context);
+                          SettingItemWidget(
+                            title: language!.login,
+                            subTitle: language!.changeYourPassword,
+                            onTap: () {
+                              SignInScreen().launch(context);
+                            },
+                            trailing: IconButton(
+                              padding: EdgeInsets.only(left: defaultRadius),
+                              onPressed: () {},
+                              icon: Icon(Icons.login),
+                              splashColor: transparentColor,
+                              highlightColor: transparentColor,
+                            ),
+                          ).visible(!appStore.isLoggedIn),
+                          16.height.visible(appStore.isLoggedIn),
+                          SettingItemWidget(
+                            title: language!.subscriptions,
+                            subTitle: language!.subscriptions,
+                            titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
+                            onTap: () {
+                              appStore.isLoggedIn ? SubscriptionsPage().launch(context)  : SignInScreen().launch(context);
 
-                        },
-                        trailing: Icon(Icons.subscriptions),
-                      ),
-                      16.height.visible(appStore.isLoggedIn),
-                      SettingItemWidget(
-                        title: language!.subscriptionHistory,
-                        subTitle: language!.subscriptionHistory,
-                        titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
-                        onTap: () {
-                          SubscriptionsHistoryPage().launch(context);
+                            },
+                            trailing: Icon(Icons.subscriptions),
+                          ),
+                          16.height.visible(appStore.isLoggedIn),
+                          SettingItemWidget(
+                            title: language!.subscriptionHistory,
+                            subTitle: language!.subscriptionHistory,
+                            titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
+                            onTap: () {
+                              SubscriptionsHistoryPage().launch(context);
 
-                        },
-                        trailing: Icon(Icons.monetization_on_outlined),
-                      ).visible(appStore.isLoggedIn),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.appLanguage,
-                        subTitle: language!.changeYourLanguage,
-                        titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
-                        onTap: () async {
-                          bool? hasLanguageChange = await LanguagesScreen().launch(context);
-                          if (hasLanguageChange.validate()) {
-                            setState(() {});
-                          }
-                        },
-                        trailing: IconButton(
-                          icon: Icon(Icons.language),
-                          splashColor: transparentColor,
-                          highlightColor: transparentColor,
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.only(left: defaultRadius),
-                          onPressed: () async {
-                            bool? hasLanguageChange = await LanguagesScreen().launch(context);
-                            if (hasLanguageChange.validate()) {
-                              setState(() {});
-                            }
-                          },
-                        ),
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.appTheme,
-                        subTitle: appStore.isDarkMode ? language!.tapToEnableLightMode : language!.tapToEnableDarkMode,
-                        onTap: () async {
-                          if (getBoolAsync(IS_DARK_MODE)) {
-                            appStore.setDarkMode(false);
-                            await setValue(IS_DARK_MODE, false);
-                          } else {
-                            appStore.setDarkMode(true);
-                            await setValue(IS_DARK_MODE, true);
-                          }
-                        },
-                        trailing: Container(
-                          padding: EdgeInsets.only(left: defaultRadius),
-                          height: 20,
-                          width: 50,
-                          child: Switch(
-                            value: appStore.isDarkMode,
-                            activeColor: Colors.white,
-                            activeTrackColor: defaultPrimaryColor,
-                            inactiveThumbColor: secondaryPrimaryColor,
-                            inactiveTrackColor: grey.withValues(alpha: 0.6),
-                            onChanged: (val) async {
-                              appStore.setDarkMode(val);
-                              await setValue(IS_DARK_MODE, val);
+                            },
+                            trailing: Icon(Icons.monetization_on_outlined),
+                          ).visible(appStore.isLoggedIn),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.appLanguage,
+                            subTitle: language!.changeYourLanguage,
+                            titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
+                            onTap: () async {
+                              bool? hasLanguageChange = await LanguagesScreen().launch(context);
+                              if (hasLanguageChange.validate()) {
+                                setState(() {});
+                              }
+                            },
+                            trailing: IconButton(
+                              icon: Icon(Icons.language),
+                              splashColor: transparentColor,
+                              highlightColor: transparentColor,
+                              constraints: BoxConstraints(),
+                              padding: EdgeInsets.only(left: defaultRadius),
+                              onPressed: () async {
+                                bool? hasLanguageChange = await LanguagesScreen().launch(context);
+                                if (hasLanguageChange.validate()) {
+                                  setState(() {});
+                                }
+                              },
+                            ),
+                          ),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.appTheme,
+                            subTitle: appStore.isDarkMode ? language!.tapToEnableLightMode : language!.tapToEnableDarkMode,
+                            onTap: () async {
+                              if (getBoolAsync(IS_DARK_MODE)) {
+                                appStore.setDarkMode(false);
+                                await setValue(IS_DARK_MODE, false);
+                              } else {
+                                appStore.setDarkMode(true);
+                                await setValue(IS_DARK_MODE, true);
+                              }
+                            },
+                            trailing: Container(
+                              padding: EdgeInsets.only(left: defaultRadius),
+                              height: 20,
+                              width: 50,
+                              child: Switch(
+                                value: appStore.isDarkMode,
+                                activeColor: Colors.white,
+                                activeTrackColor: defaultPrimaryColor,
+                                inactiveThumbColor: secondaryPrimaryColor,
+                                inactiveTrackColor: grey.withValues(alpha: 0.6),
+                                onChanged: (val) async {
+                                  appStore.setDarkMode(val);
+                                  await setValue(IS_DARK_MODE, val);
+                                },
+                              ),
+                            ),
+                          ),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.changePassword,
+                            subTitle: language!.changeYourPassword,
+                            onTap: () {
+                              ChangePasswordScreen().launch(context);
+                            },
+                            trailing: IconButton(
+                              constraints: BoxConstraints(),
+                              padding: EdgeInsets.only(left: defaultRadius),
+                              onPressed: () {},
+                              splashColor: transparentColor,
+                              highlightColor: transparentColor,
+                              icon: Icon(Icons.password_rounded),
+                            ),
+                          ).visible(appStore.isLoggedIn),
+                          // Divider(height: 0).visible(appStore.isLoggedIn),
+                          // SettingItemWidget(
+                          //   title: language!.transactionHistory,
+                          //   subTitle: language!.transactionHistoryReport,
+                          //   onTap: () {
+                          //     TransactionHistoryScreen().launch(context);
+                          //   },
+                          //   trailing: IconButton(
+                          //     constraints: BoxConstraints(),
+                          //     padding: EdgeInsets.only(left: defaultRadius),
+                          //     onPressed: () {},
+                          //     splashColor: transparentColor,
+                          //     highlightColor: transparentColor,
+                          //     icon: Icon(Icons.monetization_on_outlined),
+                          //   ),
+                          // ).visible(appStore.isLoggedIn),
+                          Divider(height: 0).visible(appStore.isLoggedIn),
+
+                          SettingItemWidget(
+                            title: language!.chooseDetailPageVariant,
+                            subTitle: language!.animationMadeEvenBetter,
+                            onTap: () {
+                              ChooseDetailPageVariantScreen().launch(context);
+                            },
+                            trailing: IconButton(
+                              constraints: BoxConstraints(),
+                              padding: EdgeInsets.only(left: defaultRadius),
+                              onPressed: () {},
+                              splashColor: transparentColor,
+                              highlightColor: transparentColor,
+                              icon: Icon(Icons.check_circle),
+                            ),
+                          ),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.share,
+                            subTitle: language!.share,
+                            trailing: Icon(Icons.share_rounded),
+                            onTap: () {
+                              share();
                             },
                           ),
-                        ),
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.changePassword,
-                        subTitle: language!.changeYourPassword,
-                        onTap: () {
-                          ChangePasswordScreen().launch(context);
-                        },
-                        trailing: IconButton(
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.only(left: defaultRadius),
-                          onPressed: () {},
-                          splashColor: transparentColor,
-                          highlightColor: transparentColor,
-                          icon: Icon(Icons.password_rounded),
-                        ),
-                      ).visible(appStore.isLoggedIn),
-                      // Divider(height: 0).visible(appStore.isLoggedIn),
-                      // SettingItemWidget(
-                      //   title: language!.transactionHistory,
-                      //   subTitle: language!.transactionHistoryReport,
-                      //   onTap: () {
-                      //     TransactionHistoryScreen().launch(context);
-                      //   },
-                      //   trailing: IconButton(
-                      //     constraints: BoxConstraints(),
-                      //     padding: EdgeInsets.only(left: defaultRadius),
-                      //     onPressed: () {},
-                      //     splashColor: transparentColor,
-                      //     highlightColor: transparentColor,
-                      //     icon: Icon(Icons.monetization_on_outlined),
-                      //   ),
-                      // ).visible(appStore.isLoggedIn),
-                      Divider(height: 0).visible(appStore.isLoggedIn),
-
-                      SettingItemWidget(
-                        title: language!.chooseDetailPageVariant,
-                        subTitle: language!.animationMadeEvenBetter,
-                        onTap: () {
-                          ChooseDetailPageVariantScreen().launch(context);
-                        },
-                        trailing: IconButton(
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.only(left: defaultRadius),
-                          onPressed: () {},
-                          splashColor: transparentColor,
-                          highlightColor: transparentColor,
-                          icon: Icon(Icons.check_circle),
-                        ),
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.share,
-                        subTitle: language!.share,
-                        trailing: Icon(Icons.share_rounded),
-                        onTap: () {
-                          share();
-                        },
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.aboutApp,
-                        subTitle: language!.aboutApp,
-                        trailing: Image.asset(about_us_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
-                        onTap: () {
-                          AboutUsScreen().launch(context);
-                        },
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.feedback,
-                        subTitle: language!.feedback,
-                        trailing: Image.asset(feed_back, height: 24, width: 24, fit: BoxFit.fitHeight),
-                        onTap: () {
-                          FeedBackScreen().launch(context);
-                        },
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.rateUs,
-                        subTitle: language!.rateUs,
-                        trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
-                        onTap: () {
-                          getPackageName().then((value) {
-                            String package = '';
-                            if (isAndroid) package = value;
-
-                            commonLaunchUrl(
-                              '${isAndroid ? getSocialMediaLink(LinkProvider.PLAY_STORE) : getSocialMediaLink(LinkProvider.APPSTORE)}$package',
-                              launchMode: LaunchMode.externalApplication,
-                            );
-                          });
-                        },
-                      ),
-                      Divider(height: 0),
-                      SettingItemWidget(
-                        title: language!.termsConditions,
-                        subTitle: language!.termsConditions,
-                        trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
-                        onTap: () async{
-                          // await commonLaunchUrl(PRIVACY_POLICY);
-                          TermsScreen().launch(context);
-                        },
-                      ),
-
-
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.all(defaultRadius),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.aboutApp,
+                            subTitle: language!.aboutApp,
+                            trailing: Image.asset(about_us_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
+                            onTap: () {
+                              AboutUsScreen().launch(context);
+                            },
                           ),
-                          child: AppButton(
-                            elevation: 0,
-                            enableScaleAnimation: false,
-                            shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
-                            width: context.width(),
-                            color: transparentColor,
-                            text: language!.logout,
-                            textStyle: boldTextStyle(color: Colors.white),
-                            onTap: () async {
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.feedback,
+                            subTitle: language!.feedback,
+                            trailing: Image.asset(feed_back, height: 24, width: 24, fit: BoxFit.fitHeight),
+                            onTap: () {
+                              FeedBackScreen().launch(context);
+                            },
+                          ),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.rateUs,
+                            subTitle: language!.rateUs,
+                            trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
+                            onTap: () {
+                              getPackageName().then((value) {
+                                String package = '';
+                                if (isAndroid) package = value;
+
+                                commonLaunchUrl(
+                                  '${isAndroid ? getSocialMediaLink(LinkProvider.PLAY_STORE) : getSocialMediaLink(LinkProvider.APPSTORE)}$package',
+                                  launchMode: LaunchMode.externalApplication,
+                                );
+                              });
+                            },
+                          ),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.termsConditions,
+                            subTitle: language!.termsConditions,
+                            trailing: Image.asset(terms_icon, height: 24, width: 24, fit: BoxFit.fitHeight),
+                            onTap: () async{
+                              // await commonLaunchUrl(PRIVACY_POLICY);
+                              TermsScreen().launch(context);
+                            },
+                          ),
+                          Divider(height: 0),
+                          SettingItemWidget(
+                            title: language!.deleteAccount,
+                            subTitle: language!.deleteAccount,
+                            titleTextColor: Colors.red,
+                            trailing: Image.asset(delete_account, height: 24, width: 24, fit: BoxFit.fitHeight, color: Colors.red,),
+                            onTap: () async{
                               showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
-                                logout(context);
-                              }, title: language!.areYouSureWantToLogout, positiveText: language!.yes, negativeText: language!.no);
+                                deleteAccount(context);
+                              }, title: language!.areYouSureWantToDeleteAccount, positiveText: language!.yes, negativeText: language!.no);
+
+
                             },
                           ).visible(appStore.isLoggedIn),
-                        ),
+
+
+                          Spacer(),
+                          Padding(
+                            padding: EdgeInsets.all(defaultRadius),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: AppButton(
+                                elevation: 0,
+                                enableScaleAnimation: false,
+                                shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
+                                width: context.width(),
+                                color: transparentColor,
+                                text: language!.logout,
+                                textStyle: boldTextStyle(color: Colors.white),
+                                onTap: () async {
+                                  showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
+                                    logout(context);
+                                  }, title: language!.areYouSureWantToLogout, positiveText: language!.yes, negativeText: language!.no);
+                                },
+                              ).visible(appStore.isLoggedIn),
+                            ),
+                          ),
+                          16.height,
+                          // Container(
+                          //   color: defaultPrimaryColor.withValues(alpha: 0.7),
+                          //   padding: EdgeInsets.all(defaultRadius),
+                          //   width: context.width(),
+                          //   child: Column(
+                          //     children: [
+                          //       Image.asset(transparent_app_logo, height: 60, width: 60),
+                          //       VersionInfoWidget(prefixText: "", textStyle: boldTextStyle(color: white)),
+                          //       24.height,
+                          //       SizedBox(
+                          //         key: UniqueKey(),
+                          //         child: SettingScreenBottomComponent(),
+                          //       ),
+                          //       16.height,
+                          //       AppButton(
+                          //         elevation: 0,
+                          //         enableScaleAnimation: false,
+                          //         shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
+                          //         width: context.width(),
+                          //         color: white,
+                          //         text: language!.logout,
+                          //         textStyle: boldTextStyle(color: defaultPrimaryColor),
+                          //         onTap: () async {
+                          //           showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
+                          //             logout(context);
+                          //           }, title: language!.areYouSureWantToLogout, positiveText: language!.yes, negativeText: language!.no);
+                          //         },
+                          //       ).visible(appStore.isLoggedIn),
+                          //     ],
+                          //   ),
+                          // ),
+                        ],
                       ),
-                      16.height,
-                      // Container(
-                      //   color: defaultPrimaryColor.withValues(alpha: 0.7),
-                      //   padding: EdgeInsets.all(defaultRadius),
-                      //   width: context.width(),
-                      //   child: Column(
-                      //     children: [
-                      //       Image.asset(transparent_app_logo, height: 60, width: 60),
-                      //       VersionInfoWidget(prefixText: "", textStyle: boldTextStyle(color: white)),
-                      //       24.height,
-                      //       SizedBox(
-                      //         key: UniqueKey(),
-                      //         child: SettingScreenBottomComponent(),
-                      //       ),
-                      //       16.height,
-                      //       AppButton(
-                      //         elevation: 0,
-                      //         enableScaleAnimation: false,
-                      //         shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
-                      //         width: context.width(),
-                      //         color: white,
-                      //         text: language!.logout,
-                      //         textStyle: boldTextStyle(color: defaultPrimaryColor),
-                      //         onTap: () async {
-                      //           showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
-                      //             logout(context);
-                      //           }, title: language!.areYouSureWantToLogout, positiveText: language!.yes, negativeText: language!.no);
-                      //         },
-                      //       ).visible(appStore.isLoggedIn),
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        ),
+        Observer(
+          builder: (context) {
+            return AppLoaderWidget().visible(appStore.isLoading).center();
+          },
+        )
+      ],
     );
   }
 }

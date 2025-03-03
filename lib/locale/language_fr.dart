@@ -515,4 +515,11 @@ class LanguageFr extends BaseLanguage {
 
   @override
   String get current => "الحالية";
+
+  @override
+  String get deleteAccount => "حذف الحساب";
+
+  @override
+  String get areYouSureWantToDeleteAccount => "هل انت متاكد من حذف حسابك";
+
 }

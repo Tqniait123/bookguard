@@ -249,6 +249,10 @@ Future logoutApi() async {
   return await handleResponse(await buildHttpResponse('logout', method: HttpMethod.POST));
 }
 
+Future deleteAccountApi() async {
+  return await handleResponse(await buildHttpResponse('delete', method: HttpMethod.POST));
+}
+
 ///end region
 
 ///logout api call
@@ -256,7 +260,7 @@ Future<void> logout(BuildContext context) async {
   if (await isNetworkAvailable()) {
     appStore.setLoading(true);
 
-    logoutApi().then((value) async {
+    await logoutApi().then((value) async {
       appStore.setCartCount(0);
       //
     }).catchError((e) {
@@ -264,6 +268,30 @@ Future<void> logout(BuildContext context) async {
     });
 
     await clearPreferences();
+
+    appStore.setLoading(false);
+    finish(context);
+    DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+  } else {
+    toast(errorInternetNotAvailable);
+  }
+}
+
+Future<void> deleteAccount(BuildContext context) async {
+  if (await isNetworkAvailable()) {
+    appStore.setLoading(true);
+
+    await deleteAccountApi().then((value) async {
+      print('==================');
+      print('delete: $value');
+      appStore.setCartCount(0);
+      await clearPreferences();
+    }).catchError((e) {
+      log('deleteeeeeeeeeeeeeeeeeeeeeee');
+      log(e.toString());
+    });
+
+
 
     appStore.setLoading(false);
     finish(context);

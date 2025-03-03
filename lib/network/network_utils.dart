@@ -20,6 +20,8 @@ Map<String, String> buildHeaderTokens() {
     'lang': appStore.selectedLanguageCode,
   };
 
+  print('appStore.isLoggedIn header');
+  print(appStore.isLoggedIn);
   if (appStore.isLoggedIn) {
     header.putIfAbsent(HttpHeaders.authorizationHeader, () => 'Bearer ${appStore.token}');
   }
@@ -45,6 +47,8 @@ Future<Response> buildHttpResponse(
     var headers = header ?? buildHeaderTokens();
     Uri url = buildBaseUrl(endPoint);
     log(url);
+    log(headers);
+    log(appStore.isLoggedIn);
 
     Response response;
 

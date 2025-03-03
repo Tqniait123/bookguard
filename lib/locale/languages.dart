@@ -348,4 +348,8 @@ abstract class BaseLanguage {
   String get subscriptionHistory;
 
   String get current;
+
+  String get deleteAccount;
+
+  String get areYouSureWantToDeleteAccount;
 }
