@@ -84,8 +84,6 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
           ),
           body: LayoutBuilder(
             builder: (context, constraint) {
-              print('appStore.isLoggedIn');
-              print(appStore.isLoggedIn);
               return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

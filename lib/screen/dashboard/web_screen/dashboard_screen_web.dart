@@ -22,6 +22,11 @@ import 'package:granth_flutter/utils/string_extensions.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../setting/feedback_screen.dart';
+import '../../setting/terms_screen.dart';
+import '../../subscriptions/subscriptions_history.dart';
+import '../../subscriptions/subscriptions_page.dart';
+
 class WebDashboardScreen extends StatefulWidget {
   @override
   _WebDashboardScreenState createState() => _WebDashboardScreenState();
@@ -33,12 +38,15 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
   List<Widget> pages = [
     DashboardFragment(),
     SignInScreen().visible(!appStore.isLoggedIn),
+    SubscriptionsPage().visible(appStore.isLoggedIn),
+    SubscriptionsHistoryPage().visible(appStore.isLoggedIn),
     LibraryFragment(),
     CartFragment().visible(appStore.isLoggedIn),
     WishListScreen().visible(appStore.isLoggedIn),
-    TransactionHistoryScreen().visible(appStore.isLoggedIn),
+    // TransactionHistoryScreen().visible(appStore.isLoggedIn),
     ChangePasswordScreen().visible(appStore.isLoggedIn),
     LanguagesScreen(),
+    TermsScreen(),
   ];
 
   @override
@@ -137,11 +145,29 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                           },
                         ).visible(!appStore.isLoggedIn),
                         SettingItemWidget(
+                          title: language!.subscriptions,
+                          titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 1)),
+                          leading: Icon(Icons.subscriptions, color: txtColor(index: 1)),
+                          onTap: () {
+                            initialPage = 2;
+                            setState(() {});
+                          },
+                        ).visible(appStore.isLoggedIn),
+                        SettingItemWidget(
+                          title: language!.subscriptionHistory,
+                          titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 1)),
+                          leading: Icon(Icons.monetization_on_outlined),
+                          onTap: () {
+                            initialPage = 3;
+                            setState(() {});
+                          },
+                        ).visible(appStore.isLoggedIn),
+                        SettingItemWidget(
                           title: language!.library,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 2)),
                           leading: library_icon2.iconImage(color: txtColor(index: 2)),
                           onTap: () {
-                            initialPage = 2;
+                            initialPage = 4;
                             setState(() {});
                           },
                         ),
@@ -150,7 +176,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 3)),
                           leading: cart_icon.iconImage(color: txtColor(index: 3)),
                           onTap: () {
-                            initialPage = 3;
+                            initialPage = 5;
                             setState(() {});
                           },
                         ).visible(appStore.isLoggedIn),
@@ -159,25 +185,25 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 4)),
                           leading: Icon(Icons.favorite_border, color: txtColor(index: 4)),
                           onTap: () {
-                            initialPage = 4;
+                            initialPage = 6;
                             setState(() {});
                           },
                         ).visible(appStore.isLoggedIn),
-                        SettingItemWidget(
-                          title: language!.transactionHistory,
-                          titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 5)),
-                          leading: Icon(Icons.monetization_on_outlined, color: txtColor(index: 5)),
-                          onTap: () {
-                            initialPage = 5;
-                            setState(() {});
-                          },
-                        ).visible(appStore.isLoggedIn),
+                        // SettingItemWidget(
+                        //   title: language!.transactionHistory,
+                        //   titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 5)),
+                        //   leading: Icon(Icons.monetization_on_outlined, color: txtColor(index: 5)),
+                        //   onTap: () {
+                        //     initialPage = 5;
+                        //     setState(() {});
+                        //   },
+                        // ).visible(appStore.isLoggedIn),
                         SettingItemWidget(
                           title: language!.changePassword,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 6)),
                           leading: Icon(Icons.password_rounded, color: txtColor(index: 6)),
                           onTap: () {
-                            initialPage = 6;
+                            initialPage = 7;
                             setState(() {});
                           },
                         ).visible(appStore.isLoggedIn),
@@ -186,9 +212,9 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 7)),
                           leading: Icon(Icons.language, color: txtColor(index: 7)),
                           onTap: () {
-                            initialPage = 7;
+                            initialPage = 8;
                             setState(() {});
-                            if (initialPage == 7) {
+                            if (initialPage == 8) {
                               setState(() {});
                             }
                           },
@@ -234,7 +260,9 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                           titleTextStyle: boldTextStyle(size: 14),
                           leading: terms_icon.iconImage(color: appStore.isDarkMode ? Colors.white : Colors.black),
                           onTap: () async {
-                            await commonLaunchUrl(PRIVACY_POLICY);
+                            // await commonLaunchUrl(PRIVACY_POLICY);
+                            initialPage = 9;
+                            setState(() {});
                           },
                         ),
                         SettingItemWidget(
@@ -261,6 +289,18 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                                 return customDialogue(context, child: WebAboutUsScreen(), title: language!.aboutApp);
                               },
                             );
+                          },
+                        ),
+                        SettingItemWidget(
+                          title: language!.deleteAccount,
+                          titleTextStyle: boldTextStyle(size: 14),
+                          titleTextColor: Colors.red,
+                          leading: Image.asset(delete_account, height: 24, width: 24, fit: BoxFit.fitHeight, color: Colors.red,),
+                          onTap: () {
+                            showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
+                              deleteAccount(context);
+                            }, title: language!.areYouSureWantToDeleteAccount, positiveText: language!.yes, negativeText: language!.no);
+
                           },
                         ),
                         10.height,
