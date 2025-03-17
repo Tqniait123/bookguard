@@ -128,6 +128,7 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
                         nextFocus: passwordFocusNode,
                         controller: mobileNumberController,
                         decoration: inputDecoration(context, hintText: language!.contactNumber, preFixIcon: Icon(Icons.phone)),
+                        validator: (val){},
                       ),
                       16.height,
                       AppTextField(

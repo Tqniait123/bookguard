@@ -155,46 +155,46 @@ class _WebCartFragmentScreenState extends State<WebCartFragmentScreen> implement
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(language!.paymentMethod, style: boldTextStyle()),
-                          16.height,
-                          Wrap(
-                            spacing: 16,
-                            runSpacing: 16,
-                            children: List.generate(
-                              paymentModeList.length,
-                                  (index) {
-                                return Container(
-                                  width: context.width() / 6 - 80,
-                                  padding: EdgeInsets.all(8),
-                                  decoration: boxDecorationWithRoundedCorners(
-                                    backgroundColor: context.cardColor,
-                                    border: paymentMode == paymentModeList[index].title ? Border.all(color: defaultPrimaryColor) : Border.all(color: transparentColor),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(paymentModeList[index].image.validate(), height: 35, width: 35).expand(flex: 2),
-                                      8.width,
-                                      Transform.scale(
-                                        scale: 0.9,
-                                        child: Checkbox(
-                                          value: paymentMode == paymentModeList[index].title ? true : false,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                          overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                                          onChanged: (value) {
-                                            //
-                                          },
-                                        ).visible(paymentMode == paymentModeList[index].title),
-                                      ).expand(),
-                                    ],
-                                  ),
-                                ).onTap(() {
-                                  setState(() {
-                                    paymentMode = paymentModeList[index].title!;
-                                  });
-                                }, highlightColor: transparentColor, splashColor: transparentColor);
-                              },
-                            ),
-                          ),
+                          // Text(language!.paymentMethod, style: boldTextStyle()),
+                          // 16.height,
+                          // Wrap(
+                          //   spacing: 16,
+                          //   runSpacing: 16,
+                          //   children: List.generate(
+                          //     paymentModeList.length,
+                          //         (index) {
+                          //       return Container(
+                          //         width: context.width() / 6 - 80,
+                          //         padding: EdgeInsets.all(8),
+                          //         decoration: boxDecorationWithRoundedCorners(
+                          //           backgroundColor: context.cardColor,
+                          //           border: paymentMode == paymentModeList[index].title ? Border.all(color: defaultPrimaryColor) : Border.all(color: transparentColor),
+                          //         ),
+                          //         child: Row(
+                          //           children: [
+                          //             Image.asset(paymentModeList[index].image.validate(), height: 35, width: 35).expand(flex: 2),
+                          //             8.width,
+                          //             Transform.scale(
+                          //               scale: 0.9,
+                          //               child: Checkbox(
+                          //                 value: paymentMode == paymentModeList[index].title ? true : false,
+                          //                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          //                 overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                          //                 onChanged: (value) {
+                          //                   //
+                          //                 },
+                          //               ).visible(paymentMode == paymentModeList[index].title),
+                          //             ).expand(),
+                          //           ],
+                          //         ),
+                          //       ).onTap(() {
+                          //         setState(() {
+                          //           paymentMode = paymentModeList[index].title!;
+                          //         });
+                          //       }, highlightColor: transparentColor, splashColor: transparentColor);
+                          //     },
+                          //   ),
+                          // ),
                           30.height,
                           Text(language!.paymentDetails, style: boldTextStyle()),
                           16.height,
@@ -206,8 +206,20 @@ class _WebCartFragmentScreenState extends State<WebCartFragmentScreen> implement
                             color: defaultPrimaryColor,
                             width: context.width(),
                             enableScaleAnimation: false,
-                            onTap: () {
-                              toast('This Functionality will work only in Mobile!');
+                            onTap: () async{
+                              // toast('This Functionality will work only in Mobile!');
+                              // else {
+                              print('======================================');
+                              // cartPayment.placeOrder(paymentMode: paymentMode, cartItemList: cartItemList, context: context);
+
+                              appStore.setLoading(true);
+                              var data = jsonEncode(cartItemList);
+                              await saveTransaction(
+                              {}, data, OFFLINE_STATUS, 'TXN_SUCCESS', appStore.payableAmount);
+                              appStore.setLoading(false);
+                              appStore.setBottomNavigationBarIndex(0);
+                              init();
+
                             },
                           )
                               : SizedBox(),

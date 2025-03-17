@@ -158,6 +158,7 @@ class _WebSignupScreenState extends State<WebSignupScreen> {
                               nextFocus: passwordFocusNode,
                               controller: mobileNumberController,
                               decoration: inputDecoration(context, hintText: language!.contactNumber),
+                              validator: (val){},
                             ),
                             16.height,
                             AppTextField(
