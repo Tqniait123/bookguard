@@ -14,6 +14,8 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../utils/images.dart';
+
 class WebLoginScreen extends StatefulWidget {
   @override
   _WebLoginScreenState createState() => _WebLoginScreenState();
@@ -94,7 +96,8 @@ class _WebLoginScreenState extends State<WebLoginScreen> {
                         padding: EdgeInsets.all(22.0),
                         child: Column(
                           children: [
-                            SignInTopComponent(),
+                            // SignInTopComponent(),
+                            Image.asset(login_book1),
                             Column(
                               children: [
                                 Text(language!.login, style: boldTextStyle(size: 28)).center(),

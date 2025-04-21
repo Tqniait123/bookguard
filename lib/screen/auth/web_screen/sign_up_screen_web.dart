@@ -93,12 +93,12 @@ class _WebSignupScreenState extends State<WebSignupScreen> {
                   children: [
                     Image.asset(app_logo, height: 65, width: 65).cornerRadiusWithClipRRect(defaultRadius),
                     8.width,
-                    Text('Granth', style: boldTextStyle(size: 26, color: Colors.white)),
+                    Text(APP_NAME, style: boldTextStyle(size: 26, color: Colors.white)),
                   ],
                 ),
                 30.height,
-                Lottie.asset(walk_through_2, height: context.height() * 0.4, width: context.width() * 0.4),
-                10.height,
+                // Lottie.asset(walk_through_2, height: context.height() * 0.4, width: context.width() * 0.4),
+                // 10.height,
                 Text('Version $appVersion', style: secondaryTextStyle(color: Colors.white)),
               ],
             ),
@@ -120,7 +120,8 @@ class _WebSignupScreenState extends State<WebSignupScreen> {
                     child: Column(
                       children: [
                         30.height,
-                        SignInTopComponent(),
+                        // SignInTopComponent(),
+                        Image.asset(login_book1),
                         Column(
                           children: [
                             Text(language!.joinNow, style: boldTextStyle(size: 28)),

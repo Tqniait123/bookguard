@@ -183,10 +183,47 @@ Future<SubscriptionsHistoryModel> getSubscriptionsHistory() async {
   return subscriptionsHistoryModel;
 }
 
-Future<PlanModel> subscribeApi(request) async {
-  PlanModel planModel = PlanModel.fromJson(await handleResponse(await buildHttpResponse('subscripe', method: HttpMethod.POST, request: request)));
+Future<PlanModel> subscribeApi(transactionDetails, planId, typeEn, typeAr, ) async {
+  // PlanModel planModel = PlanModel.fromJson(await handleResponse(await buildHttpResponse('subscripe', method: HttpMethod.POST, request: request)));
   // appStore.setCartCount(cartModel.data!.length.validate());
-  return planModel;
+
+  PlanModel? planModel;
+  var request = http.MultipartRequest("POST", Uri.parse('${BASE_URL}subscripe'));
+  request.fields['transaction_detail'] = jsonEncode(transactionDetails);
+  request.fields['plan_id'] = planId;
+  request.fields['type[en]'] = typeEn;
+  request.fields['type[ar]'] = typeAr;
+
+  request.headers.addAll(buildHeaderTokens());
+  await request.send().then((res) async {
+    final response = await http.Response.fromStream(res); // 🔥 Convert stream to response
+    print('request: ${request.fields}');
+    print('Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}'); // ✅ Body printed here
+
+    if (res.statusCode == 200) {
+      print('===========================');
+      print(res.stream);
+      toast(language!.transactionSuccessfully);
+      // LiveStream().emit(CART_DATA_CHANGED, true);
+      // LiveStream().emit(PAYMENT_DONE, true);
+      planModel =  PlanModel.fromJson(await handleResponse(response));
+    } else {
+      print(';;;;;;;;;;;;;;;;;;;;;');
+      print(res.stream);
+      toast(res.statusCode.toString());
+      throw '';
+    }
+  }).catchError((error) {
+    print('===========================');
+    print(error);
+    throw error;
+  });
+if(planModel != null){
+  return planModel!;
+}else{
+  throw '';
+}
 }
 
 ///end region
@@ -369,7 +406,8 @@ Future saveTransaction(Map<String, dynamic> transactionDetails, orderDetails, ty
   var request = http.MultipartRequest("POST", Uri.parse('${BASE_URL}save-transaction'));
   request.fields['transaction_detail'] = jsonEncode(transactionDetails);
   request.fields['order_detail'] = orderDetails;
-  request.fields['type'] = type.toString();
+  request.fields['type[en]'] = type['typeEn'];
+  request.fields['type[ar]'] = type['typeAr'];
   request.fields['status'] = status.toString();
   request.fields['total_amount'] = totalAmount.toString();
 
@@ -377,12 +415,20 @@ Future saveTransaction(Map<String, dynamic> transactionDetails, orderDetails, ty
 
   request.headers.addAll(buildHeaderTokens());
   await request.send().then((res) async {
+    final response = await http.Response.fromStream(res); // 🔥 Convert stream to response
+    print('request: ${request.fields}');
+    print('Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}'); // ✅ Body printed here
+
     if (res.statusCode == 200) {
       print('===========================');
       print(res.stream);
       toast(language!.transactionSuccessfully);
       LiveStream().emit(CART_DATA_CHANGED, true);
+      LiveStream().emit(PAYMENT_DONE, true);
     } else {
+      print(';;;;;;;;;;;;;;;;;;;;;');
+      print(res.stream);
       toast(res.statusCode.toString());
     }
   }).catchError((error) {

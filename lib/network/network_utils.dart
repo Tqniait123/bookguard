@@ -86,8 +86,12 @@ Future handleResponse(Response response, [bool? avoidTokenError]) async {
   }
 
   if (response.statusCode.isSuccessful()) {
+    print('response.body');
+    print(response.body);
     return jsonDecode(response.body);
   } else {
+    print('response.body');
+    print(response.body);
     try {
       var body = jsonDecode(response.body);
       throw parseHtmlString(body['message']);

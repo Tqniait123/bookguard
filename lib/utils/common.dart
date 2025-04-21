@@ -324,15 +324,16 @@ void openBookOnline(
     anchorElement.click();
   } else {
 
+
    var book = await getFromDb(bookId: bookDetailResponse!.bookId.toString());
    if(book != null){
 
-     print('is exist----: ${book.toJson()}');
+     print('is exist----1: ${book.toJson()}');
       await EPubViewerScreen(filePath: bookDetailResponse!.filePath.validate(), bookName: bookDetailResponse.name.validate(), bookId: bookDetailResponse.bookId, lastCfi: book.lastCfi,).launch(context).then((value) {});
 
    }
 else{
-     print('is exist----: ${book?.toJson()}');
+     print('is exist----2: ${book?.toJson()}');
      await insertIntoDb(
        userid: appStore.userId.toInt().validate(),
        bookId: bookDetailResponse!.bookId.toString(),

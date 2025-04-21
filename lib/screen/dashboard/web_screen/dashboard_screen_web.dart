@@ -115,7 +115,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             children: [
                               Image.asset(app_logo, height: 60, width: 60).cornerRadiusWithClipRRect(defaultRadius),
                               20.width,
-                              Text('Granth', style: boldTextStyle(size: 24), maxLines: 2, overflow: TextOverflow.ellipsis),
+                              Text(APP_NAME, style: boldTextStyle(size: 24), maxLines: 2, overflow: TextOverflow.ellipsis),
                             ],
                           ).fit(),
                           20.height.visible(appStore.isLoggedIn),

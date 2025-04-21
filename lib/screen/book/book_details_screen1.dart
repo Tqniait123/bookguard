@@ -14,6 +14,8 @@ import 'package:granth_flutter/utils/admob_utils.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../payment/payment_done.dart';
+
 class BookDetailsScreen1 extends StatefulWidget {
   static String tag = '/BookDetailsScreen1';
   final int? bookId;
@@ -51,6 +53,19 @@ class BookDetailsScreen1State extends State<BookDetailsScreen1> {
       await setStatusBarColor(transparentColor, statusBarBrightness: Brightness.dark, statusBarIconBrightness: Brightness.dark);
       LiveStream().on(CART_DATA_CHANGED, (p0) async {
         setState(() {});
+        print('1111111111111111 ✔✔');
+      });
+      LiveStream().on(PAYMENT_DONE, (p0) async {
+
+        getBookDetails(
+          {
+            "book_id": widget.bookId.validate(),
+            "user_id": appStore.userId.validate(),
+          },
+        );
+        // PaymentSuccessPage().launch(context);
+        print('retrive ✔✔');
+        setState(() {});
       });
       LiveStream().on(IS_REVIEW_CHANGE, (p0) async {
         setState(() {});
@@ -68,6 +83,7 @@ class BookDetailsScreen1State extends State<BookDetailsScreen1> {
     // _bannerAd?.dispose();
     LiveStream().dispose(CART_DATA_CHANGED);
     LiveStream().dispose(IS_REVIEW_CHANGE);
+    LiveStream().dispose(PAYMENT_DONE);
     super.dispose();
   }
 

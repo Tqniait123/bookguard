@@ -13,9 +13,10 @@ class TermsScreen extends StatelessWidget {
     print(TERMS_AND_CONDITIONS_TEXT);
     return Scaffold(
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          padding: EdgeInsets.all(16),
           children: [
             40.height,
             Image.asset(app_logo, alignment: Alignment.center, height: 120, width: 120).cornerRadiusWithClipRRect(defaultRadius),

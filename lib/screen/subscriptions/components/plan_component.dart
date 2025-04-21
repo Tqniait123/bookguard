@@ -67,7 +67,9 @@ class PlanComponentState extends State<PlanComponent> {
                   toast(language!.youAlreadySubscribed);
                   return;
                 }
-                showConfirmDialogCustom(context, primaryColor: defaultPrimaryColor, onAccept: (c) {
+                showConfirmDialogCustom(context, cancelable: false, primaryColor: defaultPrimaryColor, onCancel: (_){
+                  finish(context);
+                }, onAccept: (c) {
                   widget.onPlanSelected!(widget.list![index].id??0);
                 }, title: language!.areYouSureWantToSubscribe, positiveText: language!.yes, negativeText: language!.no);
 

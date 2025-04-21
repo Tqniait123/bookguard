@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:granth_flutter/component/app_loader_widget.dart';
 import 'package:granth_flutter/component/no_data_found_widget.dart';
+import 'package:granth_flutter/configs.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/models/bookdetail_model.dart';
 import 'package:granth_flutter/network/rest_apis.dart';
@@ -111,7 +112,7 @@ class _WebSearchScreenState extends State<WebSearchScreen> {
                 child: Row(
                   children: [
                     Image.asset(transparent_app_logo, height: 40, width: 40, fit: BoxFit.cover),
-                    Text('Granth', style: boldTextStyle(size: 20)),
+                    Text(APP_NAME, style: boldTextStyle(size: 20)),
                   ],
                 ),
               ),

@@ -83,20 +83,20 @@ class _SubscriptionsHistoryPageState extends State<SubscriptionsHistoryPage> {
     appStore.setLoading(false);
   }
 
-  Future<void> subscribe(int planId) async {
-    appStore.setLoading(true);
-    await subscribeApi({'plan_id' : planId.toString()}).then((value) {
-      toast(value.message);
-      if(value.status == true){
-        getData();
-        appStore.setUserActiveSubscription(true);
-      }
-      setState(() {});
-    }).catchError((e) {
-      toast(e.toString());
-    });
-    appStore.setLoading(false);
-  }
+  // Future<void> subscribe(int planId) async {
+  //   appStore.setLoading(true);
+  //   await subscribeApi({'plan_id' : planId.toString()}).then((value) {
+  //     toast(value.message);
+  //     if(value.status == true){
+  //       getData();
+  //       appStore.setUserActiveSubscription(true);
+  //     }
+  //     setState(() {});
+  //   }).catchError((e) {
+  //     toast(e.toString());
+  //   });
+  //   appStore.setLoading(false);
+  // }
 
   @override
   void dispose() {
@@ -158,7 +158,7 @@ class _SubscriptionsHistoryPageState extends State<SubscriptionsHistoryPage> {
                     list: _subscriptions,
                     i: 0,
                     onPlanSelected: (int planId){
-                      subscribe(planId);
+                      // subscribe(planId);
                     },
                   )
                       : Observer(builder: (context) {

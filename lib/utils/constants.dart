@@ -56,6 +56,7 @@ const LIVESTREAM_TOKEN = 'tokenStream';
 const CART_COUNT = 'CART_COUNT';
 const CART_COUNT_ACTION = "cart_count_action";
 const CART_DATA_CHANGED = "CART_DATA_CHANGED";
+const PAYMENT_DONE = "PAYMENT_DONE";
 const IS_REVIEW_CHANGE = "IS_REVIEW_CHANGE";
 const UPDATE_DATA = "UPDATE_DATA";
 
