@@ -21,34 +21,10 @@ class FawaterkServices {
   static List<CartModel>? cartResponse;
   num totalAmount = 0;
   String stripeURL = "";
-  String apiKey = "0bb74675574b59b019184fcda8336355882cf93b5cbb778139"; //live
+  String apiKey = ""; //live
   // String apiKey = "d83a5d07aaeb8442dcbe259e6dae80a3f2e21a3a581e1a5acd";
   bool isTest = false;
   List<PaymentMethodModel>? paymentMethods;
-
-  init({
-    required List<CartModel> data,
-    required num totalAmount,
-    required String apiKey,
-    required bool isTest,
-  }) async {
-    Stripe.publishableKey = STRIPE_PAYMENT_PUBLISH_KEY;
-    Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
-
-    await Stripe.instance.applySettings().catchError((e) {
-      toast(e.toString(), print: true);
-
-      throw e.toString();
-    });
-
-    cartResponse = data;
-    this.totalAmount = appStore.payableAmount;
-    this.stripeURL = stripeURL;
-    this.apiKey = apiKey;
-    setValue("apiKey", apiKey);
-
-    fetchPaymentMethods();
-  }
 
   Future<List<PaymentMethodModel>> fetchPaymentMethods() async {
     final apiUrl = 'https://app.fawaterk.com/api/v2/getPaymentmethods';
@@ -67,6 +43,24 @@ class FawaterkServices {
         return responseData['data']
             .map<PaymentMethodModel>((e) => PaymentMethodModel.fromJson(e))
             .toList();
+      } else {
+        throw response.reasonPhrase ?? '';
+      }
+    } catch (error) {
+      print(error);
+      throw error ?? '';
+    }
+  }
+
+  Future<void> getApiKey() async {
+    final apiUrl = '${Uri.parse(BASE_URL)}fwaterk_api_key';
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl), headers: buildHeaderTokens());
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        print(json.encode(responseData));
+        apiKey = responseData['Fawaterk_API_KEY'];
       } else {
         throw response.reasonPhrase ?? '';
       }

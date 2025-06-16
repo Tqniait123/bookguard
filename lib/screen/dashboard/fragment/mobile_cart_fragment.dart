@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -70,11 +71,18 @@ class _MobileCartFragmentState extends State<MobileCartFragment> {
 
   getPaymentMethods() async {
     fawaterkServices = FawaterkServices();
+    await fawaterkServices.getApiKey().then((val) async{
+
     paymentMethods = await fawaterkServices.fetchPaymentMethods();
     if(paymentMethods != null) {
       paymentMethods!.removeWhere((e) => e.redirect == 'false');
+    if(Platform.isIOS){
+      paymentMethods!.removeWhere((e) => e.nameEn != 'applepay');
+    }
     }
     setState(() {});
+    });
+
     print(paymentMethods);
   }
 

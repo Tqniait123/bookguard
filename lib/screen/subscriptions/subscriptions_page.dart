@@ -66,12 +66,17 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
   getPaymentMethods() async {
     fawaterkServices = FawaterkServices();
 
-    paymentMethods = await fawaterkServices.fetchPaymentMethods();
-    if(paymentMethods != null) {
-      paymentMethods!.removeWhere((e) => e.redirect == 'false');
-    }
-    setState(() {});
-    print(paymentMethods);
+    await fawaterkServices.getApiKey().then((val) async {
+      paymentMethods = await fawaterkServices.fetchPaymentMethods();
+      if (paymentMethods != null) {
+        paymentMethods!.removeWhere((e) => e.redirect == 'false');
+        if(Platform.isIOS){
+          paymentMethods!.removeWhere((e) => e.nameEn != 'applepay');
+        }
+      }
+      setState(() {});
+      print(paymentMethods);
+    });
   }
 
   @override
