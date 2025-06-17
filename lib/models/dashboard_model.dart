@@ -28,6 +28,7 @@ class DashboardResponse {
   int? topSellBookCount;
   String? termConditions;
   String? privacyPolicy;
+  String? subscriptionAvailable;
 
   DashboardResponse({
     this.categoryBook,
@@ -50,6 +51,7 @@ class DashboardResponse {
     this.topSellBookCount,
     this.termConditions,
     this.privacyPolicy,
+    this.subscriptionAvailable,
   });
 
   factory DashboardResponse.fromJson(Map<String, dynamic> json) {
@@ -74,6 +76,7 @@ class DashboardResponse {
       topSellBookCount: json[DashboardKeys.topSellBookCount],
       termConditions: json['term_conditions'],
       privacyPolicy: json['privacy_policy'],
+      subscriptionAvailable: json['subscription_available'],
     );
   }
 
@@ -90,6 +93,7 @@ class DashboardResponse {
     data[DashboardKeys.topSellBookCount] = this.topSellBookCount;
     data['term_conditions'] = this.termConditions;
     data['privacy_policy'] = this.privacyPolicy;
+    data['subscription_available'] = this.subscriptionAvailable;
     if (this.categoryBook != null) {
       data[DashboardKeys.categoryBook] = this.categoryBook!.map((v) => v.toJson()).toList();
     }

@@ -69,7 +69,10 @@ class DashboardFragmentState extends State<DashboardFragment> {
           onSuccess: (data) {
             TERMS_AND_CONDITIONS_TEXT = data.termConditions??'';
             PRIVACY_POLICY_TEXT = data.privacyPolicy??'';
-
+            if(data.configuration != null && data.configuration!.any((e)=> e.key == 'subscription_available')){
+              IS_SUBSCRIPTION_AVAILABLE = data.configuration!.firstWhere((e)=> e.key == 'subscription_available').value;
+            }
+            IS_SUBSCRIPTION_AVAILABLE = data.subscriptionAvailable;
             return Responsive(
               mobile: MobileDashboardFragment(data: data),
               web: WebDashboardFragment(data: data),

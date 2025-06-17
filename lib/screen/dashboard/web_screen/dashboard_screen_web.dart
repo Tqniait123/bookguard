@@ -38,8 +38,8 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
   List<Widget> pages = [
     DashboardFragment(),
     SignInScreen().visible(!appStore.isLoggedIn),
-    SubscriptionsPage().visible(appStore.isLoggedIn),
-    SubscriptionsHistoryPage().visible(appStore.isLoggedIn),
+    SubscriptionsPage().visible(appStore.isLoggedIn && IS_SUBSCRIPTION_AVAILABLE == '1'),
+    SubscriptionsHistoryPage().visible(appStore.isLoggedIn && IS_SUBSCRIPTION_AVAILABLE == '1'),
     LibraryFragment(),
     CartFragment().visible(appStore.isLoggedIn),
     WishListScreen().visible(appStore.isLoggedIn),

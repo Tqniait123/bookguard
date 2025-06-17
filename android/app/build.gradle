@@ -54,7 +54,7 @@ android {
         applicationId "com.book.guard"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 8
+        versionCode 9
         versionName "1.1.0"
         multiDexEnabled true
 
