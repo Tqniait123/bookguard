@@ -12,6 +12,9 @@ import 'package:granth_flutter/screen/dashboard/search_screen.dart';
 import 'package:granth_flutter/utils/colors.dart';
 import 'package:granth_flutter/configs.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
+
+import '../../../available_provider.dart';
 
 class DashboardFragment extends StatefulWidget {
   static String tag = '/DashboardScreen';
@@ -69,10 +72,12 @@ class DashboardFragmentState extends State<DashboardFragment> {
           onSuccess: (data) {
             TERMS_AND_CONDITIONS_TEXT = data.termConditions??'';
             PRIVACY_POLICY_TEXT = data.privacyPolicy??'';
-            if(data.configuration != null && data.configuration!.any((e)=> e.key == 'subscription_available')){
-              IS_SUBSCRIPTION_AVAILABLE = data.configuration!.firstWhere((e)=> e.key == 'subscription_available').value;
-            }
             IS_SUBSCRIPTION_AVAILABLE = data.subscriptionAvailable;
+            WidgetsBinding.instance.addPostFrameCallback((_){
+
+            Provider.of<AvailableSubscription>(context, listen: false).setValue(data.subscriptionAvailable);
+            });
+
             return Responsive(
               mobile: MobileDashboardFragment(data: data),
               web: WebDashboardFragment(data: data),

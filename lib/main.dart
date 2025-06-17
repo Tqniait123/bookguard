@@ -20,7 +20,10 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/database_helper.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 
+
+import 'available_provider.dart';
 import 'network/rest_apis.dart';
 import 'utils/firebase_messaging_utils.dart';
 
@@ -133,22 +136,25 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: navigatorKey,
-        home: SplashScreen(),
-        theme: AppThemeData.lightTheme,
-        darkTheme: AppThemeData.darkTheme,
-        themeMode: appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-        supportedLocales: LanguageDataModel.languageLocales(),
-        localizationsDelegates: [
-          AppLocalizations(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) => locale,
-        locale: Locale(appStore.selectedLanguageCode),
+      builder: (_) => ChangeNotifierProvider(
+        create: (_) => AvailableSubscription(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          home: SplashScreen(),
+          theme: AppThemeData.lightTheme,
+          darkTheme: AppThemeData.darkTheme,
+          themeMode: appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          supportedLocales: LanguageDataModel.languageLocales(),
+          localizationsDelegates: [
+            AppLocalizations(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) => locale,
+          locale: Locale(appStore.selectedLanguageCode),
+        ),
       ),
     );
   }

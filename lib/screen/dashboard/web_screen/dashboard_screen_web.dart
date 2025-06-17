@@ -20,8 +20,10 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/string_extensions.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../available_provider.dart';
 import '../../setting/feedback_screen.dart';
 import '../../setting/terms_screen.dart';
 import '../../subscriptions/subscriptions_history.dart';
@@ -62,6 +64,9 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
 
   void init() async {
     //
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp){
+      setState(() {});
+    });
   }
 
   void share() {
@@ -144,7 +149,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             setState(() {});
                           },
                         ).visible(!appStore.isLoggedIn),
-                        SettingItemWidget(
+                        if(Provider.of<AvailableSubscription>(context).availableSubscription == '1')SettingItemWidget(
                           title: language!.subscriptions,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 1)),
                           leading: Icon(Icons.subscriptions, color: txtColor(index: 1)),
@@ -153,7 +158,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             setState(() {});
                           },
                         ).visible(appStore.isLoggedIn),
-                        SettingItemWidget(
+                        if(Provider.of<AvailableSubscription>(context).availableSubscription == '1')SettingItemWidget(
                           title: language!.subscriptionHistory,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 1)),
                           leading: Icon(Icons.monetization_on_outlined),
