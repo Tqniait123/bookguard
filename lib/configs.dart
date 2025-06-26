@@ -51,3 +51,5 @@ const INTERSTITIAL_ID_ANDROID = '';
 const INTERSTITIAL_ID_IOS = '';
 
 const ENABLE_ADMOB = false;
+
+const bool DISABLE_BUYING = true;

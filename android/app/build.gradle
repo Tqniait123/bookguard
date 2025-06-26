@@ -22,7 +22,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace 'com.book.guard'
+    namespace 'com.book.shield'
     compileSdkVersion 35
     ndkVersion "27.0.12077973"
 
@@ -51,7 +51,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.book.guard"
+        applicationId "com.book.shield"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 9

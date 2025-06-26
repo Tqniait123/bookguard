@@ -4,6 +4,8 @@ import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/models/bookdetail_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../configs.dart';
+
 class BookDetails1CategoryComponent extends StatelessWidget {
   final BookDetailResponse? bookDetailResponse;
   final bool? isCenterInfo;
@@ -30,7 +32,7 @@ class BookDetails1CategoryComponent extends StatelessWidget {
                 ],
               ),
               30.width,
-              Column(
+              if(!DISABLE_BUYING)Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(language!.price, style: secondaryTextStyle()),
@@ -65,7 +67,7 @@ class BookDetails1CategoryComponent extends StatelessWidget {
                 ],
               ).expand(),
               8.width,
-              Column(
+              if(!DISABLE_BUYING)Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(language!.price, style: secondaryTextStyle()),

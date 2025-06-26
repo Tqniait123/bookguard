@@ -10,6 +10,8 @@ import 'package:granth_flutter/screen/book/book_details_screen2.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../configs.dart';
+
 class BookComponent extends StatefulWidget {
   static String tag = '/ BookListBookComponent';
 
@@ -118,7 +120,7 @@ class BookComponentState extends State<BookComponent> {
                 8.height,
                 Text(widget.bookData!.authorName.validate(), style: primaryTextStyle(size: 14), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
                 4.height,
-                PriceComponent(
+                if(!DISABLE_BUYING)PriceComponent(
                   isCenter: false,
                   discount: widget.bookData!.discount.validate(),
                   discountedPrice: widget.bookData!.discountedPrice.validate(),

@@ -9,6 +9,8 @@ import 'package:granth_flutter/screen/dashboard/fragment/cart_fragment.dart';
 import 'package:granth_flutter/utils/common.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../configs.dart';
+
 class BookDetails1TopComponent extends StatefulWidget {
   static String tag = '/BookDetails1TopComponent';
   final BookDetailResponse? bookData;
@@ -51,7 +53,7 @@ class BookDetails1TopComponentState extends State<BookDetails1TopComponent> {
           right: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 16,
           child: Column(
             children: [
-              IconButton(
+              if(!DISABLE_BUYING)IconButton(
                 onPressed: () {
                   if (appStore.isLoggedIn) {
                     CartFragment(isShowBack: true).launch(context);
@@ -70,7 +72,7 @@ class BookDetails1TopComponentState extends State<BookDetails1TopComponent> {
                   },
                 ),
               ),
-              8.height,
+              if(!DISABLE_BUYING)8.height,
               IconButton(
                 onPressed: () async {
                   if (appStore.isLoggedIn) {

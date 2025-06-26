@@ -43,7 +43,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
     SubscriptionsPage().visible(appStore.isLoggedIn && IS_SUBSCRIPTION_AVAILABLE == '1'),
     SubscriptionsHistoryPage().visible(appStore.isLoggedIn && IS_SUBSCRIPTION_AVAILABLE == '1'),
     LibraryFragment(),
-    CartFragment().visible(appStore.isLoggedIn),
+    CartFragment().visible(appStore.isLoggedIn && !DISABLE_BUYING),
     WishListScreen().visible(appStore.isLoggedIn),
     // TransactionHistoryScreen().visible(appStore.isLoggedIn),
     ChangePasswordScreen().visible(appStore.isLoggedIn),
@@ -176,7 +176,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             setState(() {});
                           },
                         ),
-                        SettingItemWidget(
+                        if(!DISABLE_BUYING)SettingItemWidget(
                           title: language!.cart,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 3)),
                           leading: cart_icon.iconImage(color: txtColor(index: 3)),

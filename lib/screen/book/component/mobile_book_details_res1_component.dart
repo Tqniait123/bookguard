@@ -20,6 +20,8 @@ import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import 'call_us.dart';
+
 class MobileBookDetailsRes1Component extends StatelessWidget {
   final AllBookDetailsModel bookData;
   final int? bookId;
@@ -151,7 +153,8 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
               ),
             ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)),
+          Align(alignment: Alignment.bottomCenter, child: DISABLE_BUYING ? CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',)
+              : BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)),
           Positioned(
             top: 0,
             left: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 0,

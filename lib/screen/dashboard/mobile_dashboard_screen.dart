@@ -42,7 +42,7 @@ class _MobileDashboardScreenState extends State<MobileDashboardScreen> {
         body: [
           DashboardFragment(),
           LibraryFragment(),
-          appStore.isLoggedIn ? CartFragment() : SignInScreen(),
+          if(!DISABLE_BUYING)appStore.isLoggedIn ? CartFragment() : SignInScreen(),
           SettingFragment(),
         ][appStore.bottomNavigationBarIndex],
         bottomNavigationBar: NavigationBarTheme(
@@ -66,7 +66,7 @@ class _MobileDashboardScreenState extends State<MobileDashboardScreen> {
                 selectedIcon: library_icon1.iconImage(color: defaultPrimaryColor),
                 label: language!.library,
               ),
-              NavigationDestination(
+              if(!DISABLE_BUYING)NavigationDestination(
                 icon: cart_icon.iconImage(color: appTextSecondaryColor),
                 selectedIcon: cart_icon1.iconImage(color: defaultPrimaryColor),
                 label: language!.cart,
