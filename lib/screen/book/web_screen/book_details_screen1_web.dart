@@ -22,6 +22,8 @@ import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../component/call_us.dart';
+
 class WebBookDetails1Screen extends StatelessWidget {
   final AllBookDetailsModel bookData;
   final int? bookId;
@@ -71,7 +73,7 @@ class WebBookDetails1Screen extends StatelessWidget {
                               20.height,
                               ConstrainedBox(
                                 constraints: BoxConstraints(maxWidth: context.width() * 0.2, minWidth: context.width() * 0.2),
-                                child: BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first),
+                                child: DISABLE_BUYING ? CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',) : BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first),
                               ),
                             ],
                           ).expand(flex: 8),

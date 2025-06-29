@@ -8,6 +8,8 @@ import 'package:granth_flutter/screen/auth/sign_in_screen.dart';
 import 'package:granth_flutter/screen/dashboard/fragment/cart_fragment.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../../configs.dart';
+
 class WebBookDetails1TopComponent extends StatefulWidget {
   static String tag = '/WebBookDetails1TopComponent';
   final BookDetailResponse? bookData;
@@ -41,7 +43,7 @@ class WebBookDetails1TopComponentState extends State<WebBookDetails1TopComponent
       children: [
         Column(
           children: [
-            IconButton(
+            if(!DISABLE_BUYING)IconButton(
               onPressed: () {
                 if (appStore.isLoggedIn) {
                   CartFragment(isShowBack: true).launch(context);
@@ -66,7 +68,7 @@ class WebBookDetails1TopComponentState extends State<WebBookDetails1TopComponent
                 },
               ),
             ),
-            8.height,
+            if(!DISABLE_BUYING)8.height,
             IconButton(
               onPressed: () async {
                 if (appStore.isLoggedIn) {
