@@ -334,6 +334,9 @@ class LanguageGu extends BaseLanguage {
   String get noPurchasedBookAvailable => "કોઈ ખરીદેલી પુસ્તક ઉપલબ્ધ નથી";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "રજૂઆત";
 
   @override

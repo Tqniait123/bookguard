@@ -333,6 +333,9 @@ class LanguageSq extends BaseLanguage {
   String get noPurchasedBookAvailable => "Asnjë libër i blerë në dispozicion";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "Prezantimi";
 
   @override

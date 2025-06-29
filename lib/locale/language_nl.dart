@@ -334,6 +334,9 @@ class LanguageNl extends BaseLanguage {
   String get noPurchasedBookAvailable => "Geen gekocht boek beschikbaar";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "Invoering";
 
   @override

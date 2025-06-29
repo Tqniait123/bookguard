@@ -225,6 +225,8 @@ abstract class BaseLanguage {
 
   String get noPurchasedBookAvailable;
 
+  String get noBookAvailable;
+
   String get introduction;
 
   String get camera;

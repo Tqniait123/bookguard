@@ -334,6 +334,9 @@ class LanguageVi extends BaseLanguage {
   String get noPurchasedBookAvailable => "Không có Sách đã mua có sẵn";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "Giới thiệu";
 
   @override

@@ -334,6 +334,9 @@ class LanguageFr extends BaseLanguage {
   String get noPurchasedBookAvailable => "Aucun livre acheté disponible";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "Introduction";
 
   @override

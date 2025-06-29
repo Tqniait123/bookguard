@@ -335,6 +335,9 @@ class LanguageAf extends BaseLanguage {
   String get noPurchasedBookAvailable => "nopurcedbookApleilable";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "bekendstelling";
 
   @override

@@ -334,6 +334,9 @@ class LanguageId extends BaseLanguage {
   String get noPurchasedBookAvailable => "Tidak ada buku yang dibeli yang tersedia";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "pengantar";
 
   @override

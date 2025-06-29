@@ -334,6 +334,9 @@ class LanguageHi extends BaseLanguage {
   String get noPurchasedBookAvailable => "कोई खरीदी गई पुस्तक उपलब्ध नहीं है";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "परिचय";
 
   @override

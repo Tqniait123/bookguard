@@ -275,7 +275,7 @@ class _MobileLibraryFragmentState extends State<MobileLibraryFragment> {
                                   },
                                 )
                               : NoDataWidget(
-                                  title: language!.noPurchasedBookAvailable,
+                                  title: language!.noBookAvailable,
                                 ).visible(isDataLoaded && !appStore.isLoading),
                         ],
                       )
@@ -313,7 +313,7 @@ class _MobileLibraryFragmentState extends State<MobileLibraryFragment> {
                                     setState(() {});
                                   },
                                 )
-                              : NoDataWidget(title: language!.noPurchasedBookAvailable).visible(isDataLoaded && !appStore.isLoading)
+                              : NoDataWidget(title: language!.noBookAvailable).visible(isDataLoaded && !appStore.isLoading)
                         ],
                       ),
               ],

@@ -121,34 +121,45 @@ class _EPubViewerScreenState extends State<EPubViewerScreen> {
       appBar: appBarWidget(
         widget.bookName,
         color: context.scaffoldBackgroundColor,
-        backWidget: IconButton(
-          onPressed: () async {
-            showModalBottomSheet(
-              isScrollControlled: true,
-              isDismissible: true,
-              enableDrag: true,
-              backgroundColor: context.cardColor,
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(topRight: Radius.circular(22), topLeft: Radius.circular(22)),
-              ),
-              context: context,
-              builder: (context) {
-                return DraggableScrollableSheet(
-                  expand: false,
-                  initialChildSize: 0.8,
-                  maxChildSize: 1.0,
-                  builder: (context, scrollController) {
-                    return SingleChildScrollView(
-                      controller: scrollController,
-                      child: bottomSheetWidget(),
+        backWidget: Row(
+          spacing: 8,
+          children: [
+            GestureDetector(
+              child: Icon(Icons.arrow_back),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+            GestureDetector(
+              onTap: () async {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  isDismissible: true,
+                  enableDrag: true,
+                  backgroundColor: context.cardColor,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(22), topLeft: Radius.circular(22)),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return DraggableScrollableSheet(
+                      expand: false,
+                      initialChildSize: 0.8,
+                      maxChildSize: 1.0,
+                      builder: (context, scrollController) {
+                        return SingleChildScrollView(
+                          controller: scrollController,
+                          child: bottomSheetWidget(),
+                        );
+                      },
                     );
                   },
                 );
               },
-            );
-          },
-          icon: Icon(Icons.menu),
+              child: Icon(Icons.menu),
+            ),
+          ],
         ),
         actions: [
           IconButton(

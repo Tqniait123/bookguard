@@ -334,6 +334,9 @@ class LanguageTr extends BaseLanguage {
   String get noPurchasedBookAvailable => "Satın alınan kitap yok";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "giriiş";
 
   @override

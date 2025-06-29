@@ -335,6 +335,9 @@ class LanguageAr extends BaseLanguage {
   String get noPurchasedBookAvailable => "لا يوجد كتاب تم شراؤه متاح";
 
   @override
+  String get noBookAvailable => "لا يوجد كتاب تم متاح في المكتبة";
+
+  @override
   String get introduction => "مقدمة";
 
   @override
