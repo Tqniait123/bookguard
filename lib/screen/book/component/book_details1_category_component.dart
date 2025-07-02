@@ -3,7 +3,9 @@ import 'package:granth_flutter/component/price_component.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/models/bookdetail_model.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
+import '../../../available_provider.dart';
 import '../../../configs.dart';
 
 class BookDetails1CategoryComponent extends StatelessWidget {
@@ -32,7 +34,7 @@ class BookDetails1CategoryComponent extends StatelessWidget {
                 ],
               ),
               30.width,
-              if(!DISABLE_BUYING)Column(
+              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(language!.price, style: secondaryTextStyle()),
@@ -67,7 +69,7 @@ class BookDetails1CategoryComponent extends StatelessWidget {
                 ],
               ).expand(),
               8.width,
-              if(!DISABLE_BUYING)Column(
+              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(language!.price, style: secondaryTextStyle()),

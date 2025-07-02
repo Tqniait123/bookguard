@@ -12,6 +12,9 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/string_extensions.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
+
+import '../../available_provider.dart';
 
 class MobileDashboardScreen extends StatefulWidget {
   @override
@@ -42,7 +45,7 @@ class _MobileDashboardScreenState extends State<MobileDashboardScreen> {
         body: [
           DashboardFragment(),
           LibraryFragment(),
-          if(!DISABLE_BUYING)appStore.isLoggedIn ? CartFragment() : SignInScreen(),
+          if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')appStore.isLoggedIn ? CartFragment() : SignInScreen(),
           SettingFragment(),
         ][appStore.bottomNavigationBarIndex],
         bottomNavigationBar: NavigationBarTheme(
@@ -66,7 +69,7 @@ class _MobileDashboardScreenState extends State<MobileDashboardScreen> {
                 selectedIcon: library_icon1.iconImage(color: defaultPrimaryColor),
                 label: language!.library,
               ),
-              if(!DISABLE_BUYING)NavigationDestination(
+              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')NavigationDestination(
                 icon: cart_icon.iconImage(color: appTextSecondaryColor),
                 selectedIcon: cart_icon1.iconImage(color: defaultPrimaryColor),
                 label: language!.cart,

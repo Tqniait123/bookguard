@@ -24,9 +24,13 @@ class DashboardFragment extends StatefulWidget {
 }
 
 class DashboardFragmentState extends State<DashboardFragment> {
+
+  late Future<DashboardResponse> _dashboardFuture;
+
   @override
   void initState() {
     super.initState();
+    _dashboardFuture = getDashboardDetails();
     init();
   }
 
@@ -68,14 +72,15 @@ class DashboardFragmentState extends State<DashboardFragment> {
           return await 2.seconds.delay;
         },
         child: SnapHelperWidget<DashboardResponse>(
-          future: getDashboardDetails(),
+          future: _dashboardFuture,
           onSuccess: (data) {
             TERMS_AND_CONDITIONS_TEXT = data.termConditions??'';
             PRIVACY_POLICY_TEXT = data.privacyPolicy??'';
             IS_SUBSCRIPTION_AVAILABLE = data.subscriptionAvailable;
+            ADD_CART_AVAILABLE = data.subscriptionAvailable;
             WidgetsBinding.instance.addPostFrameCallback((_){
 
-            Provider.of<AvailableSubscription>(context, listen: false).setValue(data.subscriptionAvailable);
+              Provider.of<AvailableConfiguration>(context, listen: false).setValue(subscription: data.subscriptionAvailable, addCart: data.addCartAvailable);
             });
 
             return Responsive(

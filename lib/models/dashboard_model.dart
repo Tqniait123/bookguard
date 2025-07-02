@@ -29,6 +29,7 @@ class DashboardResponse {
   String? termConditions;
   String? privacyPolicy;
   String? subscriptionAvailable;
+  String? addCartAvailable;
 
   DashboardResponse({
     this.categoryBook,
@@ -52,6 +53,7 @@ class DashboardResponse {
     this.termConditions,
     this.privacyPolicy,
     this.subscriptionAvailable,
+    this.addCartAvailable,
   });
 
   factory DashboardResponse.fromJson(Map<String, dynamic> json) {
@@ -77,6 +79,7 @@ class DashboardResponse {
       termConditions: json['term_conditions'],
       privacyPolicy: json['privacy_policy'],
       subscriptionAvailable: json['subscription_available'],
+      addCartAvailable: json['add_cart_available'],
     );
   }
 
@@ -94,6 +97,7 @@ class DashboardResponse {
     data['term_conditions'] = this.termConditions;
     data['privacy_policy'] = this.privacyPolicy;
     data['subscription_available'] = this.subscriptionAvailable;
+    data['add_cart_available'] = this.addCartAvailable;
     if (this.categoryBook != null) {
       data[DashboardKeys.categoryBook] = this.categoryBook!.map((v) => v.toJson()).toList();
     }

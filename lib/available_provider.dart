@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AvailableSubscription with ChangeNotifier{
+class AvailableConfiguration with ChangeNotifier{
 
   String? availableSubscription;
+  String? addCartAvailable;
 
-  setValue(String? val){
-    availableSubscription = val;
+  setValue({String? subscription, String? addCart, }){
+    availableSubscription = subscription;
+    addCartAvailable = addCart;
     notifyListeners();
   }
 

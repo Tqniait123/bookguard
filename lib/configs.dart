@@ -52,4 +52,4 @@ const INTERSTITIAL_ID_IOS = '';
 
 const ENABLE_ADMOB = false;
 
-const bool DISABLE_BUYING = true;
+String? ADD_CART_AVAILABLE = '';

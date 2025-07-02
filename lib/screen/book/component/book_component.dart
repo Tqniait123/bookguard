@@ -9,7 +9,9 @@ import 'package:granth_flutter/screen/book/book_details_screen1.dart';
 import 'package:granth_flutter/screen/book/book_details_screen2.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
+import '../../../available_provider.dart';
 import '../../../configs.dart';
 
 class BookComponent extends StatefulWidget {
@@ -120,7 +122,7 @@ class BookComponentState extends State<BookComponent> {
                 8.height,
                 Text(widget.bookData!.authorName.validate(), style: primaryTextStyle(size: 14), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
                 4.height,
-                if(!DISABLE_BUYING)PriceComponent(
+                if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')PriceComponent(
                   isCenter: false,
                   discount: widget.bookData!.discount.validate(),
                   discountedPrice: widget.bookData!.discountedPrice.validate(),

@@ -137,7 +137,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ChangeNotifierProvider(
-        create: (_) => AvailableSubscription(),
+        create: (_) => AvailableConfiguration(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,

@@ -19,7 +19,9 @@ import 'package:granth_flutter/screen/dashboard/component/see_all_component.dart
 import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
+import '../../../available_provider.dart';
 import 'call_us.dart';
 
 class MobileBookDetailsRes1Component extends StatelessWidget {
@@ -153,8 +155,8 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
               ),
             ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: DISABLE_BUYING ? CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',)
-              : BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)),
+          Align(alignment: Alignment.bottomCenter, child: Provider.of<AvailableConfiguration>(context).addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)
+              : CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',)),
           Positioned(
             top: 0,
             left: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 0,

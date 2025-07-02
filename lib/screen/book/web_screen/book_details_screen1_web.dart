@@ -21,7 +21,9 @@ import 'package:granth_flutter/screen/dashboard/component/see_all_component.dart
 import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
+import '../../../available_provider.dart';
 import '../component/call_us.dart';
 
 class WebBookDetails1Screen extends StatelessWidget {
@@ -73,7 +75,7 @@ class WebBookDetails1Screen extends StatelessWidget {
                               20.height,
                               ConstrainedBox(
                                 constraints: BoxConstraints(maxWidth: context.width() * 0.2, minWidth: context.width() * 0.2),
-                                child: DISABLE_BUYING ? CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',) : BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first),
+                                child: Provider.of<AvailableConfiguration>(context).addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first) : CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',),
                               ),
                             ],
                           ).expand(flex: 8),

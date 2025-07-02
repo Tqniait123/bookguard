@@ -7,7 +7,9 @@ import 'package:granth_flutter/network/common_api_call.dart';
 import 'package:granth_flutter/screen/auth/sign_in_screen.dart';
 import 'package:granth_flutter/screen/dashboard/fragment/cart_fragment.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../available_provider.dart';
 import '../../../../configs.dart';
 
 class WebBookDetails1TopComponent extends StatefulWidget {
@@ -43,7 +45,7 @@ class WebBookDetails1TopComponentState extends State<WebBookDetails1TopComponent
       children: [
         Column(
           children: [
-            if(!DISABLE_BUYING)IconButton(
+            if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')IconButton(
               onPressed: () {
                 if (appStore.isLoggedIn) {
                   CartFragment(isShowBack: true).launch(context);
@@ -68,7 +70,7 @@ class WebBookDetails1TopComponentState extends State<WebBookDetails1TopComponent
                 },
               ),
             ),
-            if(!DISABLE_BUYING)8.height,
+            if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')8.height,
             IconButton(
               onPressed: () async {
                 if (appStore.isLoggedIn) {

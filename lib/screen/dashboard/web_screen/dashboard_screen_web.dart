@@ -43,7 +43,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
     SubscriptionsPage().visible(appStore.isLoggedIn && IS_SUBSCRIPTION_AVAILABLE == '1'),
     SubscriptionsHistoryPage().visible(appStore.isLoggedIn && IS_SUBSCRIPTION_AVAILABLE == '1'),
     LibraryFragment(),
-    CartFragment().visible(appStore.isLoggedIn && !DISABLE_BUYING),
+    CartFragment().visible(appStore.isLoggedIn && ADD_CART_AVAILABLE == '1'),
     WishListScreen().visible(appStore.isLoggedIn),
     // TransactionHistoryScreen().visible(appStore.isLoggedIn),
     ChangePasswordScreen().visible(appStore.isLoggedIn),
@@ -149,7 +149,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             setState(() {});
                           },
                         ).visible(!appStore.isLoggedIn),
-                        if(Provider.of<AvailableSubscription>(context).availableSubscription == '1')SettingItemWidget(
+                        if(Provider.of<AvailableConfiguration>(context).availableSubscription == '1')SettingItemWidget(
                           title: language!.subscriptions,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 1)),
                           leading: Icon(Icons.subscriptions, color: txtColor(index: 1)),
@@ -158,7 +158,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             setState(() {});
                           },
                         ).visible(appStore.isLoggedIn),
-                        if(Provider.of<AvailableSubscription>(context).availableSubscription == '1')SettingItemWidget(
+                        if(Provider.of<AvailableConfiguration>(context).availableSubscription == '1')SettingItemWidget(
                           title: language!.subscriptionHistory,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 1)),
                           leading: Icon(Icons.monetization_on_outlined),
@@ -176,7 +176,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                             setState(() {});
                           },
                         ),
-                        if(!DISABLE_BUYING)SettingItemWidget(
+                        if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')SettingItemWidget(
                           title: language!.cart,
                           titleTextStyle: boldTextStyle(size: 14, color: txtColor(index: 3)),
                           leading: cart_icon.iconImage(color: txtColor(index: 3)),
