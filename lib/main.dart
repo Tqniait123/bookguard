@@ -23,7 +23,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 
-import 'available_provider.dart';
 import 'network/rest_apis.dart';
 import 'utils/firebase_messaging_utils.dart';
 

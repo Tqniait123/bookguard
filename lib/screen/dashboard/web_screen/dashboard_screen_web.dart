@@ -23,7 +23,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../available_provider.dart';
+
 import '../../setting/feedback_screen.dart';
 import '../../setting/terms_screen.dart';
 import '../../subscriptions/subscriptions_history.dart';

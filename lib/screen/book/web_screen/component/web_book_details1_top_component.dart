@@ -7,9 +7,7 @@ import 'package:granth_flutter/network/common_api_call.dart';
 import 'package:granth_flutter/screen/auth/sign_in_screen.dart';
 import 'package:granth_flutter/screen/dashboard/fragment/cart_fragment.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
 
-import '../../../../available_provider.dart';
 import '../../../../configs.dart';
 
 class WebBookDetails1TopComponent extends StatefulWidget {

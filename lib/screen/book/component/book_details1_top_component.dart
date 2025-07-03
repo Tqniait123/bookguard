@@ -10,7 +10,7 @@ import 'package:granth_flutter/utils/common.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../../available_provider.dart';
+
 import '../../../configs.dart';
 
 class BookDetails1TopComponent extends StatefulWidget {

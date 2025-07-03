@@ -21,7 +21,7 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../../available_provider.dart';
+
 import 'call_us.dart';
 
 class MobileBookDetailsRes1Component extends StatelessWidget {

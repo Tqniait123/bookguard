@@ -14,7 +14,7 @@ import 'package:granth_flutter/configs.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../../available_provider.dart';
+
 
 class DashboardFragment extends StatefulWidget {
   static String tag = '/DashboardScreen';

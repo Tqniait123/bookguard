@@ -12,9 +12,6 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/string_extensions.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
-
-import '../../available_provider.dart';
 
 class MobileDashboardScreen extends StatefulWidget {
   @override
