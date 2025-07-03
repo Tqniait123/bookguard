@@ -43,7 +43,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
     SubscriptionsPage().visible(appStore.isLoggedIn && appStore.subscriptionAvailable == '1'),
     SubscriptionsHistoryPage().visible(appStore.isLoggedIn && appStore.subscriptionAvailable == '1'),
     LibraryFragment(),
-    CartFragment().visible(appStore.isLoggedIn && ADD_CART_AVAILABLE == '1'),
+    CartFragment().visible(appStore.isLoggedIn && appStore.addCartAvailable == '1'),
     WishListScreen().visible(appStore.isLoggedIn),
     // TransactionHistoryScreen().visible(appStore.isLoggedIn),
     ChangePasswordScreen().visible(appStore.isLoggedIn),
