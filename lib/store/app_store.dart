@@ -104,6 +104,12 @@ abstract class _AppStore with Store {
   @observable
   bool isAddToCart = false;
 
+  @observable
+  String? subscriptionAvailable;
+
+  @observable
+  String? addCartAvailable;
+
   @action
   Future<void> setCartCount(int value) async {
     cartCount = value;
@@ -285,5 +291,11 @@ abstract class _AppStore with Store {
   Future<void> setAddToCart(bool val) async {
     isAddToCart = val;
     await setValue(IS_ADD_TO_CART, val);
+  }
+
+  @action
+  Future<void> setAvailableValue({required String subscription, required String addCart}) async{
+    subscriptionAvailable = subscription;
+    addCartAvailable = addCart;
   }
 }

@@ -44,7 +44,7 @@ class DashboardFragmentState extends State<DashboardFragment> {
   void setState(fn) {
     if (mounted) super.setState(fn);
   }
-
+int n= 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,25 +72,49 @@ class DashboardFragmentState extends State<DashboardFragment> {
           return await 2.seconds.delay;
         },
         child: SnapHelperWidget<DashboardResponse>(
-          future: _dashboardFuture,
-          onSuccess: (data) {
-            TERMS_AND_CONDITIONS_TEXT = data.termConditions??'';
-            PRIVACY_POLICY_TEXT = data.privacyPolicy??'';
-            IS_SUBSCRIPTION_AVAILABLE = data.subscriptionAvailable;
-            ADD_CART_AVAILABLE = data.subscriptionAvailable;
-            WidgetsBinding.instance.addPostFrameCallback((_){
+              future: _dashboardFuture,
+              onSuccess: (data) {
+                TERMS_AND_CONDITIONS_TEXT = data.termConditions??'';
+                PRIVACY_POLICY_TEXT = data.privacyPolicy??'';
+                appStore.subscriptionAvailable = data.subscriptionAvailable;
+                ADD_CART_AVAILABLE = data.subscriptionAvailable;
 
-              Provider.of<AvailableConfiguration>(context, listen: false).setValue(subscription: data.subscriptionAvailable, addCart: data.addCartAvailable);
-            });
+                try{
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
 
-            return Responsive(
-              mobile: MobileDashboardFragment(data: data),
-              web: WebDashboardFragment(data: data),
-              tablet: MobileDashboardFragment(data: data),
-            );
-          },
-          loadingWidget: AppLoaderWidget().center(),
-        ),
+appStore.setAvailableValue(subscription: data.subscriptionAvailable??'0', addCart: data.addCartAvailable??'0');
+                    n++;
+                    print('$n');
+                  });
+                }catch(e){
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Error"),
+                      content: SingleChildScrollView(
+                        child: Text(
+                          e.toString(),
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text("OK"),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return Responsive(
+                  mobile: MobileDashboardFragment(data: data),
+                  web: WebDashboardFragment(data: data),
+                  tablet: MobileDashboardFragment(data: data),
+                );
+              },
+              loadingWidget: AppLoaderWidget().center(),
+            ),
       ),
     );
   }

@@ -47,6 +47,8 @@ const CHECK_SAMPLE_FILE = 'CHECK_SAMPLE_FILE';
 const CHECK_PURCHASE_FILE = 'CHECK_PURCHASE_FILE';
 const IS_EXIST_IN_CART = 'IS_EXIST_IN_CART';
 const IS_ADD_TO_CART = 'IS_ADD_TO_CART';
+// const appStore.subscriptionAvailable = 'appStore.subscriptionAvailable';
+// const IS_ADD_TO_CART_AVAILABLE = 'IS_ADD_TO_CART_AVAILABLE';
 const BottomNavigationBarIndex = 'Bottom_NavigationBarIndex';
 
 ///endregion

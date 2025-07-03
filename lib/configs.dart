@@ -32,7 +32,7 @@ const FLUTTER_WAVE_SECRET_KEY = '';
 const FLUTTER_WAVE_ENCRYPTION_KEY = '';
 
 ///SUBSCRIPTION
-String? IS_SUBSCRIPTION_AVAILABLE = '';
+// String? appStore.subscriptionAvailable = '';
 
 
 ///Text

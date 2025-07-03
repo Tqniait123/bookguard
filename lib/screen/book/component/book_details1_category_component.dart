@@ -34,7 +34,7 @@ class BookDetails1CategoryComponent extends StatelessWidget {
                 ],
               ),
               30.width,
-              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')Column(
+              if(appStore.addCartAvailable == '1')Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(language!.price, style: secondaryTextStyle()),
@@ -69,7 +69,7 @@ class BookDetails1CategoryComponent extends StatelessWidget {
                 ],
               ).expand(),
               8.width,
-              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')Column(
+              if(appStore.addCartAvailable == '1')Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(language!.price, style: secondaryTextStyle()),

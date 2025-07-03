@@ -122,7 +122,7 @@ class BookComponentState extends State<BookComponent> {
                 8.height,
                 Text(widget.bookData!.authorName.validate(), style: primaryTextStyle(size: 14), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
                 4.height,
-                if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')PriceComponent(
+                if(appStore.addCartAvailable == '1')PriceComponent(
                   isCenter: false,
                   discount: widget.bookData!.discount.validate(),
                   discountedPrice: widget.bookData!.discountedPrice.validate(),

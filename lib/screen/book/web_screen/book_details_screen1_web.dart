@@ -75,7 +75,7 @@ class WebBookDetails1Screen extends StatelessWidget {
                               20.height,
                               ConstrainedBox(
                                 constraints: BoxConstraints(maxWidth: context.width() * 0.2, minWidth: context.width() * 0.2),
-                                child: Provider.of<AvailableConfiguration>(context).addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first) : CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',),
+                                child: appStore.addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first) : CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',),
                               ),
                             ],
                           ).expand(flex: 8),

@@ -411,6 +411,38 @@ mixin _$AppStore on _AppStore, Store {
     });
   }
 
+  late final _$subscriptionAvailableAtom =
+  Atom(name: '_AppStore.subscriptionAvailable', context: context);
+
+  @override
+  String? get subscriptionAvailable {
+    _$subscriptionAvailableAtom.reportRead();
+    return super.subscriptionAvailable;
+  }
+
+  @override
+  set subscriptionAvailable(String? value) {
+    _$subscriptionAvailableAtom.reportWrite(value, super.subscriptionAvailable, () {
+      super.subscriptionAvailable = value;
+    });
+  }
+
+  late final _$addCartAvailableAtom =
+  Atom(name: '_AppStore.addCartAvailable', context: context);
+
+  @override
+  String? get addCartAvailable {
+    _$addCartAvailableAtom.reportRead();
+    return super.addCartAvailable;
+  }
+
+  @override
+  set addCartAvailable(String? value) {
+    _$addCartAvailableAtom.reportWrite(value, super.addCartAvailable, () {
+      super.addCartAvailable = value;
+    });
+  }
+
   late final _$totalAtom = Atom(name: '_AppStore.total', context: context);
 
   @override
@@ -480,6 +512,14 @@ mixin _$AppStore on _AppStore, Store {
   @override
   Future<void> setCartCount(int value) {
     return _$setCartCountAsyncAction.run(() => super.setCartCount(value));
+  }
+
+  late final _$setAvailableAsyncAction =
+  AsyncAction('_AppStore.setAvailable', context: context);
+
+  @override
+  Future<void> setAvailableValue({required String subscription, required String addCart}) {
+    return _$setAvailableAsyncAction.run(() => super.setAvailableValue(subscription: subscription, addCart: addCart));
   }
 
   late final _$setRecentSearchDataAsyncAction =

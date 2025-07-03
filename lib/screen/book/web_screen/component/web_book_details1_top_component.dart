@@ -45,7 +45,7 @@ class WebBookDetails1TopComponentState extends State<WebBookDetails1TopComponent
       children: [
         Column(
           children: [
-            if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')IconButton(
+            if(appStore.addCartAvailable == '1')IconButton(
               onPressed: () {
                 if (appStore.isLoggedIn) {
                   CartFragment(isShowBack: true).launch(context);
@@ -70,7 +70,7 @@ class WebBookDetails1TopComponentState extends State<WebBookDetails1TopComponent
                 },
               ),
             ),
-            if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')8.height,
+            if(appStore.addCartAvailable == '1')8.height,
             IconButton(
               onPressed: () async {
                 if (appStore.isLoggedIn) {

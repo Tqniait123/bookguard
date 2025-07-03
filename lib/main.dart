@@ -136,25 +136,22 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => ChangeNotifierProvider(
-        create: (_) => AvailableConfiguration(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          home: SplashScreen(),
-          theme: AppThemeData.lightTheme,
-          darkTheme: AppThemeData.darkTheme,
-          themeMode: appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          supportedLocales: LanguageDataModel.languageLocales(),
-          localizationsDelegates: [
-            AppLocalizations(),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          localeResolutionCallback: (locale, supportedLocales) => locale,
-          locale: Locale(appStore.selectedLanguageCode),
-        ),
+      builder: (_) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        home: SplashScreen(),
+        theme: AppThemeData.lightTheme,
+        darkTheme: AppThemeData.darkTheme,
+        themeMode: appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        supportedLocales: LanguageDataModel.languageLocales(),
+        localizationsDelegates: [
+          AppLocalizations(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) => locale,
+        locale: Locale(appStore.selectedLanguageCode),
       ),
     );
   }

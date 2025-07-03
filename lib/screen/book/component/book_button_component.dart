@@ -88,9 +88,7 @@ class BookButtonComponentState extends State<BookButtonComponent> {
         children: [
           // (widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0)
           (widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0) && !widget.bookDetailResponse!.hasActiveSubscription!
-              ? Observer(
-                  builder: (context) {
-                    return AppButton(
+              ? AppButton(
                       enableScaleAnimation: false,
                       color: defaultPrimaryColor,
                       width: context.width(),
@@ -117,9 +115,7 @@ class BookButtonComponentState extends State<BookButtonComponent> {
                           SignInScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
                         }
                       },
-                    ).expand();
-                  },
-                )
+                    ).expand()
               : Offstage(),
           // widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0
           //     ?

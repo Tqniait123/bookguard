@@ -55,7 +55,7 @@ class BookDetails1TopComponentState extends State<BookDetails1TopComponent> {
           right: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 16,
           child: Column(
             children: [
-              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')IconButton(
+              if(appStore.addCartAvailable == '1')IconButton(
                 onPressed: () {
                   if (appStore.isLoggedIn) {
                     CartFragment(isShowBack: true).launch(context);
@@ -74,7 +74,7 @@ class BookDetails1TopComponentState extends State<BookDetails1TopComponent> {
                   },
                 ),
               ),
-              if(Provider.of<AvailableConfiguration>(context).addCartAvailable == '1')8.height,
+              if(appStore.addCartAvailable == '1')8.height,
               IconButton(
                 onPressed: () async {
                   if (appStore.isLoggedIn) {

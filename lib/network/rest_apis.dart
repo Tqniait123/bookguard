@@ -103,7 +103,7 @@ Future<DashboardResponse> getDashboardDetails({String? type, int? page}) async {
   DashboardResponse response;
 
   response = DashboardResponse.fromJson(await handleResponse(await buildHttpResponse('dashboard-detail', method: HttpMethod.GET)));
-  IS_SUBSCRIPTION_AVAILABLE = response.subscriptionAvailable;
+  appStore.subscriptionAvailable = response.subscriptionAvailable;
   // ADD_CART_AVAILABLE = response.addCartAvailable;
   return response;
 }

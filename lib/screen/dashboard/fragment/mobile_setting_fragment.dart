@@ -109,7 +109,7 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
                             ),
                           ).visible(!appStore.isLoggedIn),
                           16.height.visible(appStore.isLoggedIn),
-                          if(IS_SUBSCRIPTION_AVAILABLE == '1')SettingItemWidget(
+                          if(appStore.subscriptionAvailable == '1')SettingItemWidget(
                             title: language!.subscriptions,
                             subTitle: language!.subscriptions,
                             titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),
@@ -120,7 +120,7 @@ class _MobileSettingFragmentState extends State<MobileSettingFragment> {
                             trailing: Icon(Icons.subscriptions),
                           ),
                           16.height.visible(appStore.isLoggedIn),
-                          if(IS_SUBSCRIPTION_AVAILABLE == '1')SettingItemWidget(
+                          if(appStore.subscriptionAvailable == '1')SettingItemWidget(
                             title: language!.subscriptionHistory,
                             subTitle: language!.subscriptionHistory,
                             titleTextStyle: primaryTextStyle(weight: fontWeightBoldGlobal),

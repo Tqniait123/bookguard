@@ -155,7 +155,7 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
               ),
             ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: Provider.of<AvailableConfiguration>(context).addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)
+          Align(alignment: Alignment.bottomCenter, child: appStore.addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)
               : CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',)),
           Positioned(
             top: 0,
