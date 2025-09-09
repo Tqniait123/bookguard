@@ -27,30 +27,30 @@ class AppLocalizations extends LocalizationsDelegate<BaseLanguage> {
         return LanguageEn();
       case 'ar':
         return LanguageAr();
-      case 'hi':
-        return LanguageHi();
-      case 'af':
-        return LanguageAf();
-      case 'de':
-        return LanguageDe();
-      case 'es':
-        return LanguageEs();
-      case 'fr':
-        return LanguageFr();
-      case 'gu':
-        return LanguageGu();
-      case 'id':
-        return LanguageId();
-      case 'nl':
-        return LanguageNl();
-      case 'pt':
-        return LanguagePt();
-      case 'sq':
-        return LanguageSq();
-      case 'tr':
-        return LanguageTr();
-      case 'vi':
-        return LanguageVi();
+      // case 'hi':
+      //   return LanguageHi();
+      // case 'af':
+      //   return LanguageAf();
+      // case 'de':
+      //   return LanguageDe();
+      // case 'es':
+      //   return LanguageEs();
+      // case 'fr':
+      //   return LanguageFr();
+      // case 'gu':
+      //   return LanguageGu();
+      // case 'id':
+      //   return LanguageId();
+      // case 'nl':
+      //   return LanguageNl();
+      // case 'pt':
+      //   return LanguagePt();
+      // case 'sq':
+      //   return LanguageSq();
+      // case 'tr':
+      //   return LanguageTr();
+      // case 'vi':
+      //   return LanguageVi();
 
       default:
         return LanguageEn();

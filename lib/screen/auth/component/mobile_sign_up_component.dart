@@ -12,6 +12,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/images.dart';
 import '../../../utils/text_field_password.dart';
+import '../login_otp_screen.dart';
 
 class MobileSignUpComponent extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _MobileSignUpComponentState extends State<MobileSignUpComponent> {
       appStore.setLoading(true);
 
       await createUser(request).then((res) async {
-        finish(context);
+        LoginOtpScreen(email: emailController.text.trim(), fromRegister: true,).launch(context);
         toast(res.message);
       }).catchError((e) {
         toast(e.toString());

@@ -24,6 +24,9 @@ abstract class _AppStore with Store {
   bool isFirstTime = true;
 
   @observable
+  bool isCanReviewFirstTime = false;
+
+  @observable
   bool isDisableNotification = false;
 
   @observable
@@ -136,6 +139,12 @@ abstract class _AppStore with Store {
   Future<void> setDisplayWalkThrough(bool val) async {
     isFirstTime = val;
     await setValue(IS_EXIST_IN_CART, isFirstTime);
+  }
+
+  @action
+  Future<void> setIsCanReviewFirstTime(bool val) async {
+    isCanReviewFirstTime = val;
+    await setValue(IS_CAN_REVIEW_FIRST_TIME, isCanReviewFirstTime);
   }
 
   @action

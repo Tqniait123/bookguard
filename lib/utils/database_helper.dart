@@ -22,6 +22,7 @@ class DatabaseHelper {
   static const String COLUMN_NAME_FILE_PATH = "file_Path";
   static const String COLUMN_NAME_WEB_FILE_PATH = "web_book_path";
   static const String COLUMN_NAME_DATE_TIME = "book_date_time";
+  static const String COLUMN_NAME_CAN_REVIEW = "canReview";
   static const String SQL_CREATE_ENTRIES = "CREATE TABLE " +
       TABLE_NAME +
       " (" +
@@ -47,6 +48,8 @@ class DatabaseHelper {
       " TEXT, " +
       COLUMN_LAST_CFI +
       " TEXT, " +
+      COLUMN_NAME_CAN_REVIEW +
+      " INTEGER, " +
       COLUMN_NAME_DATE_TIME +
       " TEXT " +
       ")";

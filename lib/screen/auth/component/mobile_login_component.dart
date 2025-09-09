@@ -14,8 +14,10 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../network/network_utils.dart';
 import '../../../utils/images.dart';
 import '../../../utils/text_field_password.dart';
+import '../login_otp_screen.dart';
 
 class MobileLoginComponent extends StatefulWidget {
   @override
@@ -59,11 +61,14 @@ class _MobileLoginComponentState extends State<MobileLoginComponent> {
       appStore.setLoading(true);
 
       await login(request).then((res) async {
-        if (res.data != null) await saveUserData(res.data!);
-        DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
-        toast(language!.loginSuccessfully);
+          if (res.data != null) await saveUserData(res.data!);
+          DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+          toast(language!.loginSuccessfully);
       }).catchError((e) {
         appStore.setLoading(false);
+        if(e is UnVerifiedException){
+          LoginOtpScreen(email: emailController.text.trim(),).launch(context);
+        }
         toast(e.toString());
       });
       appStore.setLoading(false);

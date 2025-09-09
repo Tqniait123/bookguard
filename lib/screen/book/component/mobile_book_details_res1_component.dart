@@ -32,6 +32,8 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('-----------------can review-------------');
+    print(bookData.bookDetailResponse?.first.canReview ?? false);
     return Scaffold(
       body: Stack(
         children: [
@@ -116,7 +118,7 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
                           );
                         },
                       ),
-                    ).paddingOnly(top: 16).visible(appStore.isLoggedIn),
+                    ).paddingOnly(top: 16).visible(appStore.isLoggedIn && (bookData.bookDetailResponse?.first.canReview == 1)),
                   16.height,
                   ListView.builder(
                     shrinkWrap: true,

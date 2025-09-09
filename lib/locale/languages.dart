@@ -235,6 +235,8 @@ abstract class BaseLanguage {
 
   String get forgotPassword;
 
+  String get verifyOtp;
+
   String get lblForgotPassword;
 
   String get donTHaveAnAccount;
@@ -354,4 +356,60 @@ abstract class BaseLanguage {
   String get deleteAccount;
 
   String get areYouSureWantToDeleteAccount;
+
+  String get enterOTP;
+
+  String get resendCodeIn;
+
+  String get sendCode;
+
+  String get resendCode;
+
+  String get addBookmarkToPage;
+
+  String get currentPageWillSavedAsBookmark;
+
+  String get noteOptional;
+
+  String get save;
+
+  String get pageBookmarkAddedSuccessfully;
+
+  String get addBookmarkToSelectedText;
+
+  String get selectedText;
+
+  String get textBookmarkAddedSuccessfully;
+
+  String get bookmarkSelectedText;
+
+  String get addHighlightAndBookmark;
+
+  String get highlight;
+
+  String get highlightAndBookmarkAdded;
+
+  String get bookmarkThePage;
+
+  String get showBookmarks;
+
+  String get bookmarkAndHighlight;
+
+  String get noBookmarksSaved;
+
+  String get bookmarkPages;
+
+  String get note;
+
+  String get saveDone;
+
+  String get confirmDeletion;
+
+  String get doYouWantDeleteThisBookmark;
+
+  String get bookmarksDeleted;
+
+  String get selectBookmarkColor;
+
+  String get changeFontSize;
 }

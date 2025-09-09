@@ -329,7 +329,7 @@ void openBookOnline(
    if(book != null){
 
      print('is exist----1: ${book.toJson()}');
-      await EPubViewerScreen(filePath: bookDetailResponse!.filePath.validate(), bookName: bookDetailResponse.name.validate(), bookId: bookDetailResponse.bookId, lastCfi: book.lastCfi,).launch(context).then((value) {});
+      await EPubViewerScreen(filePath: bookDetailResponse!.filePath.validate(), bookName: bookDetailResponse.name.validate(), bookId: bookDetailResponse.bookId, lastCfi: book.lastCfi, canReview: bookDetailResponse.canReview == 1,).launch(context).then((value) async{});
 
    }
 else{
@@ -346,7 +346,7 @@ else{
        fileType: isSample == true ? SAMPLE_BOOK : PURCHASED_BOOK,
      );
 
-     await EPubViewerScreen(filePath: bookDetailResponse!.filePath.validate(), bookName: bookDetailResponse.name.validate(), bookId: bookDetailResponse.bookId).launch(context).then((value) {});
+     await EPubViewerScreen(filePath: bookDetailResponse!.filePath.validate(), bookName: bookDetailResponse.name.validate(), bookId: bookDetailResponse.bookId).launch(context).then((value) async{});
    }
     // await insertIntoDb(
     //   userid: appStore.userId.toInt().validate(),

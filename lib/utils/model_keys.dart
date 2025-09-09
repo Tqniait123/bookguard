@@ -30,6 +30,7 @@ class UserKeys {
   static String newPassword = "new_password";
   static String comment = "comment";
   static String dob = "dob";
+  static String code = "code";
 }
 
 class DashboardKeys {
@@ -184,6 +185,7 @@ class LibraryBookKey {
   static String webBookPath = 'web_book_path';
   static String authorName = 'author_name';
   static String userId = 'user_id';
+  static String canReview = 'canReview';
 }
 
 class CheckSumKey {

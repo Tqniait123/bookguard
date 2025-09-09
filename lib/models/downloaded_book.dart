@@ -14,8 +14,9 @@ class DownloadedBook {
   String? lastCfi;
   String? webBookPath;
   bool isDownloaded;
+  int? canReview;
 
-  DownloadedBook({this.userId, this.id, this.taskId, this.bookId, this.bookName, this.frontCover, this.fileType, this.filePath, this.lastCfi, this.webBookPath, this.authorName, this.isDownloaded = false});
+  DownloadedBook({this.userId, this.id, this.taskId, this.bookId, this.bookName, this.frontCover, this.fileType, this.filePath, this.lastCfi, this.webBookPath, this.authorName, this.isDownloaded = false, this.canReview});
 
   factory DownloadedBook.fromJson(Map<String, dynamic> json) {
     return DownloadedBook(
@@ -29,7 +30,9 @@ class DownloadedBook {
         lastCfi: json['last_cfi'],
         webBookPath: json[LibraryBookKey.webBookPath],
         authorName: json[LibraryBookKey.authorName],
-        userId: json[LibraryBookKey.userId]);
+        userId: json[LibraryBookKey.userId],
+        canReview: json[LibraryBookKey.canReview],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -45,11 +48,12 @@ class DownloadedBook {
     data[LibraryBookKey.webBookPath] = this.webBookPath;
     data[LibraryBookKey.authorName] = this.authorName;
     data[LibraryBookKey.userId] = this.userId;
+    data[LibraryBookKey.canReview] = this.canReview;
     return data;
   }
 }
 
 DownloadedBook defaultBook(BookDetailResponse mBookDetail, fileType) {
   return DownloadedBook(
-      bookId: mBookDetail.bookId.toString(), bookName: mBookDetail.name, frontCover: mBookDetail.frontCover, fileType: fileType, filePath: mBookDetail.filePath, webBookPath: mBookDetail.filePath);
+      bookId: mBookDetail.bookId.toString(), bookName: mBookDetail.name, frontCover: mBookDetail.frontCover, fileType: fileType, filePath: mBookDetail.filePath, webBookPath: mBookDetail.filePath, canReview: mBookDetail.canReview);
 }

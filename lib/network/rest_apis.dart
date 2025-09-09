@@ -71,6 +71,35 @@ Future<BaseResponse> forgotPassword(Map request) async {
   return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('forgot-password', request: request, method: HttpMethod.POST))));
 }
 
+/// verify token
+Future<BaseResponse> verifyToken(Map request) async {
+  return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('verify-token', request: request, method: HttpMethod.POST))));
+}
+
+/// resend token register
+Future<BaseResponse> resendTokenRegister(Map request) async {
+  return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('resend-otp-register', request: request, method: HttpMethod.POST))));
+}
+
+/// resend token register
+Future<BaseResponse> resendToken(Map request) async {
+  return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('resend-otp', request: request, method: HttpMethod.POST))));
+}
+
+/// send token
+Future<BaseResponse> sendToken(Map request) async {
+  return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('sendOtp', request: request, method: HttpMethod.POST))));
+}
+/// verify token login
+Future<LoginResponse> verifyTokenLogin(Map request) async {
+  return LoginResponse.fromJson(await (handleResponse(await buildHttpResponse('verify-token-login', request: request, method: HttpMethod.POST))));
+}
+
+/// verify token register
+Future<BaseResponse> verifyTokenRegister(Map request) async {
+  return BaseResponse.fromJson(await (handleResponse(await buildHttpResponse('verify-token-register', request: request, method: HttpMethod.POST))));
+}
+
 ///change password api
 Future<BaseResponse> restPassword(Map request) async {
   return BaseResponse.fromJson(await handleResponse(await buildHttpResponse('update-password', request: request, method: HttpMethod.POST)));
@@ -160,6 +189,10 @@ Future<AllBookDetailsModel> getBookDetails(Map request) async {
 
 Future<ReadBook> readBook(Map request) async {
   return ReadBook.fromJson(await (handleResponse(await buildHttpResponse('read', request: request, method: HttpMethod.POST))));
+}
+
+Future<ReadBook> updateBookReviewStatus(Map request) async {
+  return ReadBook.fromJson(await (handleResponse(await buildHttpResponse('updateBookReviewStatus', request: request, method: HttpMethod.POST))));
 }
 
 Future<SubCategoryResponse> subCategories(request) async {

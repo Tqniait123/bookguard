@@ -528,4 +528,91 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get areYouSureWantToDeleteAccount => "Are you sure want to delete your account?";
+
+  @override
+  String get verifyOtp => "Verify OTP";
+
+  @override
+  String get enterOTP => "Enter the code we’ve sent to your email to verify your account.";
+
+  @override
+  String get resendCode => "Resend OTP";
+
+  @override
+  String get sendCode => "Send OTP";
+
+  @override
+  String get resendCodeIn => "Resend code in";
+
+  @override
+  String get addBookmarkToPage => "Add bookmark to page";
+
+  @override
+  String get currentPageWillSavedAsBookmark => "The current page will be saved as a bookmark";
+
+  @override
+  String get noteOptional => "Note (optional)";
+
+  @override
+  String get save => "Save";
+
+  @override
+  String get pageBookmarkAddedSuccessfully => "Page bookmark added successfully";
+
+  @override
+  String get addBookmarkToSelectedText => "Add bookmark to selected text";
+
+  @override
+  String get selectedText => "Selected text";
+
+  @override
+  String get textBookmarkAddedSuccessfully => "Text bookmark added successfully";
+
+  @override
+  String get bookmarkSelectedText => "Bookmark selected text";
+
+  @override
+  String get addHighlightAndBookmark => "Add highlight and bookmark";
+
+  @override
+  String get highlight => "Highlight";
+
+  @override
+  String get highlightAndBookmarkAdded => "Highlight and bookmark added";
+
+  @override
+  String get bookmarkThePage => "Bookmark the page";
+
+  @override
+  String get showBookmarks => "Show bookmarks";
+
+  @override
+  String get bookmarkAndHighlight => "Bookmark and highlight";
+
+  @override
+  String get noBookmarksSaved => "No bookmarks saved";
+
+  @override
+  String get bookmarkPages => "Bookmark pages";
+
+  @override
+  String get note => "Note";
+
+  @override
+  String get saveDone => "Save done";
+
+  @override
+  String get confirmDeletion => "Confirm deletion";
+
+  @override
+  String get doYouWantDeleteThisBookmark => "Do you want to delete this bookmark?";
+
+  @override
+  String get bookmarksDeleted => "Bookmarks deleted";
+
+  @override
+  String get selectBookmarkColor => "Select Bookmark Color:";
+
+  @override
+  String get changeFontSize => "Change Font Size";
 }

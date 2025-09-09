@@ -66,6 +66,22 @@ mixin _$AppStore on _AppStore, Store {
     });
   }
 
+  late final _$isCanReviewFirstTimeAtom =
+  Atom(name: '_AppStore.isCanReviewFirstTime', context: context);
+
+  @override
+  bool get isCanReviewFirstTime {
+    _$isCanReviewFirstTimeAtom.reportRead();
+    return super.isCanReviewFirstTime;
+  }
+
+  @override
+  set isCanReviewFirstTime(bool value) {
+    _$isCanReviewFirstTimeAtom.reportWrite(value, super.isCanReviewFirstTime, () {
+      super.isCanReviewFirstTime = value;
+    });
+  }
+
   late final _$isDisableNotificationAtom =
   Atom(name: '_AppStore.isDisableNotification', context: context);
 

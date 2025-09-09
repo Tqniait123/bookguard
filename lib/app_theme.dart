@@ -34,7 +34,7 @@ class AppThemeData {
       titleTextStyle: boldTextStyle(size: 20),
     ),
     scrollbarTheme: ScrollbarThemeData(thumbColor: WidgetStateProperty.all(Colors.black), radius: Radius.circular(defaultRadius)),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: cardColor,
       contentTextStyle: primaryTextStyle(color: Colors.red),
       titleTextStyle: boldTextStyle(),
@@ -84,7 +84,7 @@ class AppThemeData {
       titleTextStyle: boldTextStyle(size: 20),
     ),
     scrollbarTheme: ScrollbarThemeData(thumbColor: WidgetStateProperty.all(scaffoldColorDark), radius: Radius.circular(defaultRadius)),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: cardColor,
       contentTextStyle: primaryTextStyle(color: Colors.red),
       titleTextStyle: boldTextStyle(),

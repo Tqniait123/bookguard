@@ -28,14 +28,14 @@ class WebAboutUsScreen extends StatelessWidget {
           textAlign: TextAlign.justify,
         ),
         20.height,
-        AppButton(
-          text: language!.buyNow,
-          color: defaultPrimaryColor,
-          textStyle: primaryTextStyle(color: Colors.white),
-          onTap: () {
-            commonLaunchUrl(CodeCanyonLink);
-          },
-        ),
+        // AppButton(
+        //   text: language!.buyNow,
+        //   color: defaultPrimaryColor,
+        //   textStyle: primaryTextStyle(color: Colors.white),
+        //   onTap: () {
+        //     commonLaunchUrl(CodeCanyonLink);
+        //   },
+        // ),
       ],
     );
   }

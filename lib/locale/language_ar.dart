@@ -529,4 +529,91 @@ class LanguageAr extends BaseLanguage {
   @override
   String get areYouSureWantToDeleteAccount => "هل انت متاكد من حذف حسابك";
 
+  @override
+  String get verifyOtp => "تحقق من ال OTP";
+
+  @override
+  String get enterOTP => "أدخل الرمز الذي أرسلناه إلى بريدك الإلكتروني لتأكيد حسابك.";
+
+  @override
+  String get sendCode => "إرسال رمز التحقق";
+
+  @override
+  String get resendCode => "إعادة إرسال رمز التحقق";
+
+  @override
+  String get resendCodeIn => "إعادة إرسال الرمز خلال";
+
+  @override
+  String get addBookmarkToPage => "إضافة إشارة مرجعية للصفحة";
+
+  @override
+  String get currentPageWillSavedAsBookmark => "سيتم حفظ الصفحة الحالية كإشارة مرجعية";
+
+  @override
+  String get noteOptional => "ملاحظة (اختياري)";
+
+  @override
+  String get save => "حفظ";
+
+  @override
+  String get pageBookmarkAddedSuccessfully => "تمت إضافة إشارة مرجعية للصفحة بنجاح";
+
+  @override
+  String get addBookmarkToSelectedText => "إضافة إشارة مرجعية للنص المحدد";
+
+  @override
+  String get selectedText => "النص المحدد";
+
+  @override
+  String get textBookmarkAddedSuccessfully => "تمت إضافة إشارة مرجعية للنص بنجاح";
+
+  @override
+  String get bookmarkSelectedText => "إشارة مرجعية للنص المحدد";
+
+  @override
+  String get addHighlightAndBookmark => "إضافة تمييز وإشارة مرجعية";
+
+  @override
+  String get highlight => "تمييز";
+
+  @override
+  String get highlightAndBookmarkAdded => "تمت إضافة التمييز والإشارة المرجعية";
+
+  @override
+  String get bookmarkThePage => "إضافة إشارة مرجعية للصفحة";
+
+  @override
+  String get showBookmarks => "عرض الإشارات المرجعية";
+
+  @override
+  String get bookmarkAndHighlight => "إشارة مرجعية وتمييز";
+
+  @override
+  String get noBookmarksSaved => "لا توجد إشارات مرجعية محفوظة";
+
+  @override
+  String get bookmarkPages => "الصفحات المحفوظة كإشارات مرجعية";
+
+  @override
+  String get note => "ملاحظة";
+
+  @override
+  String get saveDone => "تم الحفظ";
+
+  @override
+  String get confirmDeletion => "تأكيد الحذف";
+
+  @override
+  String get doYouWantDeleteThisBookmark => "هل تريد حذف هذه الإشارة المرجعية؟";
+
+  @override
+  String get bookmarksDeleted => "تم حذف الإشارات المرجعية";
+
+  @override
+  String get selectBookmarkColor => "اختر لون البوكمارك:";
+
+  @override
+  String get changeFontSize => "تغيير حجم الخط";
+
 }

@@ -149,26 +149,33 @@ class BookButtonComponentState extends State<BookButtonComponent> {
                   color: defaultPrimaryColor,
                   width: context.width(),
                   onTap: () async {
-                    if (appStore.isDownloading) {
-                      toast(language!.pleaseWait);
-                    } else {
-                      // downloadBook(context, bookDetailResponse: widget.bookDetailResponse, isSample: false);
-                      // await EPubViewerScreen(filePath: widget.bookDetailResponse!.filePath.validate(), bookName: 'bookName'.validate(), bookId: 1).launch(context).then((value) {});
+                    // if (appStore.isDownloading) {
+                    //   toast(language!.pleaseWait);
+                    // } else {
+                    //   // downloadBook(context, bookDetailResponse: widget.bookDetailResponse, isSample: false);
+                    //   // await EPubViewerScreen(filePath: widget.bookDetailResponse!.filePath.validate(), bookName: 'bookName'.validate(), bookId: 1).launch(context).then((value) {});
+                      if(appStore.isLoggedIn) {
                       appStore.setLoading(true);
-                      readBook({'book_id': widget.bookDetailResponse?.bookId.toString()}).then((value){
-                        if(value.status != null && value.status!) {
-                          openBookOnline(context,
-                              bookDetailResponse: widget.bookDetailResponse,
-                              isSample: false);
-                        }else{
-                          toast(value.message);
-                        }
-                        appStore.setLoading(false);
-                      }).catchError((error){
-                        appStore.setLoading(false);
-                      });
+                        readBook({
+                          'book_id':
+                              widget.bookDetailResponse?.bookId.toString()
+                        }).then((value) {
+                          if (value.status != null && value.status!) {
+                            openBookOnline(context,
+                                bookDetailResponse: widget.bookDetailResponse,
+                                isSample: false);
+                          } else {
+                            toast(value.message);
+                          }
+                          appStore.setLoading(false);
+                        }).catchError((error) {
+                          appStore.setLoading(false);
+                        });
+                      }else {
+                        SignInScreen().launch(context);
+                      }
                     }
-                  },
+                  ,
                 ).expand()
               : Offstage(),
         ],

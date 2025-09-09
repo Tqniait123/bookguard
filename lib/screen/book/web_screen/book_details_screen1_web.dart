@@ -141,7 +141,7 @@ class WebBookDetails1Screen extends StatelessWidget {
                                               },
                                             );
                                           },
-                                        ).visible(appStore.isLoggedIn),
+                                        ).visible(appStore.isLoggedIn && (bookData.bookDetailResponse?.first.canReview == 1)),
                                     ],
                                   ),
 

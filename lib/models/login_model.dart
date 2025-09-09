@@ -3,13 +3,15 @@ import 'package:granth_flutter/utils/model_keys.dart';
 class LoginResponse {
   UserData? data;
   String? message;
+  bool? status;
 
-  LoginResponse({this.data, this.message});
+  LoginResponse({this.data, this.message, this.status});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
       data: json[CommonKeys.data] != null ? UserData.fromJson(json[CommonKeys.data]) : null,
       message: json[CommonKeys.message] != null ? json[CommonKeys.message] : "",
+      status: json[CommonKeys.status] != null ? json[CommonKeys.status] : false,
     );
   }
 
@@ -69,7 +71,7 @@ class UserData {
       deletedAt: json[CommonKeys.deletedAt] != null ? json[CommonKeys.deletedAt] : null,
       deviceId: json[UserKeys.deviceId] != null ? json[UserKeys.deviceId] : null,
       email: json[UserKeys.email],
-      emailVerifiedAt: json[UserKeys.emailVerifiedAt] != null ? json[UserKeys.emailVerifiedAt] : null,
+      emailVerifiedAt: json[UserKeys.emailVerifiedAt] != null ? DateTime.parse(json[UserKeys.emailVerifiedAt]) : null,
       id: json[UserKeys.id],
       image: json[UserKeys.image],
       name: json[UserKeys.name],

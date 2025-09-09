@@ -56,7 +56,6 @@ class BookDetailsScreen1State extends State<BookDetailsScreen1> {
         print('1111111111111111 ✔✔');
       });
       LiveStream().on(PAYMENT_DONE, (p0) async {
-
         getBookDetails(
           {
             "book_id": widget.bookId.validate(),
@@ -65,6 +64,16 @@ class BookDetailsScreen1State extends State<BookDetailsScreen1> {
         );
         // PaymentSuccessPage().launch(context);
         print('retrive ✔✔');
+        setState(() {});
+      });
+      LiveStream().on(REVIEW_FIRST_TIME, (p0) async {
+
+        getBookDetails(
+          {
+            "book_id": widget.bookId.validate(),
+            "user_id": appStore.userId.validate(),
+          },
+        );
         setState(() {});
       });
       LiveStream().on(IS_REVIEW_CHANGE, (p0) async {
@@ -84,6 +93,7 @@ class BookDetailsScreen1State extends State<BookDetailsScreen1> {
     LiveStream().dispose(CART_DATA_CHANGED);
     LiveStream().dispose(IS_REVIEW_CHANGE);
     LiveStream().dispose(PAYMENT_DONE);
+    LiveStream().dispose(REVIEW_FIRST_TIME);
     super.dispose();
   }
 

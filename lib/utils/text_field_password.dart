@@ -32,8 +32,9 @@ class _TextFieldPasswordState extends State<TextFieldPassword> {
   @override
   Widget build(BuildContext context) {
     return AppTextField(
+      isPassword: true,
       controller: widget.controller,
-      obscureText: obscure,
+      obscureText: false,
       autoFocus: widget.autoFocus,
       textFieldType: TextFieldType.PASSWORD,
       focus: widget.focus,

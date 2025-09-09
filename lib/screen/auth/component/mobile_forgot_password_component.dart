@@ -7,6 +7,7 @@ import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../otp_screen.dart';
 import '../reset_password.dart';
 
 class MobileForgotPasswordComponent extends StatefulWidget {
@@ -41,7 +42,8 @@ class _MobileForgotPasswordComponentState extends State<MobileForgotPasswordComp
       await forgotPassword(request).then((res) async {
         if (res.status!) {
           // finish(context);
-          ResetPasswordScreen(email: emailController.text.trim(),).launch(context);
+          // ResetPasswordScreen(email: emailController.text.trim(),).launch(context);
+          OtpScreen(email: emailController.text.trim(),).launch(context);
           toast(res.message.toString());
         } else {
           toast(parseHtmlString(res.message));

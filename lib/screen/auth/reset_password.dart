@@ -59,6 +59,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         if (res.status!) {
           finish(context);
           finish(context);
+          finish(context);
           toast(res.message.toString());
         } else {
           toast(parseHtmlString(res.message));

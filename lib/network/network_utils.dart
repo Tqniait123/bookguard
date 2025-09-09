@@ -84,6 +84,9 @@ Future handleResponse(Response response, [bool? avoidTokenError]) async {
     if (!avoidTokenError.validate()) LiveStream().emit(LIVESTREAM_TOKEN, true);
     throw 'Token Expired';
   }
+  if(response.statusCode == 403){
+    throw UnVerifiedException();
+  }
 
   if (response.statusCode.isSuccessful()) {
     print('response.body');
@@ -140,3 +143,5 @@ Map<String, String> defaultHeaders() {
 
   return header;
 }
+
+class UnVerifiedException{}
