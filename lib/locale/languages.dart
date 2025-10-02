@@ -253,7 +253,7 @@ abstract class BaseLanguage {
 
   String get organizeYourReadingList;
 
-  String get connectWithBookLovers;
+  String get walkThrow3;
 
   String get youCanDownloadBooks;
 
@@ -261,11 +261,13 @@ abstract class BaseLanguage {
 
   String get readBookAnywhere;
 
-  String get readLearnEnjoy;
+  String get walkThrow1;
 
-  String get planReadRepeat;
+  String get walkThrow2;
 
   String get inspireDiscussGrow;
+
+  String get connectWithBookLovers;
 
   String get downloadBooks;
 
@@ -412,4 +414,6 @@ abstract class BaseLanguage {
   String get selectBookmarkColor;
 
   String get changeFontSize;
+
+  String get loading;
 }

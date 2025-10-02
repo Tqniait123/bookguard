@@ -374,7 +374,7 @@ class LanguageAr extends BaseLanguage {
   String get organizeYourReadingList => "نظم قائمة القراءة الخاصة بك.";
 
   @override
-  String get connectWithBookLovers => "تواصل مع محبي الكتب. ";
+  String get walkThrow3 => "من الاتصال الأول بالعميل إلى إتمام الصفقة - قم بإدارة كل ذلك بخطوات بسيطة وفعالة. ";
 
   @override
   String get youCanDownloadBooks => "يمكنك تنزيل الكتب بسهولة.";
@@ -386,13 +386,16 @@ class LanguageAr extends BaseLanguage {
   String get readBookAnywhere => "اقرأ الكتاب في أي مكان";
 
   @override
-  String get readLearnEnjoy => "اقرأ، تعلم، استمتع.";
+  String get walkThrow1 => "جميع أدوات المبيعات الخاصة بك في مكان واحد لتتبع العملاء وإتمام الصفقات بشكل أكثر ذكاءً.";
 
   @override
-  String get planReadRepeat => "خطط، اقرأ، كرر.";
+  String get walkThrow2 => "منصة مصممة لفرق المبيعات لتعزيز الإنتاجية وتحقيق الأهداف بسهولة.";
 
   @override
   String get inspireDiscussGrow => "ألهم، ناقش، انمُ.";
+
+  @override
+  String get connectWithBookLovers => "تواصل مع محبي الكتب.";
 
   @override
   String get downloadBooks => "تنزيل الكتب";
@@ -615,5 +618,8 @@ class LanguageAr extends BaseLanguage {
 
   @override
   String get changeFontSize => "تغيير حجم الخط";
+
+  @override
+  String get loading => "تحميل...";
 
 }

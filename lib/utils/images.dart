@@ -1,4 +1,5 @@
 const String app_logo = "images/app_images/app_logo.png";
+const String app_logo_white = "images/app_icons/app-icon-white.png";
 const String login_book1 = "images/app_images/login_book1.png";
 const String signup_book1 = "images/app_images/signup_book1.png";
 const String login_book2 = "images/app_images/login_book2.jpg";

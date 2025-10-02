@@ -28,13 +28,30 @@ class SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Responsive(
-        mobile: MobileLoginComponent(),
-        web: WebLoginScreen(),
-        tablet: MobileLoginComponent(),
-      ),
+    return Stack(
+      children: [
+        Container(
+          height: 200,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color(0xFFFEDAB0),
+              Colors.white
+            ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter
+            )
+          ),
+        ),
+        Scaffold(
+          backgroundColor: transparentColor,
+          resizeToAvoidBottomInset: true,
+          body: Responsive(
+            mobile: MobileLoginComponent(),
+            web: WebLoginScreen(),
+            tablet: MobileLoginComponent(),
+          ),
+        ),
+      ],
     );
   }
 }

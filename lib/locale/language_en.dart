@@ -374,7 +374,7 @@ class LanguageEn extends BaseLanguage {
   String get organizeYourReadingList => "Organize Your Reading List.";
 
   @override
-  String get connectWithBookLovers => "Connect With Book Lovers.";
+  String get walkThrow3 => "From first client contact to deal closure – manage it all in simple, effective steps.";
 
   @override
   String get youCanDownloadBooks => "You can download books easily.";
@@ -386,13 +386,16 @@ class LanguageEn extends BaseLanguage {
   String get readBookAnywhere => "Read Book Anywhere";
 
   @override
-  String get readLearnEnjoy => "Read, Learn, Enjoy.";
+  String get walkThrow1 => "All your sales tools in one place to track clients and close deals smarter.";
 
   @override
-  String get planReadRepeat => "Plan, Read, Repeat.";
+  String get walkThrow2 => "A platform designed for sales teams to boost productivity and hit targets with ease.";
 
   @override
   String get inspireDiscussGrow => "Inspire, Discuss, Grow.";
+
+  @override
+  String get connectWithBookLovers => "Connect With Book Lovers.";
 
   @override
   String get downloadBooks => "Download Books";
@@ -615,4 +618,7 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get changeFontSize => "Change Font Size";
+
+  @override
+  String get loading => "loading...";
 }

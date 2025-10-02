@@ -17,6 +17,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../../network/network_utils.dart';
 import '../../../utils/images.dart';
 import '../../../utils/text_field_password.dart';
+import '../../../widgets/custom_back_button.dart';
 import '../login_otp_screen.dart';
 
 class MobileLoginComponent extends StatefulWidget {
@@ -83,14 +84,9 @@ class _MobileLoginComponentState extends State<MobileLoginComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget('', elevation: 0, color: context.scaffoldBackgroundColor, backWidget: BackButton(style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
-        shape: MaterialStateProperty.all(
-          CircleBorder(),
-        ),
-        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-      ))),
+      backgroundColor: transparentColor,
+      appBar: appBarWidget('', elevation: 0, color: transparentColor, backWidget:
+      CustomBackButton()),
       body: Stack(
         children: [
           Form(
