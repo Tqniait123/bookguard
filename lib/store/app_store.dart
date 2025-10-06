@@ -60,6 +60,9 @@ abstract class _AppStore with Store {
   String name = '';
 
   @observable
+  String userType = '';
+
+  @observable
   String userEmail = '';
 
   @observable
@@ -247,6 +250,12 @@ abstract class _AppStore with Store {
   Future<void> setName(String val, {bool isInitializing = false}) async {
     name = val;
     if (!isInitializing) await setValue(NAME, val);
+  }
+
+  @action
+  Future<void> setUserType(String val, {bool isInitializing = false}) async {
+    userType = val;
+    if (!isInitializing) await setValue(USER_TYPE, val);
   }
 
   @action

@@ -61,7 +61,11 @@ class BookButtonComponentState extends State<BookButtonComponent> {
 
   Future<void> addBookToCart() async {
     appStore.setLoading(true);
-    var request = {CommonKeys.bookId: mBookDetail!.bookId, CartModelKey.addQty: 1, BookRatingDataKey.userid: appStore.userId.validate()};
+    var request = {
+      CommonKeys.bookId: mBookDetail!.bookId,
+      CartModelKey.addQty: 1,
+      BookRatingDataKey.userid: appStore.userId.validate()
+    };
     await addToCart(request).then((result) {
       toast(result.message);
       appStore.setCartCount(appStore.cartCount = appStore.cartCount + 1);
@@ -87,35 +91,42 @@ class BookButtonComponentState extends State<BookButtonComponent> {
       child: Row(
         children: [
           // (widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0)
-          (widget.bookDetailResponse!.isPurchase != 1 && widget.bookDetailResponse!.price != 0) && !widget.bookDetailResponse!.hasActiveSubscription!
+          (widget.bookDetailResponse!.isPurchase != 1 &&
+                      widget.bookDetailResponse!.price != 0) &&
+                  !widget.bookDetailResponse!.hasActiveSubscription! &&
+              appStore.userType != 'employee'
               ? AppButton(
-                      enableScaleAnimation: false,
-                      color: defaultPrimaryColor,
-                      width: context.width(),
-                      child: Marquee(
-                        child: Text(
-                          cartItemListBookId.any((e) => e == widget.bookDetailResponse!.bookId) ? language!.goToCart : language!.addToCart,
-                          style: boldTextStyle(size: 14, color: whiteColor),
-                        ),
-                      ),
-                      onTap: () async {
-                        bool isCart = cartItemListBookId.any(
-                          (element) {
-                            return element == widget.bookDetailResponse!.bookId;
-                          },
-                        );
-
-                        if (appStore.isLoggedIn) {
-                          if (isCart) {
-                            CartFragment(isShowBack: true).launch(context);
-                          } else {
-                            await addBookToCart();
-                          }
-                        } else {
-                          SignInScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
-                        }
+                  enableScaleAnimation: false,
+                  color: defaultPrimaryColor,
+                  width: context.width(),
+                  child: Marquee(
+                    child: Text(
+                      cartItemListBookId.any(
+                              (e) => e == widget.bookDetailResponse!.bookId)
+                          ? language!.goToCart
+                          : language!.addToCart,
+                      style: boldTextStyle(size: 14, color: whiteColor),
+                    ),
+                  ),
+                  onTap: () async {
+                    bool isCart = cartItemListBookId.any(
+                      (element) {
+                        return element == widget.bookDetailResponse!.bookId;
                       },
-                    ).expand()
+                    );
+
+                    if (appStore.isLoggedIn) {
+                      if (isCart) {
+                        CartFragment(isShowBack: true).launch(context);
+                      } else {
+                        await addBookToCart();
+                      }
+                    } else {
+                      SignInScreen().launch(context,
+                          pageRouteAnimation: PageRouteAnimation.Slide);
+                    }
+                  },
+                ).expand()
               : Offstage(),
           // widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0
           //     ?
@@ -142,10 +153,15 @@ class BookButtonComponentState extends State<BookButtonComponent> {
           //     : Offstage(),
           // widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0 ? 16.width : 0.width,
           // (widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0)
-          (widget.bookDetailResponse!.isPurchase == 1 || widget.bookDetailResponse!.price == 0) || widget.bookDetailResponse!.hasActiveSubscription!
+          (widget.bookDetailResponse!.isPurchase == 1 ||
+                      widget.bookDetailResponse!.price == 0) ||
+                  widget.bookDetailResponse!.hasActiveSubscription! ||
+      appStore.userType == 'employee'
               ? AppButton(
                   enableScaleAnimation: false,
-                  child: Marquee(child: Text(language!.readBook, style: boldTextStyle(size: 14, color: whiteColor))),
+                  child: Marquee(
+                      child: Text(language!.readBook,
+                          style: boldTextStyle(size: 14, color: whiteColor))),
                   color: defaultPrimaryColor,
                   width: context.width(),
                   onTap: () async {
@@ -154,28 +170,31 @@ class BookButtonComponentState extends State<BookButtonComponent> {
                     // } else {
                     //   // downloadBook(context, bookDetailResponse: widget.bookDetailResponse, isSample: false);
                     //   // await EPubViewerScreen(filePath: widget.bookDetailResponse!.filePath.validate(), bookName: 'bookName'.validate(), bookId: 1).launch(context).then((value) {});
-                      if(appStore.isLoggedIn) {
-                      appStore.setLoading(true);
-                        readBook({
-                          'book_id':
-                              widget.bookDetailResponse?.bookId.toString()
-                        }).then((value) {
-                          if (value.status != null && value.status!) {
-                            openBookOnline(context,
-                                bookDetailResponse: widget.bookDetailResponse,
-                                isSample: false);
-                          } else {
-                            toast(value.message);
-                          }
-                          appStore.setLoading(false);
-                        }).catchError((error) {
-                          appStore.setLoading(false);
-                        });
-                      }else {
-                        SignInScreen().launch(context);
-                      }
+                    if(appStore.userType == 'employee'){
+                      openBookOnline(context,
+                          bookDetailResponse: widget.bookDetailResponse,
+                          isSample: false);
                     }
-                  ,
+                    else if (appStore.isLoggedIn) {
+                      appStore.setLoading(true);
+                      readBook({
+                        'book_id': widget.bookDetailResponse?.bookId.toString()
+                      }).then((value) {
+                        if (value.status != null && value.status!) {
+                          openBookOnline(context,
+                              bookDetailResponse: widget.bookDetailResponse,
+                              isSample: false);
+                        } else {
+                          toast(value.message);
+                        }
+                        appStore.setLoading(false);
+                      }).catchError((error) {
+                        appStore.setLoading(false);
+                      });
+                    } else {
+                      SignInScreen().launch(context);
+                    }
+                  },
                 ).expand()
               : Offstage(),
         ],

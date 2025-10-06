@@ -258,6 +258,21 @@ mixin _$AppStore on _AppStore, Store {
     });
   }
 
+  late final _$userTypeAtom = Atom(name: '_AppStore.userType', context: context);
+
+  @override
+  String get userType {
+    _$userTypeAtom.reportRead();
+    return super.userType;
+  }
+
+  @override
+  set userType(String value) {
+    _$userTypeAtom.reportWrite(value, super.userType, () {
+      super.userType = value;
+    });
+  }
+
   late final _$userEmailAtom =
   Atom(name: '_AppStore.userEmail', context: context);
 
@@ -666,6 +681,15 @@ mixin _$AppStore on _AppStore, Store {
   Future<void> setName(String val, {bool isInitializing = false}) {
     return _$setNameAsyncAction
         .run(() => super.setName(val, isInitializing: isInitializing));
+  }
+
+  late final _$setUserTypeAsyncAction =
+  AsyncAction('_AppStore.setUserType', context: context);
+
+  @override
+  Future<void> setUserType(String val, {bool isInitializing = false}) {
+    return _$setUserTypeAsyncAction
+        .run(() => super.setUserType(val, isInitializing: isInitializing));
   }
 
   late final _$setUserEmailAsyncAction =

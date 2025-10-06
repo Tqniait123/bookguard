@@ -37,6 +37,9 @@ Future<void> saveUserData(UserData data) async {
   if (data.apiToken.validate().isNotEmpty) await appStore.setToken(data.apiToken.validate());
   await appStore.setUserId(data.id.validate());
   await appStore.setName(data.name.validate());
+  print('data.userType.validate()');
+  print(data.userType.validate());
+  await appStore.setUserType(data.userType.validate());
   await appStore.setUserEmail(data.email.validate());
   await appStore.setUserName(data.userName.validate());
   await appStore.setUserProfile(data.image.validate());
