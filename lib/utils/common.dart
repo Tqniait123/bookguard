@@ -57,32 +57,39 @@ List<PaymentMethodListModel> paymentModeListData() {
   return paymentModeList;
 }
 
-InputDecoration inputDecoration(BuildContext context, {Widget? prefixIcon, String? hintText, double? borderRadius, Widget? preFixIcon, Widget? suffixIcon, bool labelText = true}) {
+InputDecoration inputDecoration(BuildContext context, {Widget? prefixIcon, String? hintText, EdgeInsetsGeometry? contentPadding, double? borderRadius, Widget? preFixIcon, Widget? suffixIcon, Color? fillColor, Color? borderColor, bool labelText = true}) {
   return InputDecoration(
-    contentPadding: EdgeInsets.only(left: 12, bottom: 10, top: 10, right: 10),
+    contentPadding:contentPadding ?? EdgeInsets.only(left: 12, bottom: 10, top: 10, right: 10),
     labelText: labelText ? hintText : '',
     labelStyle: secondaryTextStyle(),
     alignLabelWithHint: true,
     enabledBorder: OutlineInputBorder(
-      borderRadius: radius(borderRadius ?? defaultRadius),
-      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+      borderRadius: radius(borderRadius ?? 10),
+      borderSide: BorderSide(color: borderColor ?? (appStore.isDarkMode ? Color(0xFF3A3F44) : Color(
+          0xFFD3D3D5)), width: 0.0),
     ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: radius(borderRadius ?? 10),
+      borderSide: BorderSide(color: borderColor ?? (appStore.isDarkMode ? Color(0xFF3A3F44) : Color(
+          0xFFD3D3D5)), width: 0.0),
+    ),
+
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: radius(borderRadius ?? defaultRadius),
+      borderRadius: radius(borderRadius ?? 10),
       borderSide: BorderSide(color: Colors.red, width: 0.0),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: radius(borderRadius ?? defaultRadius),
+      borderRadius: radius(borderRadius ?? 10),
       borderSide: BorderSide(color: Colors.red, width: 1.0),
     ),
     errorMaxLines: 2,
     errorStyle: primaryTextStyle(color: Colors.red, size: 12),
     focusedBorder: OutlineInputBorder(
-      borderRadius: radius(borderRadius ?? defaultRadius),
+      borderRadius: radius(borderRadius ?? 10),
       borderSide: BorderSide(color: defaultPrimaryColor, width: 0.0),
     ),
     filled: true,
-    fillColor: appStore.isDarkMode ? scaffoldSecondaryDark : textFiledFillColor,
+    fillColor: fillColor?? Colors.transparent,
     prefixIcon: preFixIcon,
     suffixIcon: suffixIcon ?? SizedBox(),
   );

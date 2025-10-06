@@ -127,7 +127,7 @@ abstract class BaseLanguage {
 
   String get tapToDisableNotification;
 
-  String get logout;
+  String get signOut;
 
   String get areYouSureWantToLogout;
 
@@ -213,7 +213,11 @@ abstract class BaseLanguage {
 
   String get years;
 
+  String get year;
+
   String get subscriptions;
+
+  String get subscribeNow;
 
   String get purchase;
 
@@ -237,11 +241,15 @@ abstract class BaseLanguage {
 
   String get verifyOtp;
 
+  String get verify;
+
   String get lblForgotPassword;
 
   String get donTHaveAnAccount;
 
   String get register;
+
+  String get signUp;
 
   String get joinNow;
 
@@ -285,6 +293,8 @@ abstract class BaseLanguage {
 
   String get totalMrp;
 
+  String get subTotal;
+
   String get discount;
 
   String get total;
@@ -323,7 +333,17 @@ abstract class BaseLanguage {
 
   String get createANewPassword;
 
+  String get resetPassword;
+
   String get youNewPasswordMust;
+
+  String get createYourNewPassword;
+
+  String get confirmNewPassword;
+
+  String get YouHaveChangedSuccessfully;
+
+  String get pleaseUseNewPassword;
 
   String get oldPassword;
 
@@ -342,6 +362,8 @@ abstract class BaseLanguage {
   String get cart;
 
   String get profile;
+
+  String get account;
 
   String get library;
 
@@ -362,6 +384,8 @@ abstract class BaseLanguage {
   String get enterOTP;
 
   String get resendCodeIn;
+
+  String get sendOtp;
 
   String get sendCode;
 
@@ -416,4 +440,32 @@ abstract class BaseLanguage {
   String get changeFontSize;
 
   String get loading;
+
+  String get signInToYourAccount;
+
+  String get bySigningUp;
+
+  String get termsOfService;
+
+  String get and;
+
+  String get whatAreYouLookingFor;
+
+  String get welcomeBack;
+
+  String get whatDoYouWantToRead;
+
+  String get editNow;
+
+  String get bookDetails;
+
+  String get views;
+
+  String get removeAll;
+
+  String get searchPlaceholder;
+
+  String get phoneValidation;
+
+  String get phoneInvalid;
 }

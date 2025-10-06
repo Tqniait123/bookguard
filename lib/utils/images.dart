@@ -51,3 +51,19 @@ const String warning = "images/app_icons/warning.png";
 const String selected_plan = "images/app_icons/selected_plan.png";
 
 const String bookFrontCoverIfCoverNotAvailable = 'https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png';
+
+
+const String eyeSvg = 'images/svgs/eye.svg';
+const String closeEyeSvg = 'images/svgs/eye-close-icon.svg';
+const String facebookSvg = 'images/svgs/facebook.svg';
+const String googleSvg = 'images/svgs/google.svg';
+const String searchSvg = 'images/svgs/search-normal.svg';
+const String home_iconSvg = 'images/svgs/home-icon.svg';
+const String home_icon1Svg = 'images/svgs/home-icon1.svg';
+const String bag_iconSvg = 'images/svgs/bag-icon.svg';
+const String bag_icon1Svg = 'images/svgs/bag-icon1.svg';
+const String library_iconSvg = 'images/svgs/library-icon.svg';
+const String library_icon1Svg = 'images/svgs/library-icon1.svg';
+const String profile_iconSvg = 'images/svgs/profile-icon.svg';
+const String profile_icon1Svg = 'images/svgs/profile-icon1.svg';
+const String upload_imageSvg = 'images/svgs/upload-iconSvg.svg';

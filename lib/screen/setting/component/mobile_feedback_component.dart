@@ -5,6 +5,7 @@ import 'package:granth_flutter/network/rest_apis.dart';
 import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
+import 'package:granth_flutter/widgets/custom_back_button.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class MobileFeedbackComponent extends StatefulWidget {
@@ -67,7 +68,14 @@ class _MobileFeedbackComponentState extends State<MobileFeedbackComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(language!.feedback, elevation: 0),
+      backgroundColor: transparentColor,
+      appBar: appBarWidget(
+          language!.feedback,
+          color: transparentColor,
+          titleTextStyle: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 32),
+          elevation: 0,
+          center: true,
+          backWidget: CustomBackButton()),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(

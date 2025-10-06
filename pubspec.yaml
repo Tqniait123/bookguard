@@ -73,6 +73,9 @@ dependencies:
   provider: ^6.1.5
   pinput: ^5.0.1
   intl: ^0.20.2
+  flutter_svg: ^2.0.9
+  font_awesome_flutter: ^10.10.0
+  intl_phone_field: ^3.2.0
 #  paytm:
   #    git:
   #      url: https://github.com/iqonic-design/Paytm-All-in-one-flutter-sdk-master.git
@@ -120,4 +123,10 @@ flutter:
     - images/app_images/
     - images/flag/
     - images/lottie/
+    - images/svgs/
+
+  fonts:
+    - family: HelveticaNeueMedium
+      fonts:
+        - asset: fonts/HelveticaNeue Medium.ttf
 

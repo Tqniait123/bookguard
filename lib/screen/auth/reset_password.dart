@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:granth_flutter/configs.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/network/rest_apis.dart';
+import 'package:granth_flutter/screen/auth/success_password_screen.dart';
 import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
@@ -10,6 +11,8 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/text_field_password.dart';
 import '../../component/app_loader_widget.dart';
+import '../../widgets/background_widget.dart';
+import '../../widgets/custom_back_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
 
@@ -57,9 +60,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
       await restPassword(request).then((res) async {
         if (res.status!) {
-          finish(context);
-          finish(context);
-          finish(context);
+          SuccessPasswordScreen().launch(context, );
           toast(res.message.toString());
         } else {
           toast(parseHtmlString(res.message));
@@ -78,92 +79,99 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget("", elevation: 0, backWidget: BackButton(style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
-        shape: MaterialStateProperty.all(
-          CircleBorder(),
-        ),
-        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-      ))),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                Image.asset(change_password, height: context.height() * 0.35, width: context.width(), fit: BoxFit.contain),
-                Form(
-                  key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      16.height,
-                      Center(child: Text(language!.createANewPassword, style: boldTextStyle(size: 28))),
-                      // 8.height,
-                      // Text(language!.youNewPasswordMust, style: secondaryTextStyle(), textAlign: TextAlign.center,),
-                      16.height,
-                      // TextFieldPassword(
-                      //   controller: oldPasswordController,
-                      //   focus: oldPasswordFocusNode,
-                      //   nextFocus: newPasswordFocusNode,
-                      //   hint: language!.oldPassword,
-                      // ),
-                      // 16.height,
-                      TextFieldPassword(
-                        controller: newPasswordController,
-                        focus: newPasswordFocusNode,
-                        nextFocus: confirmPasswordFocusNode,
-                        hint:  language!.newPassword,
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        appBar: appBarWidget('', elevation: 0, color: transparentColor, backWidget:
+        CustomBackButton()),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: EdgeInsets.all(16),
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    40.height,
+                    Text(language!.resetPassword, style: boldTextStyle(size: 32)),
+                    32.height,
+                    Text(language!.createYourNewPassword, style: secondaryTextStyle(weight: FontWeight.w600),),
+                    32.height,
+                    // TextFieldPassword(
+                    //   controller: oldPasswordController,
+                    //   focus: oldPasswordFocusNode,
+                    //   nextFocus: newPasswordFocusNode,
+                    //   hint: language!.oldPassword,
+                    // ),
+                    // 16.height,
+                    TextFieldPassword(
+                      controller: newPasswordController,
+                      focus: newPasswordFocusNode,
+                      nextFocus: confirmPasswordFocusNode,
+                      hint:  language!.newPassword,
+                    ),
+                    16.height,
+                    TextFieldPassword(
+                      controller: confirmPasswordController,
+                      focus: confirmPasswordFocusNode,
+                      hint: language!.confirmPassword,
+                      validator: (val) {
+                        if (val!.isEmpty) return language!.thisFieldIsRequired;
+                        if (val != newPasswordController.text) return language!.passwordMustBeSame;
+                        return null;
+                      },
+                      onFieldSubmitted: (value) {
+                        changePasswordApi(context);
+                      },
+                    ),
+                    50.height,
+                    Container(
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: Color(0xFF18181B).withValues(alpha: 0.05), width: 2),
+                          borderRadius: BorderRadius.circular(15),
+                          color: defaultPrimaryColor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: appStore.isDarkMode
+                                  ? const Color(0xFF000000).withValues(alpha: 0.25)
+                                  : const Color(0xFF18181B).withValues(alpha: 0.05),
+                              blurRadius: 2,
+                              spreadRadius: 0.5,
+                              offset: const Offset(0, 1),
+                            ),
+                            BoxShadow(
+                              color: appStore.isDarkMode
+                                  ? const Color(0xFF2A2A2A).withValues(alpha: 0.6)
+                                  : const Color(0xFFEFF6FF),
+                              blurRadius: appStore.isDarkMode ? 3 : 0,
+                              spreadRadius: appStore.isDarkMode ? 1.5 : 4,
+                              offset: const Offset(0, 0),
+                            ),
+                          ]
                       ),
-                      16.height,
-                      TextFieldPassword(
-                        controller: confirmPasswordController,
-                        focus: confirmPasswordFocusNode,
-                        hint: language!.confirmPassword,
-                        validator: (val) {
-                          if (val!.isEmpty) return language!.thisFieldIsRequired;
-                          if (val != newPasswordController.text) return language!.passwordMustBeSame;
-                          return null;
-                        },
-                        onFieldSubmitted: (value) {
+                      child: AppButton(
+                        color: transparentColor,
+                        width: context.width(),
+                        textStyle: boldTextStyle(color: Colors.white),
+                        text: language!.confirmNewPassword,
+                        onTap: () {
                           changePasswordApi(context);
                         },
                       ),
-                      50.height,
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: AppButton(
-                          color: transparentColor,
-                          width: context.width(),
-                          textStyle: boldTextStyle(color: Colors.white),
-                          text: language!.submit,
-                          onTap: () {
-                            changePasswordApi(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          Observer(
-            builder: (context) {
-              return AppLoaderWidget().visible(appStore.isLoading).center();
-            },
-          )
-        ],
+            Observer(
+              builder: (context) {
+                return AppLoaderWidget().visible(appStore.isLoading).center();
+              },
+            )
+          ],
+        ),
       ),
     );
   }

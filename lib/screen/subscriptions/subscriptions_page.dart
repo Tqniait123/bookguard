@@ -13,6 +13,8 @@ import 'package:granth_flutter/network/rest_apis.dart';
 import 'package:granth_flutter/screen/book/component/library_componet.dart';
 import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/file_common.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
+import 'package:granth_flutter/widgets/custom_back_button.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../component/app_loader_widget.dart';
@@ -178,104 +180,101 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
         Observer(
           builder: (context) => DefaultTabController(
             length: 2,
-            child: Scaffold(
-              body: NestedScrollView(
-                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      elevation: 0,
-                      automaticallyImplyLeading: false,
-                      expandedHeight: 120,
-                      pinned: true,
-                      titleSpacing: 16,
-                      actions: <Widget>[],
-                      leading: BackButton( style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-                        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
-                        shape: MaterialStateProperty.all(
-                          CircleBorder(),
+            child: BackgroundWidget(
+              child: Scaffold(
+                backgroundColor: transparentColor,
+                body: NestedScrollView(
+                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverAppBar(
+                        elevation: 0,
+                        backgroundColor: transparentColor,
+                        automaticallyImplyLeading: false,
+                        expandedHeight: 120,
+                        pinned: true,
+                        titleSpacing: 16,
+                        actions: <Widget>[],
+                        leading: CustomBackButton(),
+                        bottom: TabBar(
+                          automaticIndicatorColorAdjustment: false,
+                          indicatorColor: defaultPrimaryColor,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          unselectedLabelColor: appStore.isDarkMode ? white : blackColor,
+                          labelColor: defaultPrimaryColor,
+                          isScrollable: false,
+                          onTap: (index) {
+                            appStore.setTabBarIndex(index);
+                          },
+                          tabs:  [
+                            Tab(text: language!.month),
+                            Tab(text: language!.years),
+                          ],
                         ),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-                      )),
-                      bottom: TabBar(
-                        automaticIndicatorColorAdjustment: false,
-                        indicatorColor: defaultPrimaryColor,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        unselectedLabelColor: appStore.isDarkMode ? white : blackColor,
-                        labelColor: defaultPrimaryColor,
-                        isScrollable: false,
-                        onTap: (index) {
-                          appStore.setTabBarIndex(index);
-                        },
-                        tabs:  [
-                          Tab(text: language!.month),
-                          Tab(text: language!.years),
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: Text(language!.subscriptions, style: boldTextStyle()),
+                          titlePadding: EdgeInsets.only(bottom: 80, left: 16),
+                          centerTitle: true,
+                        ),
+                      )
+                    ];
+                  },
+                  body: Stack(
+                    children: [
+                      appStore.isLoggedIn && appStore.isNetworkConnected
+                          ? TabBarView(
+                        children: [
+                          monthlyPlans.isNotEmpty
+                              ? PlanComponent(
+                            list: monthlyPlans,
+                            i: 0,
+                            onPlanSelected: (int planId){
+                              selectedPlan = monthlyPlans.firstWhere((plan)=> plan.id == planId);
+                              subscribe(planId);
+                            },
+                          )
+                              : Observer(builder: (context) {
+                            return NoDataWidget(
+                              title: language!.noSampleBooksDownload,
+                            ).visible(!appStore.isLoading && isDataLoaded);
+                          }),
+                          yearlyPlans.isNotEmpty
+                              ? PlanComponent(
+                            list: yearlyPlans,
+                            i: 1,
+                            onPlanSelected: (int planId){
+                              selectedPlan = yearlyPlans.firstWhere((plan)=> plan.id == planId);
+                              subscribe(planId);
+                            },
+                          )
+                              : NoDataWidget(
+                            title: language!.noPurchasedBookAvailable,
+                          ).visible(isDataLoaded && !appStore.isLoading),
+                        ],
+                      )
+                          : TabBarView(
+                        children: [
+                          yearlyPlans.isNotEmpty
+                              ? PlanComponent(
+                            list: monthlyPlans,
+                            i: 0,
+                            onPlanSelected: (int planId){
+                              subscribe(planId);
+                            },
+                          )
+                              : NoDataWidget(
+                            title: language!.noSampleBooksDownload,
+                          ).visible(isDataLoaded && !appStore.isLoading),
+                          monthlyPlans.isNotEmpty
+                              ? PlanComponent(
+                            list: monthlyPlans,
+                            i: 0,
+              
+                          )
+                              : NoDataWidget(title: language!.noPurchasedBookAvailable).visible(isDataLoaded && !appStore.isLoading)
                         ],
                       ),
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: Text(language!.subscriptions, style: boldTextStyle()),
-                        titlePadding: EdgeInsets.only(bottom: 60, left: 16),
-                        centerTitle: true,
-                      ),
-                    )
-                  ];
-                },
-                body: Stack(
-                  children: [
-                    appStore.isLoggedIn && appStore.isNetworkConnected
-                        ? TabBarView(
-                      children: [
-                        monthlyPlans.isNotEmpty
-                            ? PlanComponent(
-                          list: monthlyPlans,
-                          i: 0,
-                          onPlanSelected: (int planId){
-                            selectedPlan = monthlyPlans.firstWhere((plan)=> plan.id == planId);
-                            subscribe(planId);
-                          },
-                        )
-                            : Observer(builder: (context) {
-                          return NoDataWidget(
-                            title: language!.noSampleBooksDownload,
-                          ).visible(!appStore.isLoading && isDataLoaded);
-                        }),
-                        yearlyPlans.isNotEmpty
-                            ? PlanComponent(
-                          list: yearlyPlans,
-                          i: 0,
-                          onPlanSelected: (int planId){
-                            selectedPlan = yearlyPlans.firstWhere((plan)=> plan.id == planId);
-                            subscribe(planId);
-                          },
-                        )
-                            : NoDataWidget(
-                          title: language!.noPurchasedBookAvailable,
-                        ).visible(isDataLoaded && !appStore.isLoading),
-                      ],
-                    )
-                        : TabBarView(
-                      children: [
-                        yearlyPlans.isNotEmpty
-                            ? PlanComponent(
-                          list: monthlyPlans,
-                          i: 0,
-                          onPlanSelected: (int planId){
-                            subscribe(planId);
-                          },
-                        )
-                            : NoDataWidget(
-                          title: language!.noSampleBooksDownload,
-                        ).visible(isDataLoaded && !appStore.isLoading),
-                        monthlyPlans.isNotEmpty
-                            ? PlanComponent(
-                          list: monthlyPlans,
-                          i: 0,
-
-                        )
-                            : NoDataWidget(title: language!.noPurchasedBookAvailable).visible(isDataLoaded && !appStore.isLoading)
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

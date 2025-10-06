@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:granth_flutter/component/app_loader_widget.dart';
 import 'package:granth_flutter/component/no_data_found_widget.dart';
 import 'package:granth_flutter/main.dart';
@@ -11,10 +12,14 @@ import 'package:granth_flutter/screen/dashboard/component/recent_search_componen
 import 'package:granth_flutter/screen/dashboard/component/search_history_component.dart';
 import 'package:granth_flutter/screen/dashboard/web_screen/search_screen_web.dart';
 import 'package:granth_flutter/utils/common.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+
+import '../../utils/images.dart';
+import '../../widgets/custom_back_button.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -142,92 +147,96 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: context.scaffoldBackgroundColor,
-      appBar: isWeb ? null : appBarWidget('', elevation: 0),
-      bottomSheet: VoiceSearchComponent(searchText: mSearchText).visible(speech.isListening),
-      body: Responsive(
-        web: WebSearchScreen(width: context.width() / 6 - 28),
-        mobile: Stack(
-          children: [
-            AnimatedScrollView(
-              primary: false,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 50),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      8.height,
-                      AppTextField(
-                        controller: searchBookController,
-                        textFieldType: TextFieldType.NAME,
-                        onFieldSubmitted: (value) {
-                          hideKeyboard(context);
-                          if (searchBookController.text.isNotEmpty) addToSearchArray(searchBookController.text);
-                          getSearchHistory();
-                          if (searchBookController.text.isNotEmpty) getViewAllBookData(searchBookController.text, isNewSearch: true);
-                        },
-                        decoration: inputDecoration(
-                          context,
-                          labelText: false,
-                          hintText: language!.searchBooks,
-                          preFixIcon: Icon(Icons.search, color: context.iconColor),
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.mic, color: appStore.isDarkMode ? Colors.white : black),
-                            onPressed: () {
-                              startListening();
-                            },
+    return BackgroundWidget(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: appStore.isDarkMode ? null : transparentColor,
+        appBar: isWeb ? null :  appBarWidget('', elevation: 0, color: transparentColor, backWidget:
+        CustomBackButton()),
+        bottomSheet: VoiceSearchComponent(searchText: mSearchText).visible(speech.isListening),
+        body: Responsive(
+          web: WebSearchScreen(width: context.width() / 6 - 28),
+          mobile: Stack(
+            children: [
+              AnimatedScrollView(
+                primary: false,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 16, right: 16, bottom: 50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        8.height,
+                        AppTextField(
+                          controller: searchBookController,
+                          textFieldType: TextFieldType.NAME,
+                          onFieldSubmitted: (value) {
+                            hideKeyboard(context);
+                            if (searchBookController.text.isNotEmpty) addToSearchArray(searchBookController.text);
+                            getSearchHistory();
+                            if (searchBookController.text.isNotEmpty) getViewAllBookData(searchBookController.text, isNewSearch: true);
+                          },
+                          decoration: inputDecoration(
+                            context,
+                            labelText: false,
+                            hintText: language!.searchBooks,
+                            borderColor: appStore.isDarkMode ? Colors.grey.shade500 : Colors.grey.shade800,
+                            preFixIcon: UnconstrainedBox(child: SvgPicture.asset(searchSvg, height: 30,)),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.mic, color: appStore.isDarkMode ? Colors.white : black),
+                              onPressed: () {
+                                startListening();
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      16.height,
-                      RecentSearchComponent(
-                        onRecentSearch: () {
-                          clearSearchHistory();
-
-                          getSearchHistory();
-                          mBookList.clear();
-                          searchBookController.text = '';
-                          mSearchText = '';
-                        },
-                      ).visible(searchHistory.length > 0),
-                      SearchHistoryComponent(
-                        searchHistory,
-                        onSearchHistory: (item) async {
-                          await getViewAllBookData(item, isNewSearch: true);
-                        },
-                      ).visible(searchHistory.length > 0),
-                      Padding(
-                        padding: EdgeInsets.only(top: defaultRadius),
-                        child: Text(
-                          language!.searchResultFor + " \"" + mSearchText + "\"",
-                          style: secondaryTextStyle(size: 20),
-                        ).visible(mSearchText.length > 0),
-                      ).visible(!appStore.isLoading),
-                      16.height,
-                      Wrap(
-                        runSpacing: 8,
-                        spacing: 16,
-                        children: List.generate(mBookList.length, (index) {
-                          return Container(
-                            child: BookComponent(bookWidth: (context.width() / 2) - 22, bookData: mBookList[index]),
-                          );
-                        }),
-                      ).visible(mBookList.isNotEmpty),
-                    ],
+                        16.height,
+                        RecentSearchComponent(
+                          onRecentSearch: () {
+                            clearSearchHistory();
+      
+                            getSearchHistory();
+                            mBookList.clear();
+                            searchBookController.text = '';
+                            mSearchText = '';
+                          },
+                        ).visible(searchHistory.length > 0),
+                        SearchHistoryComponent(
+                          searchHistory,
+                          onSearchHistory: (item) async {
+                            await getViewAllBookData(item, isNewSearch: true);
+                          },
+                        ).visible(searchHistory.length > 0),
+                        Padding(
+                          padding: EdgeInsets.only(top: defaultRadius),
+                          child: Text(
+                            language!.searchResultFor + " \"" + mSearchText + "\"",
+                            style: secondaryTextStyle(size: 20),
+                          ).visible(mSearchText.length > 0),
+                        ).visible(!appStore.isLoading),
+                        16.height,
+                        Wrap(
+                          runSpacing: 8,
+                          spacing: 16,
+                          children: List.generate(mBookList.length, (index) {
+                            return Container(
+                              child: BookComponent(bookWidth: (context.width() - 50) / 2, bookData: mBookList[index]),
+                            );
+                          }),
+                        ).visible(mBookList.isNotEmpty),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Center(child: Observer(builder: (context) => AppLoaderWidget().visible(appStore.isLoading))),
-            NoDataWidget(
-              title: language!.searchForBooksBy,
-            ).withHeight(context.height()).center().visible(searchHistory.isEmpty).paddingAll(16),
-            Observer(builder: (context) => NoDataFoundWidget().visible(searchHistory.isNotEmpty && !appStore.isLoading && mBookList.isEmpty))
-          ],
+                ],
+              ),
+              Center(child: Observer(builder: (context) => AppLoaderWidget().visible(appStore.isLoading))),
+              NoDataWidget(
+                title: language!.searchForBooksBy,
+              ).withHeight(context.height()).center().visible(searchHistory.isEmpty).paddingAll(16),
+              Observer(builder: (context) => NoDataFoundWidget().visible(searchHistory.isNotEmpty && !appStore.isLoading && mBookList.isEmpty))
+            ],
+          ),
         ),
       ),
     );

@@ -13,11 +13,8 @@ class MobileAboutUsComponent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Image.asset(app_logo, alignment: Alignment.center, height: 120, width: 120).cornerRadiusWithClipRRect(defaultRadius),
-        16.height,
-        Text(APP_NAME, style: boldTextStyle(size: 24,color: context.primaryColor)),
-        16.height,
-        VersionInfoWidget(prefixText: 'v'),
+
+
         16.height,
         Text(
           'We’ve moved on to our smartphones and tablets to read while we’re on the go. Granth is an flutter eBook '
@@ -26,7 +23,7 @@ class MobileAboutUsComponent extends StatelessWidget {
           'readers. This excellent app supports all major types of PDF files. The run-through is extremely easy providing'
           ' users ease to browse, look for his/her favourite author,'
           ' build a wishlist and read anywhere, anytime.',
-          style: primaryTextStyle(),
+          style: primaryTextStyle(height: 1.8,),
           textAlign: TextAlign.justify,
         ),
         32.height,
@@ -38,6 +35,8 @@ class MobileAboutUsComponent extends StatelessWidget {
         //     commonLaunchUrl(CodeCanyonLink);
         //   },
         // ),
+        Spacer(),
+        VersionInfoWidget(prefixText: 'v'),
       ],
     );
   }

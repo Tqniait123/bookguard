@@ -3,6 +3,9 @@ import 'package:granth_flutter/screen/auth/component/mobile_login_component.dart
 import 'package:granth_flutter/screen/auth/web_screen/sign_in_screen_web.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../main.dart';
+import '../../widgets/background_widget.dart';
+
 class SignInScreen extends StatefulWidget {
   static String tag = '/SignInScreen';
 
@@ -28,30 +31,17 @@ class SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 200,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xFFFEDAB0),
-              Colors.white
-            ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter
-            )
-          ),
+    return BackgroundWidget(
+
+      child: Scaffold(
+        backgroundColor: appStore.isDarkMode ? null : transparentColor,
+        resizeToAvoidBottomInset: true,
+        body: Responsive(
+          mobile: MobileLoginComponent(),
+          web: WebLoginScreen(),
+          tablet: MobileLoginComponent(),
         ),
-        Scaffold(
-          backgroundColor: transparentColor,
-          resizeToAvoidBottomInset: true,
-          body: Responsive(
-            mobile: MobileLoginComponent(),
-            web: WebLoginScreen(),
-            tablet: MobileLoginComponent(),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -22,6 +22,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 
+import '../../../widgets/custom_back_button.dart';
 import 'call_us.dart';
 
 class MobileBookDetailsRes1Component extends StatelessWidget {
@@ -35,6 +36,9 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
     print('-----------------can review-------------');
     print(bookData.bookDetailResponse?.first.canReview ?? false);
     return Scaffold(
+      backgroundColor: transparentColor,
+      appBar: appBarWidget(language!.bookDetails,center: true, titleTextStyle: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 32), elevation: 0, color: transparentColor, backWidget:
+      CustomBackButton()),
       body: Stack(
         children: [
           SizedBox(
@@ -48,15 +52,15 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
                   16.height,
                   Text(
                     bookData.bookDetailResponse!.first.name.validate().capitalizeFirstLetter(),
-                    style: boldTextStyle(size: 18),
+                    style: boldTextStyle(size: 20),
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ).center(),
-                  8.height,
-                  Text(bookData.authorDetail!.first.name.validate(), style: secondaryTextStyle()).center(),
+                  4.height,
+                  Text(bookData.authorDetail!.first.name.validate(), style: secondaryTextStyle(weight: FontWeight.w500, size: 16)).center(),
                   16.height,
-                  Text('👁️ ${formatViews(bookData.bookDetailResponse!.first.usersCount.validate().toInt())} Views', style: secondaryTextStyle()).center(),
+                  Text('👁️ ${formatViews(bookData.bookDetailResponse!.first.usersCount.validate().toInt())} ${language!.views}', style: secondaryTextStyle()).center(),
                   16.height,
 
                   /// ratting list
@@ -68,7 +72,7 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
                   24.height,
 
                   ///Introduction title
-                  Text(language!.introduction, style: boldTextStyle(size: 24)),
+                  Text(language!.overview, style: boldTextStyle(size: 24)),
                   8.height,
                   ReadMoreText(
                     bookData.bookDetailResponse!.first.description.validate(),
@@ -159,25 +163,25 @@ class MobileBookDetailsRes1Component extends StatelessWidget {
           ),
           Align(alignment: Alignment.bottomCenter, child: appStore.addCartAvailable == '1' ? BookButtonComponent(bookDetailResponse: bookData.bookDetailResponse!.first)
               : CallUsButton(phoneNumber: bookData.authorDetail?[0].mobileNo??'',)),
-          Positioned(
-            top: 0,
-            left: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 0,
-            right: rtlSupport.contains(appStore.selectedLanguageCode) ? 0 : null,
-            child: IconButton(
-    style: ButtonStyle(
-    foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-    backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
-    shape: MaterialStateProperty.all(
-    CircleBorder(),
-    ),
-    padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-    ),
-              icon: Icon(Icons.arrow_back_outlined),
-              onPressed: () {
-                finish(context);
-              },
-            ),
-          ),
+    //       Positioned(
+    //         top: 0,
+    //         left: rtlSupport.contains(appStore.selectedLanguageCode) ? null : 0,
+    //         right: rtlSupport.contains(appStore.selectedLanguageCode) ? 0 : null,
+    //         child: IconButton(
+    // style: ButtonStyle(
+    // foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+    // backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
+    // shape: MaterialStateProperty.all(
+    // CircleBorder(),
+    // ),
+    // padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
+    // ),
+    //           icon: Icon(Icons.arrow_back_outlined),
+    //           onPressed: () {
+    //             finish(context);
+    //           },
+    //         ),
+    //       ),
           Observer(builder: (context) {
             return AppLoaderWidget().center().visible(appStore.isLoading);
           }),

@@ -7,6 +7,8 @@ import 'package:granth_flutter/screen/auth/edit_profile_screen.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../widgets/gradient_circle_widget.dart';
+
 class SettingTopComponent extends StatefulWidget {
   static String tag = '/SettingTopComponent';
 
@@ -36,47 +38,36 @@ class SettingTopComponentState extends State<SettingTopComponent> {
       builder: (context) {
         return Column(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("${language!.hey},", style: boldTextStyle(size: 24)),
-                    8.width,
-                    Text(appStore.name.validate(), maxLines: 2, style: boldTextStyle(size: 24)),
-                  ],
-                ).expand(),
-                8.width,
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    appStore.userProfile.isNotEmpty
-                        ? Observer(builder: (context) {
-                            return CachedImageWidget(
-                              url: appStore.userProfile.validate(),
-                              height: isWeb ? 70 : 80,
-                              width: isWeb ? 70 : 80,
-                              fit: BoxFit.cover,
-                            ).cornerRadiusWithClipRRect(40);
-                          })
-                        : Image.asset(place_holder_img, width: isWeb ? 70 : 80, height: isWeb ? 70 : 80, fit: BoxFit.cover).cornerRadiusWithClipRRect(40),
-                    Positioned(
-                      bottom: 6,
-                      right: -4,
-                      child: CircleAvatar(
-                        child: Icon(Icons.edit, color: whiteColor, size: 14),
-                        radius: 14,
-                        backgroundColor: defaultPrimaryColor,
-                      ).onTap(() {
-                        EditProfileScreen().launch(context);
-                      }),
-                    )
-                  ],
-                )
-              ],
-            ).paddingSymmetric(horizontal: 16),
+            GestureDetector(
+              onTap: () {
+                EditProfileScreen().launch(context);
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  appStore.userProfile.isNotEmpty
+                      ? Observer(builder: (context) {
+                    return GradientCircleAvatar(
+                      child: ClipOval(
+                        child: CachedImageWidget(
+                          url: appStore.userProfile.validate(),
+                          height: isWeb ? 70 : 80,
+                          width: isWeb ? 70 : 80,
+                          fit: BoxFit.cover,
+                        ).cornerRadiusWithClipRRect(40),
+                      ),
+                    );
+                  })
+                      : Image.asset(place_holder_img, width: isWeb ? 70 : 80, height: isWeb ? 70 : 80, fit: BoxFit.cover).cornerRadiusWithClipRRect(40),
+
+                  12.width,
+                      Text(appStore.name.validate(), maxLines: 2, style: boldTextStyle(size: 32, weight: FontWeight.w700, color: appStore.isDarkMode ? Colors.white : Colors.black,)),
+
+
+                ],
+              ).paddingSymmetric(horizontal: 16),
+            ),
             // Row(
             //   crossAxisAlignment: CrossAxisAlignment.end,
             //   children: [

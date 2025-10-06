@@ -166,6 +166,33 @@ class WalkThroughScreenState extends State<WalkThroughScreen> {
                                 enableScaleAnimation: false,
                                 color: Colors.transparent,
                                 width: double.infinity,
+                                text: language!.dashboard,
+                                textStyle: boldTextStyle(color: Colors.white),
+                                onTap: () async {
+                                    await setValue(FIRST_TIME, false);
+                                    DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+                                },
+                              ),
+                            ),
+                          ),
+                          8.height,
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+
+                                border: Border.all(color: Color(0xFF18181B).withValues(alpha: 0.05), width: 2),
+                                borderRadius: BorderRadius.circular(15),
+                                color: defaultPrimaryColor
+                              ),
+                              child: AppButton(
+                                enableScaleAnimation: false,
+                                color: Colors.transparent,
+                                width: double.infinity,
                                 text: language!.login,
                                 textStyle: boldTextStyle(color: Colors.white),
                                 onTap: () async {

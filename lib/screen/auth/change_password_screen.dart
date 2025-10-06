@@ -4,6 +4,7 @@ import 'package:granth_flutter/component/app_loader_widget.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/screen/auth/component/mobile_change_password_component.dart';
 import 'package:granth_flutter/screen/auth/web_screen/change_password_screen_web.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -33,20 +34,23 @@ class ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Responsive(
-            mobile: MobileChangePasswordComponent(),
-            web: WebChangePasswordScreen(),
-            tablet: WebChangePasswordScreen(),
-          ),
-          Observer(
-            builder: (context) {
-              return AppLoaderWidget().visible(appStore.isLoading).center();
-            },
-          )
-        ],
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        body: Stack(
+          children: [
+            Responsive(
+              mobile: MobileChangePasswordComponent(),
+              web: WebChangePasswordScreen(),
+              tablet: WebChangePasswordScreen(),
+            ),
+            Observer(
+              builder: (context) {
+                return AppLoaderWidget().visible(appStore.isLoading).center();
+              },
+            )
+          ],
+        ),
       ),
     );
   }

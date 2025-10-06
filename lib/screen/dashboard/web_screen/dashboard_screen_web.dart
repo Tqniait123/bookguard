@@ -315,7 +315,7 @@ class _WebDashboardScreenState extends State<WebDashboardScreen> {
                           shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: defaultPrimaryColor)),
                           width: context.width(),
                           color: white,
-                          text: language!.logout,
+                          text: language!.signOut,
                           textStyle: boldTextStyle(color: defaultPrimaryColor),
                           onTap: () async {
                             showConfirmDialogCustom(

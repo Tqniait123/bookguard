@@ -4,6 +4,7 @@ import 'package:granth_flutter/component/app_loader_widget.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/screen/setting/component/mobile_feedback_component.dart';
 import 'package:granth_flutter/screen/setting/web_screen/feedback_screen_web.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class FeedBackScreen extends StatefulWidget {
@@ -33,20 +34,23 @@ class FeedBackScreenState extends State<FeedBackScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Responsive(
-            mobile: MobileFeedbackComponent(),
-            web: WebFeedbackScreen(),
-            tablet: MobileFeedbackComponent(),
-          ),
-          Observer(
-            builder: (context) {
-              return AppLoaderWidget().center().visible(appStore.isLoading);
-            },
-          )
-        ],
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        body: Stack(
+          children: [
+            Responsive(
+              mobile: MobileFeedbackComponent(),
+              web: WebFeedbackScreen(),
+              tablet: MobileFeedbackComponent(),
+            ),
+            Observer(
+              builder: (context) {
+                return AppLoaderWidget().center().visible(appStore.isLoading);
+              },
+            )
+          ],
+        ),
       ),
     );
   }

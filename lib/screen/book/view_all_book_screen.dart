@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:granth_flutter/screen/book/component/mobile_view_all_book_res_component.dart';
 import 'package:granth_flutter/screen/book/web_screen/view_all_book_screen_web.dart';
 import 'package:granth_flutter/utils/common.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ViewAllBookScreen extends StatefulWidget {
@@ -38,11 +39,14 @@ class ViewAllBookScreenState extends State<ViewAllBookScreen> {
   @override
   Widget build(BuildContext context) {
     partition = screenSizePartition(context);
-    return Scaffold(
-      body: Responsive(
-        mobile: MobileViewAllBookResComponent(type: widget.type, title: widget.title, width: (context.width() - 50) / 2),
-        web: WebViewAllBookScreen(type: widget.type, title: widget.title, width: (context.width() / partition) - 100),
-        tablet: MobileViewAllBookResComponent(type: widget.type, title: widget.title, width: (context.width() - 70) / partition),
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        body: Responsive(
+          mobile: MobileViewAllBookResComponent(type: widget.type, title: widget.title, width: (context.width() - 50) / 2),
+          web: WebViewAllBookScreen(type: widget.type, title: widget.title, width: (context.width() / partition) - 100),
+          tablet: MobileViewAllBookResComponent(type: widget.type, title: widget.title, width: (context.width() - 70) / partition),
+        ),
       ),
     );
   }

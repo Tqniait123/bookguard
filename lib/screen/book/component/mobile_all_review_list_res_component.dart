@@ -5,7 +5,10 @@ import 'package:granth_flutter/models/book_ratting_list_model.dart';
 import 'package:granth_flutter/screen/book/component/ratting_list_component.dart';
 import 'package:granth_flutter/screen/book/component/review_text_component.dart';
 import 'package:granth_flutter/utils/colors.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../../widgets/custom_back_button.dart';
 
 class MobileAllReviewListComponent extends StatelessWidget {
   final num? totalRatting;
@@ -32,60 +35,64 @@ class MobileAllReviewListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget(language!.reviews, elevation: 0),
-      body: Stack(
-        children: [
-          if (!appStore.isLoading)
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      32.height,
-                      TextIcon(
-                        text: totalRatting!.toStringAsFixed(1).toDouble().toString().validate(),
-                        textStyle: boldTextStyle(size: 48),
-                        spacing: 4,
-                        suffix: Icon(Icons.star, color: Colors.amber, size: 48),
-                      ),
-                      16.height,
-                      ReviewTextComponent(label: '1', totalValue: oneStarTotal, color: poor),
-                      4.height,
-                      ReviewTextComponent(label: '2', totalValue: twoStarTotal, color: belowAverage),
-                      4.height,
-                      ReviewTextComponent(label: '3', totalValue: threeStarTotal, color: average),
-                      4.height,
-                      ReviewTextComponent(label: '4', totalValue: fourStarTotal, color: good),
-                      4.height,
-                      ReviewTextComponent(label: '5', totalValue: fiveStarTotal, color: excellent),
-                      8.height
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                  16.height,
-                  if (ratingList.validate().length != 0)
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.only(bottom: 16),
-                      shrinkWrap: true,
-                      itemCount: ratingList.validate().length,
-                      itemBuilder: (BuildContext context, int index) {
-                        BookRatingData mData = ratingList.validate()[index];
-                        return RattingListComponent(
-                          bookId: bookId,
-                          bookRatingData: mData,
-                        ).paddingSymmetric(horizontal: 16, vertical: 8);
-                      },
-                    )
-                  else
-                    NoDataWidget(title: language!.noDataFound),
-                ],
-              ),
-            )
-          else
-            AppLoaderWidget().center(),
-        ],
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        appBar: appBarWidget(language!.reviews,center: true, titleTextStyle: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 32), elevation: 0, color: transparentColor, backWidget:
+        CustomBackButton()),
+        body: Stack(
+          children: [
+            if (!appStore.isLoading)
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        32.height,
+                        TextIcon(
+                          text: totalRatting!.toStringAsFixed(1).toDouble().toString().validate(),
+                          textStyle: boldTextStyle(size: 48),
+                          spacing: 4,
+                          suffix: Icon(Icons.star, color: Colors.amber, size: 48),
+                        ),
+                        16.height,
+                        ReviewTextComponent(label: '1', totalValue: oneStarTotal, color: poor),
+                        4.height,
+                        ReviewTextComponent(label: '2', totalValue: twoStarTotal, color: belowAverage),
+                        4.height,
+                        ReviewTextComponent(label: '3', totalValue: threeStarTotal, color: average),
+                        4.height,
+                        ReviewTextComponent(label: '4', totalValue: fourStarTotal, color: good),
+                        4.height,
+                        ReviewTextComponent(label: '5', totalValue: fiveStarTotal, color: excellent),
+                        8.height
+                      ],
+                    ).paddingSymmetric(horizontal: 16),
+                    16.height,
+                    if (ratingList.validate().length != 0)
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.only(bottom: 16),
+                        shrinkWrap: true,
+                        itemCount: ratingList.validate().length,
+                        itemBuilder: (BuildContext context, int index) {
+                          BookRatingData mData = ratingList.validate()[index];
+                          return RattingListComponent(
+                            bookId: bookId,
+                            bookRatingData: mData,
+                          ).paddingSymmetric(horizontal: 16, vertical: 8);
+                        },
+                      )
+                    else
+                      NoDataWidget(title: language!.noDataFound),
+                  ],
+                ),
+              )
+            else
+              AppLoaderWidget().center(),
+          ],
+        ),
       ),
     );
   }

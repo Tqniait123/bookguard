@@ -10,6 +10,8 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../widgets/custom_back_button.dart';
+
 class MobileViewAllBookResComponent extends StatefulWidget {
   final String? type;
   final String? title;
@@ -62,14 +64,14 @@ class _MobileViewAllBookResComponentState extends State<MobileViewAllBookResComp
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(widget.title.validate(), elevation: 0, center: true, backWidget: BackButton(style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-        backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
-        shape: MaterialStateProperty.all(
-          CircleBorder(),
-        ),
-        padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-      ))),
+      backgroundColor: transparentColor,
+      appBar: appBarWidget(
+          widget.title.validate(),
+          color: transparentColor,
+          titleTextStyle: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 28),
+          elevation: 0,
+          center: true,
+          backWidget: CustomBackButton()),
       body: Stack(
         children: [
           if (bookList.validate().isNotEmpty)

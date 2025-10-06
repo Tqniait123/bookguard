@@ -5,7 +5,10 @@ import 'package:granth_flutter/component/no_data_found_widget.dart';
 import 'package:granth_flutter/screen/book/component/book_component.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/models/bookdetail_model.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../../widgets/custom_back_button.dart';
 
 class MobileWishListComponent extends StatelessWidget {
   const MobileWishListComponent({Key? key, required this.wishList, this.width}) : super(key: key);
@@ -15,44 +18,41 @@ class MobileWishListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget(language!.myWishlist, showBack: true, center: true, elevation: 0, backWidget: BackButton(style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-    backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)), // Brown color
-    shape: MaterialStateProperty.all(
-    CircleBorder(),
-    ),
-    padding: MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-    ))),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          if (!appStore.isLoading)
-            wishList!.isEmpty
-                ? NoDataFoundWidget()
-                : SingleChildScrollView(
-                    padding: EdgeInsets.all(defaultRadius),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 16,
-                      children: wishList!.map(
-                        (element) {
-                          BookDetailResponse mData = wishList![wishList!.indexOf(element)];
-                          return SizedBox(
-                            width: width ?? (context.width() / 2) - 22,
-                            child: BookComponent(bookData: mData, isWishList: true, isCenterBookInfo: true),
-                          );
-                        },
-                      ).toList(),
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        appBar: appBarWidget(language!.myWishlist,center: true, titleTextStyle: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 32), elevation: 0, color: transparentColor, backWidget:
+        CustomBackButton()),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (!appStore.isLoading)
+              wishList!.isEmpty
+                  ? NoDataFoundWidget()
+                  : SingleChildScrollView(
+                      padding: EdgeInsets.all(defaultRadius),
+                      child: Wrap(
+                        spacing: 8,
+                        runSpacing: 16,
+                        children: wishList!.map(
+                          (element) {
+                            BookDetailResponse mData = wishList![wishList!.indexOf(element)];
+                            return SizedBox(
+                              width: width ?? (context.width() / 2) - 22,
+                              child: BookComponent(bookData: mData, isWishList: true, isCenterBookInfo: true),
+                            );
+                          },
+                        ).toList(),
+                      ),
                     ),
-                  ),
-          if (appStore.isLoading)
-            Observer(
-              builder: (context) {
-                return AppLoaderWidget().center();
-              },
-            ),
-        ],
+            if (appStore.isLoading)
+              Observer(
+                builder: (context) {
+                  return AppLoaderWidget().center();
+                },
+              ),
+          ],
+        ),
       ),
     );
   }

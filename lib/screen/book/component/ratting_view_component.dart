@@ -26,7 +26,7 @@ class RattingViewComponent extends StatelessWidget {
             },
           ),
         8.width,
-        Text("(" + bookDetailResponse!.totalRating.validate().toStringAsFixed(1).validate() + ")"),
+        Text("" + bookDetailResponse!.totalRating.validate().toStringAsFixed(1).validate() + "", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
       ],
     );
   }

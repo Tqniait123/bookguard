@@ -8,6 +8,8 @@ import 'package:granth_flutter/utils/common.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../widgets/phone_field.dart';
+
 class MobileEditProfileComponent extends StatefulWidget {
   final File? imageFile;
 
@@ -46,6 +48,7 @@ class _MobileEditProfileComponentState extends State<MobileEditProfileComponent>
   ///save profile api call
   Future<void> saveProfile(BuildContext context) async {
     hideKeyboard(context);
+    formKey.currentState?.save();
     appStore.setLoading(true);
 
     Map request = {
@@ -92,39 +95,96 @@ class _MobileEditProfileComponentState extends State<MobileEditProfileComponent>
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  AppTextField(
-                    decoration: inputDecoration(context, hintText: language!.name, preFixIcon: Icon(Icons.person)),
-                    textFieldType: TextFieldType.NAME,
-                    controller: nameController,
-                    focus: nameFocusNode,
-                    nextFocus: userNameFocusNode,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(language!.name, style: TextStyle(color: appStore.isDarkMode ? Colors.grey.shade300 : Color(0xFF6C7278)),),
+                            4.height,
+                            AppTextField(
+                              decoration: inputDecoration(context,
+                                   preFixIcon: Icon(Icons.person),),
+                              textFieldType: TextFieldType.NAME,
+                              controller: nameController,
+                              focus: nameFocusNode,
+                              nextFocus: userNameFocusNode,
+                            ),
+                          ],
+                        ),
+                      ),
+                      8.width,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(language!.userName, style: TextStyle(color: appStore.isDarkMode ? Colors.grey.shade300 : Color(0xFF6C7278)),),
+                            4.height,
+                            AppTextField(
+                              textFieldType: TextFieldType.USERNAME,
+                              focus: userNameFocusNode,
+                              controller: usernameController,
+                              nextFocus: emailFocusNode,
+                              decoration: inputDecoration(context, preFixIcon: Icon(Icons.person)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   16.height,
-                  AppTextField(
-                    textFieldType: TextFieldType.USERNAME,
-                    focus: userNameFocusNode,
-                    controller: usernameController,
-                    nextFocus: emailFocusNode,
-                    decoration: inputDecoration(context, hintText: language!.userName, preFixIcon: Icon(Icons.person)),
+
+                  16.height,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(language!.email, style: TextStyle(color: appStore.isDarkMode ? Colors.grey.shade300 : Color(0xFF6C7278)),),
+                      4.height,
+                      AppTextField(
+                        textFieldType: TextFieldType.EMAIL,
+                        focus: emailFocusNode,
+                        nextFocus: mobileNumberFocusNode,
+                        controller: emailController,
+                        enabled: false,
+                        decoration: inputDecoration(context, preFixIcon: Icon(Icons.email)),
+                      ),
+                    ],
                   ),
                   16.height,
-                  AppTextField(
-                    textFieldType: TextFieldType.EMAIL,
-                    focus: emailFocusNode,
-                    nextFocus: mobileNumberFocusNode,
-                    controller: emailController,
-                    enabled: false,
-                    decoration: inputDecoration(context, hintText: language!.email, preFixIcon: Icon(Icons.email)),
-                  ),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Text(language!.contactNumber, style: TextStyle(color: appStore.isDarkMode ? Colors.grey.shade300 : Color(0xFF6C7278)),),
+                  //     4.height,
+                  //     AppTextField(
+                  //       textFieldType: TextFieldType.PHONE,
+                  //       focus: mobileNumberFocusNode,
+                  //       controller: mobileNumberController,
+                  //       decoration: inputDecoration(context, preFixIcon: Icon(Icons.phone)),
+                  //       onFieldSubmitted: (value) {
+                  //         saveProfile(context);
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
                   16.height,
-                  AppTextField(
-                    textFieldType: TextFieldType.PHONE,
-                    focus: mobileNumberFocusNode,
-                    controller: mobileNumberController,
-                    decoration: inputDecoration(context, hintText: language!.contactNumber, preFixIcon: Icon(Icons.phone)),
-                    onFieldSubmitted: (value) {
-                      saveProfile(context);
-                    },
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(language!.contactNumber, style: TextStyle(color: appStore.isDarkMode ? Colors.grey.shade300 : Color(0xFF6C7278)),),
+                      4.height,
+                      PhoneField(
+                        focus: mobileNumberFocusNode,
+                        // controller: mobileNumberController,
+                        initialValue: appStore.userContactNumber.validate(),
+                        onSaved: (phone) => mobileNumberController.text = '${phone?.countryCode}${phone?.number}',
+                        decoration: inputDecoration(context, preFixIcon: Icon(Icons.phone)),
+                        onFieldSubmitted: (value) {
+                          saveProfile(context);
+                        },
+                      ),
+                    ],
                   ),
                   16.height,
                 ],
@@ -136,16 +196,41 @@ class _MobileEditProfileComponentState extends State<MobileEditProfileComponent>
           bottom: 26,
           left: 16,
           right: 16,
-          child: AppButton(
-            width: context.width(),
-            text: language!.updateProfile,
-            textStyle: boldTextStyle(color: Colors.white),
-            color: defaultPrimaryColor,
-            enableScaleAnimation: false,
-            onTap: () {
-              saveProfile(context);
-            },
-          ).cornerRadiusWithClipRRect(defaultRadius),
+          child: Container(
+            decoration: BoxDecoration(
+              // border: Border.all(color: Color(0xFF18181B).withValues(alpha: 0.05), width: 2),
+                borderRadius: BorderRadius.circular(15),
+                color: defaultPrimaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: appStore.isDarkMode
+                        ? const Color(0xFF000000).withValues(alpha: 0.25)
+                        : const Color(0xFF18181B).withValues(alpha: 0.05),
+                    blurRadius: 2,
+                    spreadRadius: 0.5,
+                    offset: const Offset(0, 1),
+                  ),
+                  BoxShadow(
+                    color: appStore.isDarkMode
+                        ? const Color(0xFF2A2A2A).withValues(alpha: 0.6)
+                        : const Color(0xFFEFF6FF),
+                    blurRadius: appStore.isDarkMode ? 3 : 0,
+                    spreadRadius: appStore.isDarkMode ? 1.5 : 4,
+                    offset: const Offset(0, 0),
+                  ),
+                ]
+            ),
+            child: AppButton(
+              width: context.width(),
+              text: language!.editNow,
+              textStyle: boldTextStyle(color: Colors.white),
+              color: defaultPrimaryColor,
+              enableScaleAnimation: false,
+              onTap: () {
+                saveProfile(context);
+              },
+            ).cornerRadiusWithClipRRect(defaultRadius),
+          ),
         ),
       ],
     );

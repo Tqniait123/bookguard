@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:granth_flutter/configs.dart';
+import 'package:granth_flutter/main.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class SignInBottomWidget extends StatelessWidget {
@@ -12,9 +13,9 @@ class SignInBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(title!.validate(), style: secondaryTextStyle()),
+        Text(title!.validate(), style: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, )),
         TextButton(
           onPressed: onTap,
           child: Text(subTitle.validate(), style: boldTextStyle(color: defaultPrimaryColor, size: 14)),

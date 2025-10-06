@@ -15,7 +15,7 @@ class SeeAllComponent extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text(title, style: boldTextStyle(size: 20, color: textPrimaryColorGlobal)).expand(),
+        Text(title, style: boldTextStyle(size: 24, color: textPrimaryColorGlobal)).expand(),
         if (isShowSeeAll)
           GestureDetector(
             onTap: onClick,

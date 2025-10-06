@@ -12,6 +12,7 @@ import 'package:granth_flutter/screen/book/component/mobile_book_details_res1_co
 import 'package:granth_flutter/screen/book/web_screen/book_details_screen1_web.dart';
 import 'package:granth_flutter/utils/admob_utils.dart';
 import 'package:granth_flutter/utils/constants.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../payment/payment_done.dart';
@@ -101,27 +102,30 @@ class BookDetailsScreen1State extends State<BookDetailsScreen1> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        return Scaffold(
-          resizeToAvoidBottomInset: true,
-          body: SafeArea(
-            child: FutureBuilder<AllBookDetailsModel>(
-              future: getBookDetails(
-                {
-                  "book_id": widget.bookId.validate(),
-                  "user_id": appStore.userId.validate(),
+        return BackgroundWidget(
+          child: Scaffold(
+            backgroundColor: transparentColor,
+            resizeToAvoidBottomInset: true,
+            body: SafeArea(
+              child: FutureBuilder<AllBookDetailsModel>(
+                future: getBookDetails(
+                  {
+                    "book_id": widget.bookId.validate(),
+                    "user_id": appStore.userId.validate(),
+                  },
+                ),
+                builder: (context, snap) {
+                  if (snap.hasData) {
+                    if (snap.data == null) NoDataFoundWidget();
+                    return Responsive(
+                      mobile: MobileBookDetailsRes1Component(bookData: snap.data!, bookId: widget.bookId),
+                      web: WebBookDetails1Screen(bookData: snap.data!, bookId: widget.bookId),
+                      tablet: MobileBookDetailsRes1Component(bookData: snap.data!, bookId: widget.bookId),
+                    );
+                  }
+                  return snapWidgetHelper(snap, loadingWidget: AppLoaderWidget().center());
                 },
               ),
-              builder: (context, snap) {
-                if (snap.hasData) {
-                  if (snap.data == null) NoDataFoundWidget();
-                  return Responsive(
-                    mobile: MobileBookDetailsRes1Component(bookData: snap.data!, bookId: widget.bookId),
-                    web: WebBookDetails1Screen(bookData: snap.data!, bookId: widget.bookId),
-                    tablet: MobileBookDetailsRes1Component(bookData: snap.data!, bookId: widget.bookId),
-                  );
-                }
-                return snapWidgetHelper(snap, loadingWidget: AppLoaderWidget().center());
-              },
             ),
           ),
         );

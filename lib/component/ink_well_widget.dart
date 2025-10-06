@@ -18,8 +18,8 @@ class InkWellWidget extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: Container(
-              height: 190,
-              width: 140,
+              height: 249,
+              width: 160,
               child: CachedNetworkImage(
                 imageUrl: image.validate(),
                 fit: BoxFit.cover,

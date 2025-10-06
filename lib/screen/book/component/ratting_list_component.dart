@@ -59,7 +59,7 @@ class RattingListComponentState extends State<RattingListComponent> {
     return Observer(
       builder: (context) {
         return Container(
-          decoration: boxDecorationWithRoundedCorners(backgroundColor: context.cardColor, border: Border.all(color: defaultPrimaryColor.withValues(alpha: .2))),
+          decoration: boxDecorationWithRoundedCorners(backgroundColor: appStore.isDarkMode ? Colors.grey.shade900 : Color(0xFFF4F4F4), border: Border.all(color: defaultPrimaryColor.withValues(alpha: .2))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -89,6 +89,7 @@ class RattingListComponentState extends State<RattingListComponent> {
                   spacing: 4,
                   prefix: Icon(Icons.star, color: Colors.amberAccent, size: 16),
                   text: widget.bookRatingData!.rating?.toStringAsFixed(1).validate(),
+                  textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
               ).paddingOnly(top: 8).onTap(
                 () {

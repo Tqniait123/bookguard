@@ -23,6 +23,7 @@ import 'package:granth_flutter/utils/constants.dart';
 import 'package:granth_flutter/utils/model_keys.dart';
 import '../../../models/paymentMethod_model.dart';
 import '../../../utils/images.dart';
+import '../../../widgets/custom_back_button.dart';
 import '../../payment/cart_payment.dart';
 
 import '../../payment/fawaterk_payment.dart';
@@ -229,31 +230,35 @@ class _MobileCartFragmentState extends State<MobileCartFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(language!.myCart,
-          elevation: 0,
-          showBack: widget.isShowBack ?? false,
-          color: context.scaffoldBackgroundColor,
-          backWidget: BackButton(
-              style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-            backgroundColor: MaterialStateProperty.all(Color(0xFF876A48)),
-            // Brown color
-            shape: MaterialStateProperty.all(
-              CircleBorder(),
-            ),
-            padding:
-                MaterialStateProperty.all(EdgeInsets.all(12)), // Adjust size
-          ))),
+      backgroundColor: transparentColor,
+      appBar: appBarWidget(language!.myCart,titleTextStyle: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 32), elevation: 0, color: transparentColor, backWidget:
+      CustomBackButton()),
       bottomNavigationBar: cartItemList.length != 0 || appStore.cartCount != 0
           ? Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [defaultPrimaryColor, Color(0xffD2BB8F)],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(15),
+        margin: EdgeInsetsGeometry.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          // border: Border.all(color: Color(0xFF18181B).withValues(alpha: 0.05), width: 2),
+            borderRadius: BorderRadius.circular(15),
+            color: defaultPrimaryColor,
+            boxShadow: [
+              BoxShadow(
+                color: appStore.isDarkMode
+                    ? const Color(0xFF000000).withValues(alpha: 0.25)
+                    : const Color(0xFF18181B).withValues(alpha: 0.05),
+                blurRadius: 2,
+                spreadRadius: 0.5,
+                offset: const Offset(0, 1),
               ),
+              BoxShadow(
+                color: appStore.isDarkMode
+                    ? const Color(0xFF2A2A2A).withValues(alpha: 0.6)
+                    : const Color(0xFFEFF6FF),
+                blurRadius: appStore.isDarkMode ? 3 : 0,
+                spreadRadius: appStore.isDarkMode ? 1.5 : 4,
+                offset: const Offset(0, 0),
+              ),
+            ]
+        ),
               child: AppButton(
                 text: language!.placeOrder,
                 color: transparentColor,
@@ -329,10 +334,21 @@ class _MobileCartFragmentState extends State<MobileCartFragment> {
                   padding: EdgeInsets.only(bottom: 30),
                   child: Column(
                     children: [
-                      ListView.builder(
+                      24.height,
+                      Align(
+                        alignment: AlignmentGeometry.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: GestureDetector(
+                            onTap:(){},
+                              child: Text(language!.removeAll, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),)),
+                        ),
+                      ),
+                      ListView.separated(
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: cartItemList.length,
                         shrinkWrap: true,
+                        separatorBuilder: (context, index) => 16.height,
                         padding: EdgeInsets.only(
                             left: defaultRadius,
                             right: defaultRadius,

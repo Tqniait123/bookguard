@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:granth_flutter/component/app_loader_widget.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/component/cache_image_widget.dart';
@@ -10,8 +11,11 @@ import 'package:granth_flutter/configs.dart';
 import 'package:granth_flutter/screen/auth/component/mobile_edit_profile_component.dart';
 import 'package:granth_flutter/screen/auth/web_screen/edit_profile_screen_web.dart';
 import 'package:granth_flutter/utils/images.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../widgets/custom_back_button.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static String tag = '/EditProfileScreen';
@@ -95,73 +99,81 @@ class EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: appBarWidget(language!.editProfile, textColor: whiteColor, titleTextStyle: boldTextStyle(color: whiteColor), elevation: 0, color: defaultPrimaryColor, center: true),
-      body: Stack(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: context.height() * .25,
-            width: context.width(),
-            decoration: BoxDecoration(
-            color: defaultPrimaryColor,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(220),bottomRight: Radius.circular(220), )
-            ),
-            child: Stack(
-              children: [
-                imageFile != null
-                    ? Builder(
-                        builder: (context) {
-                          return isWeb
-                              ? Image.memory(
-                                  imageWebFile,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ).cornerRadiusWithClipRRect(50)
-                              : Image.file(imageFile!, width: 100, height: 100, fit: BoxFit.cover).cornerRadiusWithClipRRect(50);
-                        },
-                      )
-                    : appStore.userProfile.isNotEmpty
-                        ? Observer(
-                            builder: (_) => CachedImageWidget(
-                              url: appStore.userProfile,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ).cornerRadiusWithClipRRect(50),
-                          )
-                        : Image.asset(place_holder_img, width: 100, height: 100, fit: BoxFit.cover).cornerRadiusWithClipRRect(50),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: CircleAvatar(
-                    radius: defaultRadius,
-                    backgroundColor: context.cardColor,
-                    child: IconButton(
-                      padding: EdgeInsets.all(4),
-                      icon: Icon(Icons.camera_alt_outlined, size: defaultRadius, color: appStore.isDarkMode ? Colors.white : Colors.black),
-                      onPressed: () {
-                        showBottomSheet();
-                      },
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: transparentColor,
+        resizeToAvoidBottomInset: true,
+        appBar: appBarWidget(language!.editProfile, textColor: appStore.isDarkMode ? Colors.white : Colors.black,
+            titleTextStyle: boldTextStyle(
+                color: appStore.isDarkMode ? Colors.white : Colors.black,
+                size: 32), elevation: 0, color: transparentColor, center: true,
+        backWidget: CustomBackButton()),
+        body: Stack(
+          children: [
+            Positioned(
+              top: kToolbarHeight,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: imageFile != null
+                          ? Builder(
+                              builder: (context) {
+                                return isWeb
+                                    ? Image.memory(
+                                        imageWebFile,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ).cornerRadiusWithClipRRect(32)
+                                    : Image.file(imageFile!, width: 100, height: 100, fit: BoxFit.cover).cornerRadiusWithClipRRect(32);
+                              },
+                            )
+                          : appStore.userProfile.isNotEmpty
+                              ? Observer(
+                                  builder: (_) => CachedImageWidget(
+                                    url: appStore.userProfile,
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.cover,
+                                  ).cornerRadiusWithClipRRect(32),
+                                )
+                              : Image.asset(place_holder_img, width: 100, height: 100, fit: BoxFit.cover).cornerRadiusWithClipRRect(32),
                     ),
-                  ),
-                )
-              ],
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: CircleAvatar(
+                        radius: defaultRadius,
+                        backgroundColor: defaultPrimaryColor,
+                        child: IconButton(
+                          padding: EdgeInsets.all(4),
+                          icon: SvgPicture.asset(upload_imageSvg),
+                          onPressed: () {
+                            showBottomSheet();
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          ),
-          Responsive(
-            mobile: MobileEditProfileComponent(imageFile: imageFile),
-            web: WebEditProfileScreen(imageWebFile: imageWebFile),
-            tablet: WebEditProfileScreen(width: context.width() / 2 - 20, imageWebFile: imageWebFile),
-          ),
-          Observer(
-            builder: (context) {
-              return AppLoaderWidget().center().visible(appStore.isLoading);
-            },
-          )
-        ],
+            Responsive(
+              mobile: MobileEditProfileComponent(imageFile: imageFile),
+              web: WebEditProfileScreen(imageWebFile: imageWebFile),
+              tablet: WebEditProfileScreen(width: context.width() / 2 - 20, imageWebFile: imageWebFile),
+            ),
+            Observer(
+              builder: (context) {
+                return AppLoaderWidget().center().visible(appStore.isLoading);
+              },
+            )
+          ],
+        ),
       ),
     );
   }

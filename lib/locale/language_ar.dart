@@ -188,7 +188,7 @@ class LanguageAr extends BaseLanguage {
   String get tapToDisableNotification => "اضغط على تعطيل الإخطار";
 
   @override
-  String get logout => "تسجيل خروج";
+  String get signOut => "تسجيل خروج";
 
   @override
   String get areYouSureWantToLogout => "هل أنت متأكد من تريد تسجيل الدخول؟";
@@ -317,7 +317,13 @@ class LanguageAr extends BaseLanguage {
   String get years => "سنوي";
 
   @override
+  String get year => "سنة";
+
+  @override
   String get subscriptions => "الاشتراكات";
+
+  @override
+  String get subscribeNow => "اشترك الان";
 
   @override
   String get purchase => "شراء";
@@ -422,6 +428,9 @@ class LanguageAr extends BaseLanguage {
   String get totalMrp => "مجموع MRP";
 
   @override
+  String get subTotal => "المجموع الفرعي";
+
+  @override
   String get discount => "تخفيض";
 
   @override
@@ -479,7 +488,22 @@ class LanguageAr extends BaseLanguage {
   String get createANewPassword => "أنشئ كلمة مرور جديدة";
 
   @override
+  String get resetPassword => "إعادة تعيين كلمة المرور";
+
+  @override
   String get youNewPasswordMust => "يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور السابقة المستخدمة.";
+
+  @override
+  String get createYourNewPassword => "قم بإنشاء كلمة المرور الجديدة الخاصة بك وتأكيدها.";
+
+  @override
+  String get confirmNewPassword => "تأكيد كلمة المرور الجديدة";
+
+  @override
+  String get YouHaveChangedSuccessfully => "لقد غيّرت كلمة مرورك بنجاح";
+
+  @override
+  String get pleaseUseNewPassword => "لقد تم تغيير كلمة المرور بنجاح.\n يُرجى استخدام كلمة المرور الجديدة عند تسجيل الدخول.";
 
   @override
   String get oldPassword => "كلمة المرور القديمة";
@@ -491,7 +515,7 @@ class LanguageAr extends BaseLanguage {
   String get weHaveSentA => "لقد أرسلنا إرشادات استرداد كلمة المرور إلى بريدك الإلكتروني.";
 
   @override
-  String get justEnterTheEmail => "ما عليك سوى إدخال عنوان البريد الإلكتروني الذي استخدمته للتسجيل معنا وسنرسل لك رابط إعادة التعيين!";
+  String get justEnterTheEmail => "ما عليك سوى إدخال عنوان البريد الإلكتروني الذي استخدمته للتسجيل معنا وسنرسل لك رمز إعادة التعيين!";
 
   @override
   String get message => "رسالة";
@@ -536,7 +560,13 @@ class LanguageAr extends BaseLanguage {
   String get verifyOtp => "تحقق من ال OTP";
 
   @override
+  String get verify => "تحقق";
+
+  @override
   String get enterOTP => "أدخل الرمز الذي أرسلناه إلى بريدك الإلكتروني لتأكيد حسابك.";
+
+  @override
+  String get sendOtp => "إرسال رمز التحقق";
 
   @override
   String get sendCode => "إرسال رمز التحقق";
@@ -621,5 +651,53 @@ class LanguageAr extends BaseLanguage {
 
   @override
   String get loading => "تحميل...";
+
+  @override
+  String get signInToYourAccount => "تسجيل الدخول إلى حسابك";
+
+  @override
+  String get signUp => "تسجيل";
+
+  @override
+  String get bySigningUp => "من خلال التسجيل فإنك توافق على ";
+
+  @override
+  String get termsOfService => "شروط الخدمة";
+
+  @override
+  String get and => "و";
+
+  @override
+  String get whatAreYouLookingFor => "ما الذي تبحث عنه ....؟";
+
+  @override
+  String get welcomeBack => "مرحبا بعودتك";
+
+  @override
+  String get whatDoYouWantToRead => "ماذا تريد أن تقرأ اليوم؟";
+
+  @override
+  String get editNow => "تعديل الان";
+
+  @override
+  String get account => "الحساب";
+
+  @override
+  String get bookDetails => "تفاصيل الكتاب";
+
+  @override
+  String get views => "مشاهدات";
+
+  @override
+  String get removeAll => "حذف الكل";
+
+  @override
+  String get searchPlaceholder => "بحث...";
+
+  @override
+  String get phoneValidation => "رقم الهاتف مطلوب.";
+
+  @override
+  String get phoneInvalid => "أدخل رقم هاتف صحيح.";
 
 }

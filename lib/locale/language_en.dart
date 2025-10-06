@@ -14,7 +14,7 @@ class LanguageEn extends BaseLanguage {
   String get email => "Email";
 
   @override
-  String get contactNumber => "Number";
+  String get contactNumber => "Phone Number";
 
   @override
   String get password => "Password";
@@ -188,7 +188,7 @@ class LanguageEn extends BaseLanguage {
   String get tapToDisableNotification => "Tap to disable notification";
 
   @override
-  String get logout => "Logout";
+  String get signOut => "Sign Out";
 
   @override
   String get areYouSureWantToLogout => "Are you sure want to logout?";
@@ -317,7 +317,13 @@ class LanguageEn extends BaseLanguage {
   String get years => "Years";
 
   @override
+  String get year => "Year";
+
+  @override
   String get subscriptions => "Subscriptions";
+
+  @override
+  String get subscribeNow => "Subscribe Now";
 
   @override
   String get purchase => "Purchase";
@@ -422,6 +428,9 @@ class LanguageEn extends BaseLanguage {
   String get totalMrp => "Total MRP";
 
   @override
+  String get subTotal => "SubTotal";
+
+  @override
   String get discount => "Discount";
 
   @override
@@ -476,10 +485,25 @@ class LanguageEn extends BaseLanguage {
   String get books => "Books";
 
   @override
-  String get createANewPassword => "Create a new password";
+  String get createANewPassword => "Create new password";
+
+  @override
+  String get resetPassword => "Reset password";
 
   @override
   String get youNewPasswordMust => "You new password must be different from previous used password.";
+
+  @override
+  String get createYourNewPassword => "Create your new password and confirm it.";
+
+  @override
+  String get confirmNewPassword => "Confirm New Password";
+
+  @override
+  String get YouHaveChangedSuccessfully => "You have changed your password successfully";
+
+  @override
+  String get pleaseUseNewPassword => "You have successfully change password.\nPlease use the new password when logging in.";
 
   @override
   String get oldPassword => "Old Password";
@@ -491,7 +515,7 @@ class LanguageEn extends BaseLanguage {
   String get weHaveSentA => "We have sent a password recover instructions to your email.";
 
   @override
-  String get justEnterTheEmail => "Just Enter the email address you have used to register with us and we will send you the reset link!";
+  String get justEnterTheEmail => "Just Enter the email address you have used to register with us and we will send you the reset Code!";
 
   @override
   String get message => "Message";
@@ -533,16 +557,22 @@ class LanguageEn extends BaseLanguage {
   String get areYouSureWantToDeleteAccount => "Are you sure want to delete your account?";
 
   @override
-  String get verifyOtp => "Verify OTP";
+  String get verifyOtp => "OTP Verification";
 
   @override
-  String get enterOTP => "Enter the code we’ve sent to your email to verify your account.";
+  String get verify => "Verify";
+
+  @override
+  String get enterOTP => "Enter the OTP code that we sent to you.";
 
   @override
   String get resendCode => "Resend OTP";
 
   @override
-  String get sendCode => "Send OTP";
+  String get sendOtp => "Send OTP";
+
+  @override
+  String get sendCode => "Send Code";
 
   @override
   String get resendCodeIn => "Resend code in";
@@ -621,4 +651,52 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get loading => "loading...";
+
+  @override
+  String get signInToYourAccount => "Sign in to your Account";
+
+  @override
+  String get signUp => "Sign Up";
+
+  @override
+  String get bySigningUp => "By signing up, you agree to the ";
+
+  @override
+  String get termsOfService => "Terms of Service";
+
+  @override
+  String get and => "and";
+
+  @override
+  String get whatAreYouLookingFor => "What Are You Looking for ....?";
+
+  @override
+  String get welcomeBack => "Welcome Back";
+
+  @override
+  String get whatDoYouWantToRead => "What do you want to read today?";
+
+  @override
+  String get editNow => "Edit Now";
+
+  @override
+  String get account => "Account";
+
+  @override
+  String get bookDetails => "Book Details";
+
+  @override
+  String get views => "Views";
+
+  @override
+  String get removeAll => "Remove All";
+
+  @override
+  String get searchPlaceholder => "Search...";
+
+  @override
+  String get phoneValidation => "Phone number is required.";
+
+  @override
+  String get phoneInvalid => "Enter a valid phone number.";
 }

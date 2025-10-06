@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:granth_flutter/screen/auth/component/mobile_sign_up_component.dart';
 import 'package:granth_flutter/screen/auth/web_screen/sign_up_screen_web.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../main.dart';
 
 class SignupScreen extends StatefulWidget {
   static String tag = '/SignupScreen';
@@ -28,12 +31,14 @@ class SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Responsive(
-        mobile: MobileSignUpComponent(),
-        web: WebSignupScreen(),
-        tablet: MobileSignUpComponent(),
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: appStore.isDarkMode ? null : transparentColor,        resizeToAvoidBottomInset: true,
+        body: Responsive(
+          mobile: MobileSignUpComponent(),
+          web: WebSignupScreen(),
+          tablet: MobileSignUpComponent(),
+        ),
       ),
     );
   }

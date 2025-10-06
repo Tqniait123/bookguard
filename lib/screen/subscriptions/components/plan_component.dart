@@ -60,110 +60,147 @@ class PlanComponentState extends State<PlanComponent> {
         final duration = widget.list![index].myPlan?.duration?? widget.list![index].durationString;
 
           return GestureDetector(
-            onTap: (){
-
-              if(widget.onPlanSelected != null && widget.list![index].myPlan == null) {
-                if(appStore.userActiveSubscription){
-                  toast(language!.youAlreadySubscribed);
-                  return;
-                }
-                showConfirmDialogCustom(context, cancelable: false, primaryColor: defaultPrimaryColor, onCancel: (_){
-                  finish(context);
-                }, onAccept: (c) {
-                  widget.onPlanSelected!(widget.list![index].id??0);
-                }, title: language!.areYouSureWantToSubscribe, positiveText: language!.yes, negativeText: language!.no);
-
-            }
-          },
             child: Center(
               child: Container(
-                // width: 300,
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                  gradient:selected ? LinearGradient(
+                  borderRadius: BorderRadius.circular(5),
+                  gradient: LinearGradient(
                     colors: [
-                      Color(0xFFDDC69A), // Soft gold
-                      Color(0xFF876A48), // Deep gold
+                      defaultPrimaryColor.withValues(alpha: 0.1),
+                      defaultPrimaryColor.withValues(alpha: 0.95),
+                      defaultPrimaryColor.withValues(alpha: 0.1),
                     ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ) : null,
-                  color: selected ? null : Color(0xFFEFE8E4),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                  border: Border.all(color: Color(0xFFEFEFEF))
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if(selected)Row(
-                      children: [
-                        Image.asset(selected_plan),
-                        Spacer(),
+                child: Container(
+                  // width: 300,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient:selected ? LinearGradient(
+                      colors: [
+                        Color(0xFFDDC69A), // Soft gold
+                        Color(0xFF876A48), // Deep gold
                       ],
-                    ),
-                    SizedBox(height: 8),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.list![index].name??'',
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ) : null,
+                    color: selected ? null : (appStore.isDarkMode ? Colors.grey.shade900 : Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                        color:defaultPrimaryColor.withValues(alpha: 0.16),
+                        blurRadius: 80,
+                        spreadRadius: 0,
+                        offset: Offset(0, -20),
+                      ),
+                    ],
+                    border: Border.all(color: Color(0xFFEFEFEF))
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if(selected)Row(
+                        children: [
+                          Image.asset(selected_plan),
+                          Spacer(),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                     Text(
+                          widget.list![index].name??'',
+                          style: TextStyle(
+                            color: selected ? Colors.white : defaultPrimaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Text(
+                              '${price}$defaultCurrencySymbol ',
+                              style: TextStyle(
+                                color:selected ? Colors.white : defaultPrimaryColor,
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          // Text(
+                          //     '/ ${widget.i == 0 ? language!.month : language!.year}',
+                          //     style: TextStyle(
+                          //       color:appStore.isDarkMode ? Colors.white : (selected ? Colors.white : Color(0xFFA4A5AA)),
+                          //       fontSize: 16,
+                          //       fontWeight: FontWeight.w400,
+                          //     ),
+                          //   ),
+                        ],
+                      ),
+                      8.height,
+                      Divider(color: appStore.isDarkMode ? Colors.grey.shade800 : (selected ? Colors.white : Color(0xFFECEDF1)),),
+                      8.height,
+                      Text(
+                        '- ${duration}',
                         style: TextStyle(
-                          color: selected ? Colors.white : Colors.black,
+                          color: selected ? Colors.white : defaultPrimaryColor,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '- ${duration}',
-                      style: TextStyle(
-                        color: selected ? Colors.white : Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    // SizedBox(height: 8),
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Text(
-                    //       '- Access to essential features.',
-                    //       style: TextStyle(color: Colors.white70, fontSize: 14),
-                    //     ),
-                    //     Text(
-                    //       '- Limited storage (5GB).',
-                    //       style: TextStyle(color: Colors.white70, fontSize: 14),
-                    //     ),
-                    //     Text(
-                    //       '- Email support.',
-                    //       style: TextStyle(color: Colors.white70, fontSize: 14),
-                    //     ),
-                    //     Text(
-                    //       '- Monthly analytics report.',
-                    //       style: TextStyle(color: Colors.white70, fontSize: 14),
-                    //     ),
-                    //   ],
-                    // ),
-                    SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        '${price}$defaultCurrencySymbol',
-                        style: TextStyle(
-                          color:selected ? Colors.white : Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      // SizedBox(height: 8),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       '- Access to essential features.',
+                      //       style: TextStyle(color: Colors.white70, fontSize: 14),
+                      //     ),
+                      //     Text(
+                      //       '- Limited storage (5GB).',
+                      //       style: TextStyle(color: Colors.white70, fontSize: 14),
+                      //     ),
+                      //     Text(
+                      //       '- Email support.',
+                      //       style: TextStyle(color: Colors.white70, fontSize: 14),
+                      //     ),
+                      //     Text(
+                      //       '- Monthly analytics report.',
+                      //       style: TextStyle(color: Colors.white70, fontSize: 14),
+                      //     ),
+                      //   ],
+                      // ),
+                      SizedBox(height: 16),
+
+                      GestureDetector(
+                        onTap: (){
+
+                          if(widget.onPlanSelected != null && widget.list![index].myPlan == null) {
+                            if(appStore.userActiveSubscription){
+                              toast(language!.youAlreadySubscribed);
+                              return;
+                            }
+                            showConfirmDialogCustom(context, cancelable: false, primaryColor: defaultPrimaryColor, onCancel: (_){
+                              finish(context);
+                            }, onAccept: (c) {
+                              widget.onPlanSelected!(widget.list![index].id??0);
+                            }, title: language!.areYouSureWantToSubscribe, positiveText: language!.yes, negativeText: language!.no);
+
+                          }
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          decoration: BoxDecoration(
+                            color: appStore.isDarkMode ? Colors.grey.shade800 : Color(0xFFF6F6F9),
+                            borderRadius: BorderRadius.circular(61),
+                          ),
+                          child: Center(child: Text(language!.subscribeNow, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: defaultPrimaryColor),)),
                         ),
-                      ),
-                    ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

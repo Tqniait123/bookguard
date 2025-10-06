@@ -16,7 +16,7 @@ class CartComponent extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       width: context.width() - 32,
-      decoration: boxDecorationDefault(boxShadow: [], color: context.cardColor, border: Border.all(color: Color(0xFFE3E3E3))),
+      decoration: boxDecorationDefault(boxShadow: [], color: appStore.isDarkMode ? Colors.grey.shade900 : Color(0xFFF4F4F4), ),
       child: Stack(
         children: [
           Row(
@@ -37,16 +37,22 @@ class CartComponent extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      16.height,
                       Text(cartModel.title.validate(), style: boldTextStyle(), maxLines: 2, overflow: TextOverflow.ellipsis),
                       8.height,
                       Text(cartModel.authorName.validate(), style: secondaryTextStyle(), maxLines: 2, overflow: TextOverflow.ellipsis),
-                      8.height,
-                      PriceComponent(price: cartModel.price, discountedPrice: cartModel.discountedPrice),
                     ],
                   ).expand(),
                   8.width,
                 ],
-              ).expand()
+              ).expand(),
+              Column(
+                children: [
+                  16.height,
+                  PriceComponent(price: cartModel.price, discountedPrice: cartModel.discountedPrice),
+                ],
+              ),
+
             ],
           ),
           Positioned(

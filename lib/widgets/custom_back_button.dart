@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:granth_flutter/main.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({super.key});
@@ -16,12 +17,12 @@ class CustomBackButton extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(25), bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25), topRight: Radius.circular(12), ),
-              color: Colors.white,
+              color: appStore.isDarkMode ? Colors.grey.shade900 : Colors.white,
               border: Border(bottom: BorderSide(color: Color(0xFFF6BB39), width: 2))
           ),
           child: Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: appStore.isDarkMode ? Colors.white : Colors.black,
             size: 24,
           ),
         ),

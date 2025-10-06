@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:granth_flutter/screen/dashboard/fragment/mobile_cart_fragment.dart';
 import 'package:granth_flutter/screen/dashboard/fragment/web_fragment/cart_fragment_web.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../../main.dart';
 
 class CartFragment extends StatefulWidget {
   final bool? isShowBack;
@@ -37,11 +40,14 @@ class CartFragmentState extends State<CartFragment> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Responsive(
-        mobile: MobileCartFragment(isShowBack: widget.isShowBack),
-        web: WebCartFragmentScreen(isShowBack: widget.isShowBack),
-        tablet: MobileCartFragment(isShowBack: widget.isShowBack),
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: appStore.isDarkMode ? null : transparentColor,
+        body: Responsive(
+          mobile: MobileCartFragment(isShowBack: widget.isShowBack),
+          web: WebCartFragmentScreen(isShowBack: widget.isShowBack),
+          tablet: MobileCartFragment(isShowBack: widget.isShowBack),
+        ),
       ),
     );
   }

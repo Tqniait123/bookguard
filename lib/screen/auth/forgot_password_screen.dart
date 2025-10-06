@@ -4,6 +4,7 @@ import 'package:granth_flutter/component/app_loader_widget.dart';
 import 'package:granth_flutter/main.dart';
 import 'package:granth_flutter/screen/auth/component/mobile_forgot_password_component.dart';
 import 'package:granth_flutter/screen/auth/web_screen/forgot_password_screen_web.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -33,21 +34,24 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Responsive(
-            mobile: MobileForgotPasswordComponent(),
-            web: WebForgotPasswordScreen(),
-            tablet: MobileForgotPasswordComponent(),
-          ),
-          Observer(
-            builder: (context) {
-              return AppLoaderWidget().visible(appStore.isLoading).center();
-            },
-          )
-        ],
+    return BackgroundWidget(
+      child: Scaffold(
+        backgroundColor: appStore.isDarkMode ? null : transparentColor,
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            Responsive(
+              mobile: MobileForgotPasswordComponent(),
+              web: WebForgotPasswordScreen(),
+              tablet: MobileForgotPasswordComponent(),
+            ),
+            Observer(
+              builder: (context) {
+                return AppLoaderWidget().visible(appStore.isLoading).center();
+              },
+            )
+          ],
+        ),
       ),
     );
   }

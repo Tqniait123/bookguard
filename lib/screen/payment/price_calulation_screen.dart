@@ -63,7 +63,7 @@ class PriceCalculationState extends State<PriceCalculation> {
       return Container(
         width: context.width(),
         decoration: boxDecorationWithRoundedCorners(
-          backgroundColor: context.cardColor,
+          backgroundColor: appStore.isDarkMode ? Colors.grey.shade900 : Color(0xFFF4F4F4),
           boxShadow: defaultBoxShadow(shadowColor: grey.withValues(alpha: 0.2), spreadRadius: 0.5, offset: Offset(0.3, 0.2), blurRadius: 1),
         ),
         child: Column(
@@ -72,29 +72,31 @@ class PriceCalculationState extends State<PriceCalculation> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(language!.totalMrp, style: primaryTextStyle(), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
+                Text(language!.subTotal, style: primaryTextStyle(size: 16,weight: FontWeight.w500, color: appStore.isDarkMode ? Colors.grey.shade500 : Color(0xFF272727).withValues(alpha: 0.6)), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
                 8.width,
-                Text('${mrp.toString()}$defaultCurrencySymbol', style: primaryTextStyle(size: 18)),
+                Text('${mrp.toString()}$defaultCurrencySymbol', style: primaryTextStyle(size: 18, color: appStore.isDarkMode ? Colors.white : Colors.black,)),
               ],
             ),
+            16.height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(language!.discount, style: primaryTextStyle(size: 16,weight: FontWeight.w500, color: appStore.isDarkMode ? Colors.grey.shade500 : Color(0xFF272727).withValues(alpha: 0.6)), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
+                8.width,
+                Text('${discountPrice.validate().toStringAsFixed(1)}$defaultCurrencySymbol', style: primaryTextStyle(size: 18, weight: FontWeight.w500, color: appStore.isDarkMode ? Colors.white : Colors.black,)),
+              ],
+            ),
+            8.height,
+            Divider(),
             8.height,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(language!.discount, style: primaryTextStyle(), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
+                Text('${language!.total}', style: boldTextStyle(size: 16,weight: FontWeight.w500, color: appStore.isDarkMode ? Colors.grey.shade500 : Color(0xFF272727).withValues(alpha: 0.6)), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
                 8.width,
-                Text('${discountPrice.validate().toStringAsFixed(1)}$defaultCurrencySymbol', style: primaryTextStyle(size: 18)),
-              ],
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('${language!.total}', style: boldTextStyle(size: 18), maxLines: 2, overflow: TextOverflow.ellipsis).expand(),
-                8.width,
-                Text('${appStore.payableAmount.toString()}$defaultCurrencySymbol', style: boldTextStyle(color: defaultPrimaryColor, size: 18)),
+                Text('${appStore.payableAmount.toString()}$defaultCurrencySymbol', style: boldTextStyle(color: appStore.isDarkMode ? Colors.white : Colors.black, size: 18, weight: FontWeight.w700)),
               ],
             ),
           ],

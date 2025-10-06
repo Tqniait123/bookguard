@@ -48,22 +48,22 @@ int n= 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.scaffoldBackgroundColor,
-      appBar: appBarWidget(
-        language!.dashboard,
-        color: defaultPrimaryColor,
-        titleTextStyle: boldTextStyle(size: 24, color: Colors.white),
-        showBack: false,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.white,),
-            onPressed: () {
-              SearchScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
-            },
-          ),
-        ],
-      ),
+      backgroundColor: transparentColor,
+      // appBar: appBarWidget(
+      //   language!.dashboard,
+      //   color: defaultPrimaryColor,
+      //   titleTextStyle: boldTextStyle(size: 24, color: Colors.white),
+      //   showBack: false,
+      //   elevation: 0,
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.search, color: Colors.white,),
+      //       onPressed: () {
+      //         SearchScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: RefreshIndicator(
         color: secondaryPrimaryColor,
         backgroundColor: defaultPrimaryColor,

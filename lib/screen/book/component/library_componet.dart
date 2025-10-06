@@ -60,7 +60,7 @@ class LibraryComponentState extends State<LibraryComponent> {
                 DownloadedBook bookDetail = widget.list![widget.list!.indexOf(e)];
 
                 return SizedBox(
-                  width: (context.width() - 70) / 3,
+                  width: (context.width() - 50) / 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
@@ -191,6 +191,17 @@ class LibraryComponentState extends State<LibraryComponent> {
                         ],
                       ),
                       16.height,
+                      Marquee(
+                        child: Text(
+                          bookDetail!.bookName.validate().capitalizeFirstLetter(),
+                          style: boldTextStyle(),
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      8.height,
+                      Text(bookDetail!.authorName.validate(), style: primaryTextStyle(size: 14, color: Color(0xFF9D9D9D), weight: FontWeight.w500), textAlign: TextAlign.start, overflow: TextOverflow.ellipsis),
+
                     ],
                   ),
                 );
