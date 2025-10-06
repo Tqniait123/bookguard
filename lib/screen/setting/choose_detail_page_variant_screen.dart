@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:granth_flutter/screen/setting/component/mobile_choose_detail_page_variant_component.dart';
 import 'package:granth_flutter/screen/setting/web_screen/choose_detail_page_variant_screen_web.dart';
+import 'package:granth_flutter/widgets/background_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ChooseDetailPageVariantScreen extends StatefulWidget {
@@ -30,11 +31,13 @@ class ChooseDetailPageVariantScreenState extends State<ChooseDetailPageVariantSc
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Responsive(
-        mobile: MobileChooseDetailPageVariantComponent().paddingSymmetric(horizontal: 8),
-        web: WebChooseDetailPageVariantScreen(),
-        tablet: MobileChooseDetailPageVariantComponent().paddingSymmetric(horizontal: 8),
+    return BackgroundWidget(child:  Scaffold(
+      backgroundColor: transparentColor,
+        body: Responsive(
+          mobile: MobileChooseDetailPageVariantComponent().paddingSymmetric(horizontal: 8),
+          web: WebChooseDetailPageVariantScreen(),
+          tablet: MobileChooseDetailPageVariantComponent().paddingSymmetric(horizontal: 8),
+        ),
       ),
     );
   }
