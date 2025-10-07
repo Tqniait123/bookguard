@@ -13,6 +13,7 @@ const String user_place_holder_img = 'images/app_images/user_place_holder.jpeg';
 // const String walk_through_1 = "images/lottie/walk_through1.json";
 const String walk_through_json = "images/lottie/walk_through2.json";
 // const String walk_through_3 = "images/lottie/walk_through3.json";
+const String booksJson = "images/lottie/Books.json";
 const String walk_through_1 = "images/app_images/walk_through1.png";
 const String walk_through_2 = "images/app_images/walk_through2.png";
 const String walk_through_3 = "images/app_images/walk_through3.png";

@@ -80,6 +80,18 @@ class _MobileDashboardScreenState extends State<MobileDashboardScreen> {
                 );
               },
             ),
+                    iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+                          (states) {
+                        if (states.contains(WidgetState.selected)) {
+                          return IconThemeData(color: defaultPrimaryColor); // selected icon color
+                        }
+                        return IconThemeData(
+                          color: appStore.isDarkMode
+                              ? Colors.grey.shade400
+                              : Colors.grey.shade600, // unselected icon color
+                        );
+                      },
+                    ),
 
                   ),
 
@@ -90,23 +102,47 @@ class _MobileDashboardScreenState extends State<MobileDashboardScreen> {
                     height: 65,
                     destinations: [
                       NavigationDestination(
-                        icon: SvgPicture.asset(home_iconSvg),
-                        selectedIcon: SvgPicture.asset(home_icon1Svg),
+                        icon: SvgPicture.asset(home_iconSvg, height:25, width: 25, colorFilter: ColorFilter.mode(
+                          appStore.isDarkMode ? Colors.grey.shade400 : Colors.grey.shade600,
+                          BlendMode.srcIn,
+                        ),),
+                        selectedIcon: SvgPicture.asset(home_icon1Svg, height:25, width: 25, colorFilter: ColorFilter.mode(
+                          defaultPrimaryColor,
+                          BlendMode.srcIn,
+                        ),),
                         label: language!.dashboard,
                       ),
                       if(appStore.addCartAvailable == '1')NavigationDestination(
-                        icon: SvgPicture.asset(bag_iconSvg),
-                        selectedIcon: SvgPicture.asset(bag_icon1Svg),
+                        icon: SvgPicture.asset(bag_iconSvg, height:25, width: 25, colorFilter: ColorFilter.mode(
+                          appStore.isDarkMode ? Colors.grey.shade400 : Colors.grey.shade600,
+                          BlendMode.srcIn,
+                        ),),
+                        selectedIcon: SvgPicture.asset(bag_icon1Svg,height:25, width: 25, colorFilter: ColorFilter.mode(
+                          defaultPrimaryColor,
+                          BlendMode.srcIn,
+                        ),),
                         label: language!.cart,
                       ),
                       NavigationDestination(
-                        icon: SvgPicture.asset(library_iconSvg),
-                        selectedIcon: SvgPicture.asset(library_icon1Svg),
+                        icon: SvgPicture.asset(library_iconSvg,height:25, width: 25, colorFilter: ColorFilter.mode(
+                          appStore.isDarkMode ? Colors.grey.shade400 : Colors.grey.shade600,
+                          BlendMode.srcIn,
+                        ),),
+                        selectedIcon: SvgPicture.asset(library_icon1Svg,height:25, width: 25, colorFilter: ColorFilter.mode(
+                          defaultPrimaryColor,
+                          BlendMode.srcIn,
+                        ),),
                         label: language!.library,
                       ),
                       NavigationDestination(
-                        icon: SvgPicture.asset(profile_iconSvg),
-                        selectedIcon: SvgPicture.asset(profile_icon1Svg),
+                        icon: SvgPicture.asset(profile_iconSvg,height:25, width: 25, colorFilter: ColorFilter.mode(
+                          appStore.isDarkMode ? Colors.grey.shade400 : Colors.grey.shade600,
+                          BlendMode.srcIn,
+                        ),),
+                        selectedIcon: SvgPicture.asset(profile_icon1Svg,height:25, width: 25, colorFilter: ColorFilter.mode(
+                          defaultPrimaryColor,
+                          BlendMode.srcIn,
+                        ),),
                         label: language!.account,
                       ),
                     ],

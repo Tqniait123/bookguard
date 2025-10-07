@@ -70,8 +70,8 @@ class CategoryComponentState extends State<CategoryComponent> {
                 CategoryWiseBookScreen(categoryId: mData.categoryId).launch(context);
               },
               child: Container(
-                // decoration: boxDecorationWithRoundedCorners(backgroundColor: transparentColor, border: Border.all(color: defaultPrimaryColor)),
-                // padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                decoration: boxDecorationWithRoundedCorners(backgroundColor: transparentColor, border: Border.all(color: defaultPrimaryColor), borderRadius: BorderRadius.circular(8)),
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 child: Text(mData.categoryName.validate(), style: boldTextStyle(color: defaultPrimaryColor, size: 16, weight: FontWeight.w400), textAlign: TextAlign.start, maxLines: 1),
               ),
             ),

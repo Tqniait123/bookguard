@@ -83,7 +83,7 @@ void main() async {
   await appStore.setCartCount(getIntAsync(CART_COUNT));
   await appStore.setAddToCart(getBoolAsync(IS_ADD_TO_CART));
 
-  await appStore.setPageVariant(getIntAsync(PAGE_VARIANT, defaultValue: 1));
+  await appStore.setPageVariant(getIntAsync(PAGE_VARIANT, defaultValue: 2));
   if (appStore.isLoggedIn) {
     getCartItem();
   }
